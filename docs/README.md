@@ -76,6 +76,7 @@ All items and costs
 ## Links
 
 - [Project Repository](https://github.com/cepdnaclk/e17-co328-Oral-Cavity-Region-Detection)
+- [Project Page](https://cepdnaclk.github.io/e17-co328-Oral-Cavity-Region-Detection)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
