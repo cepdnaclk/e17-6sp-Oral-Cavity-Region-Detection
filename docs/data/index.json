@@ -25,6 +25,15 @@
             "website": "#"
         }
     ],
-    
-    "tags": ["Web", "Machine-Learning"]
+    "supervisors": [
+        {
+          "name": "Dr. Isuru Nawinna",
+          "email": "isurunawinne@eng.pdn.ac.lk"
+        },
+        {
+          "name": "Prof. Roshan Ragel",
+          "email": "roshanr@eng.pdn.ac.lk"
+        }
+    ],
+    "tags": ["Machine-Learning","Software Developments"]
 }
