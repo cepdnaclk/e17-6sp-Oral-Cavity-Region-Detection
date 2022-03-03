@@ -53,7 +53,7 @@ On the other hand, AI detection systems that are used to detect oral cancers req
 
 ### User Interface
 
-See the [prototype] (https://www.figma.com/proto/4IeXgo5tZhL59J8Hi59KgF/6SP-Oral-Cavity-Detection?page-id=0%3A1&node-id=36%3A85&viewport=241%2C48%2C0.47&scaling=contain&starting-point-node-id=36%3A85)  of the web interface. (in progess)
+See the [prototype](https://www.figma.com/proto/4IeXgo5tZhL59J8Hi59KgF/6SP-Oral-Cavity-Detection?page-id=0%3A1&node-id=36%3A85&viewport=241%2C48%2C0.47&scaling=contain&starting-point-node-id=36%3A85)  of the web interface. (in progess)
 
 ### Use Case Diagram
 
