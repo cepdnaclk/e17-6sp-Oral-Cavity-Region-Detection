@@ -1,0 +1,37 @@
+{
+    "title": "Oral Cavity Region Detection",
+    "team": [
+      {
+        "name": "Isuri Devindi",
+        "email": "e17058@eng.pdn.ac.lk",
+        "eNumber": "E/17/058"
+      },
+      {
+        "name": "Achintha Harshamal",
+        "email": "e17090@eng.pdn.ac.lk",
+        "eNumber": "E/17/090"
+      },
+      {
+        "name": "Sashini Liyanage",
+        "email": "e17190@eng.pdn.ac.lk",
+        "eNumber": "E/17/190"
+      }
+    ],
+    "supervisors": [
+      {
+        "name": "Dr. Isuru Nawinna",
+        "email": "isurunawinne@eng.pdn.ac.lk"
+      },
+      {
+        "name": "Prof. Roshan Ragel",
+        "email": "roshanr@eng.pdn.ac.lk"
+      }
+    ],
+    "tags": ["Maching Learning", "Software Developments"]
+  }
+
+
+  
+
+
+
