@@ -36,7 +36,7 @@ title: Oral Cavity Region Detection Tool
 
 This project contains a web-based application that can be used to upload images of the oral cavity and identify the known regions which are normal. For example: The tool will process an image uploaded by the clinician and apply masks to easily recognize a specific region of the oral cavity which does not indicate any abnormality.
 
-![image](docs/images/detection.png)
+![image](images/detection.png)
 
 ### Why
 
@@ -47,7 +47,7 @@ On the other hand, AI detection systems that are used to detect oral cancers req
 
 ## Solution Architecture
 
-![image](docs/images/syste_architecture.png)
+![image](images/syste_architecture.png)
 
 ## Software Design
 
@@ -55,7 +55,7 @@ Wireframes of the User Interface
 
 ### Use Case Diagram
 
-![image](docs/images/usecase_diagram.png)
+![image](images/usecase_diagram.png)
 
 ## Testing
 
@@ -75,8 +75,7 @@ All items and costs
 
 ## Links
 
-- [Project Repository](https://github.com/cepdnaclk/e17-co328-Oral-Cavity-Region-Detection){:target="_blank"}
-- [Project Page](https://cepdnaclk.github.io/{{ page.repository-name}}){:target="_blank"}
+- [Project Repository](https://github.com/cepdnaclk/e17-co328-Oral-Cavity-Region-Detection)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
