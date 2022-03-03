@@ -3,20 +3,20 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and project title
-repository-name: eYY-3yp-project-template
-title: Project Template
+repository-name: e17-co328-Oral-Cavity-Region-Detection
+title: Oral Cavity Region Detection Tool
 ---
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
-# Project Title
+# Oral Cavity Region Detection Tool
 
 ---
 
 ## Team
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
+-  e17058, Devindi G.A.I, [e17058@eng.pdn.ac.lk](mailto:name@email.com)
+-  e17090, Francis F.B.A.H, [e17090@eng.pdn.ac.lk](mailto:name@email.com)
+-  e17190, Liyanage S.N, [e17190@eng.pdn.ac.lk](mailto:name@email.com)
 
 <!-- Image (photo/drawing of the final hardware) should be here -->
 
@@ -27,45 +27,55 @@ title: Project Template
 #### Table of Contents
 1. [Introduction](#introduction)
 2. [Solution Architecture](#solution-architecture )
-3. [Hardware & Software Designs](#hardware-and-software-designs)
+3. [Software Design](#software-design)
 4. [Testing](#testing)
-5. [Detailed budget](#detailed-budget)
-6. [Conclusion](#conclusion)
-7. [Links](#links)
+5. [Conclusion](#conclusion)
+6. [Links](#links)
 
 ## Introduction
 
-Description of the real world problem and solution, impact
+This project contains a web-based application that can be used to upload images of the oral cavity and identify the known regions which are normal. For example: The tool will process an image uploaded by the clinician and apply masks to easily recognize a specific region of the oral cavity which does not indicate any abnormality.
+
+![image](images/detection.png)
+
+### Why
+
+If known regions are quickly detected using a methodology, without patient having to endure prolonged invasions to the oral cavity, the dentists can easily identify the abnormal regions and pay more attention to the undetected oral lesions/ suspected regions in a matter of seconds.
+
+On the other hand, AI detection systems that are used to detect oral cancers require oral cavity images with only the lesion component. Therefore, the output masks of our tool can be used to filter out the lesion part and feed it to the cancer detection tools.
 
 
 ## Solution Architecture
 
-High level diagram + description
+![image](images/syste_architecture.png)
 
-## Hardware and Software Designs
+## Software Design
 
-Detailed designs with many sub-sections
+Wireframes of the User Interface 
+
+### Use Case Diagram
+
+![image](images/usecase_diagram.png)
 
 ## Testing
 
-Testing done on hardware and software, detailed + summarized results
+<!--Testing done on hardware and software, detailed + summarized results-->
 
-## Detailed budget
+<!--## Detailed budget
 
 All items and costs
 
 | Item          | Quantity  | Unit Cost  | Total  |
 | ------------- |:---------:|:----------:|-------:|
 | Sample item   | 5         | 10 LKR     | 50 LKR |
-
+-->
 ## Conclusion
 
-What was achieved, future developments, commercialization plans
+<!--What was achieved, future developments, commercialization plans-->
 
 ## Links
 
-- [Project Repository](https://github.com/cepdnaclk/{{ page.repository-name }}){:target="_blank"}
-- [Project Page](https://cepdnaclk.github.io/{{ page.repository-name}}){:target="_blank"}
+- [Project Repository](https://github.com/cepdnaclk/e17-co328-Oral-Cavity-Region-Detection)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 

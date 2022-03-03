@@ -1,45 +1,39 @@
 {
     "team": [
         {
-            "name": "Team Member Name 1",
-            "email": "email@eng.pdn.ac.lk",
-            "eNumber": "E/yy/xxx",
-            "github_profile":"#",
-            "linkedin_profile":"#",
+            "name": "Devindi G.A.I",
+            "email": "e17058@eng.pdn.ac.lk",
+            "eNumber": "E/17/058",
+            "github_profile":"https://github.com/isuridevindi",
+            "linkedin_profile":"linkedin.com/in/isuri-devindi-b8602a206",
             "website": "#"
         },
         {
-            "name": "Team Member Name 2",
-            "email": "email@eng.pdn.ac.lk",
-            "eNumber": "E/yy/xxx",
-            "github_profile":"#",
-            "linkedin_profile":"#",
+            "name": "Francis F.B.A.H",
+            "email": "e17090@eng.pdn.ac.lk",
+            "eNumber": "E/17/090",
+            "github_profile":"https://github.com/AchinthaHarshamal",
+            "linkedin_profile":"linkedin.com/in/achintha-harshamal-ab7b6b1a5",
             "website": "#"
         },
         {
-            "name": "Team Member Name 3",
-            "email": "email@eng.pdn.ac.lk",
-            "eNumber": "E/yy/xxx",
-            "github_profile":"#",
-            "linkedin_profile":"#",
+            "name": "Liyanage S.N",
+            "email": "e17190@eng.pdn.ac.lk",
+            "eNumber": "E/17/190",
+            "github_profile":"https://github.com/SashiniLiyanage",
+            "linkedin_profile":"linkedin.com/in/sashini-liyanage-551073231",
             "website": "#"
         }
     ],
     "supervisors": [
         {
-            "name": "Dr. Supervisor 1",
-            "email": "email@eng.pdn.ac.lk",
-            "linkedin_profile":"#",
-            "website": "#",
-            "researchgate_profile":"#"
+          "name": "Dr. Isuru Nawinna",
+          "email": "isurunawinne@eng.pdn.ac.lk"
         },
         {
-            "name": "Supervisor 2",
-            "email": "email@eng.pdn.ac.lk",
-            "linkedin_profile":"#",
-            "website": "#",
-            "researchgate_profile":"#"
+          "name": "Prof. Roshan Ragel",
+          "email": "roshanr@eng.pdn.ac.lk"
         }
     ],
-    "tags": ["Web", "Embedded Systems"]
+    "tags": ["Machine-Learning","Software Developments"]
 }
