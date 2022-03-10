@@ -1,28 +1,28 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
-const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
 const path = require('path');
+const connectDB = require('./configurations/db-config')
+const PORT = process.env.PORT || 5000;
 
 dotenv.config();
 app.use(express.json());
 
-// import routes
-const authRoute = require('./routes/auth');
+// connect to the db
+connectDB();
 
-
-app.use("/api/auth",authRoute);
+// listen on port 5000
+app.listen(PORT, () => {
+    console.log(`Server is running on localhost:${PORT}`);
+});
 
 
 app.get('/',(req, res) => {
     res.send("Welcome to server!")
 });
 
-// connect to mongodb
-mongoose.connect(process.env.MONGO_URL)
-.then(console.log("Connected to MongoDB"))
-.catch((error) => console.log(error));
 
-// listen on port 5000
-app.listen(5000)
+// import routes
+const authRoute = require('./routes/auth');
+app.use("/api/auth",authRoute);
