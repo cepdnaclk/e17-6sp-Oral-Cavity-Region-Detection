@@ -1,16 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { BrowserRouter as Router, Route,  Routes } from "react-router-dom";
+import Signin from'./Components/signin'
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+    
+    <Router>
+        <Routes>
+          
+          <Route  path = "/" element = {<Signin/>}/>
         
-        <p>
-          Oral Cavity Region Detection Tool- Under construction
-        </p>
+        
+        </Routes>
+              
+      </Router>
+       
+        
+     
       
-      </header>
+  
     </div>
   );
 }
