@@ -14,7 +14,7 @@ router.put("/signup",async(req,res)=>{
         const useremail = await User.findOne({email: req.body.email});
 
         if(userregno){
-            res.status(401).json({message:'The register number is already registered'});
+            res.status(401).json({message:'The Reg No is already registered'});
         }else if(useremail){
             res.status(401).json({message:"The email address is already in use"});
         }else{
