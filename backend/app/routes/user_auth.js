@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 let refreshTokens = [];
 
-// sign up
+// user sign up
 router.post("/signup",async(req,res)=>{
     try{
         const username = await User.findOne({username: req.body.username});

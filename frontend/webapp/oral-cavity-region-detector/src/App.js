@@ -8,8 +8,10 @@ import Login from './components/Login'
 import AdminLogin from './components/AdminLogin'
 import Signup from './components/Signup'
 import Collections from './components/Collections'
+import AdminPortal from './components/AdminPortal'
 
-const user= true;
+const user= false;
+const admin = true;
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
       <Route exact path="/adminlogin" element={<AdminLogin/>}/>
       <Route exact path="/signup" element={<Signup/>}/>
       <Route exact path="/collections" element={user?<Collections/>:<Login/>}/>
+      <Route exact path="/adminportal" element={admin?<AdminPortal/>:<AdminLogin/>}/>
       </Routes>
       <GlobalStyle/>
     </Router>
