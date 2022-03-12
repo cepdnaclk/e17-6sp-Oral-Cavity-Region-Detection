@@ -94,7 +94,7 @@ router.post("/login",async(req,res)=>{
 
 // log out
 router.post('/logout' , (req, res) =>{
-    const refreshToken = req.header('token');
+    const refreshToken = req.header('refresh_token');
     if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
 
     refreshTokens = refreshTokens.filter( token => token !== refreshToken)
@@ -104,7 +104,7 @@ router.post('/logout' , (req, res) =>{
 
 // re-new access token 
 router.post('/token' , (req, res)=>{
-    const refreshToken = req.header('token');
+    const refreshToken = req.header('refresh_token');
 
     if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
     if(!refreshTokens.includes(refreshToken)) return res.status(403).json({message:'Authentication failed'})
