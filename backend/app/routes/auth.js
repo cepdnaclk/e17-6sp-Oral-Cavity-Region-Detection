@@ -38,12 +38,12 @@ router.post("/signup",async(req,res)=>{
 router.post("/login",async(req,res)=>{
     try{
         const user = await User.findOne({email: req.body.email})
-        if(!user) return res.status(400).json({message:"Wrong credentials!"})
+        !user && res.status(400).json({message:"Wrong credentials!"})
         const validate = await bcrypt.compare(req.body.password,user.password)
-        if(!validate) return res.status(400).json({message:"Wrong credentials!"})
+        !validate && res.status(400).json({message:"Wrong credentials!"})
 
-        const access_token = jwt.sign({ sub: user.email }, process.env.ACCESS_SECRET, { expiresIn: process.env.REFRESH_TIME })
-        const refresh_token = jwt.sign({ sub: user.email }, process.env.REFRESH_SECRET) 
+        const access_token = jwt.sign({sub: user.email} , process.env.ACCESS_SECRET , {expiresIn: process.env.REFRESH_TIME})
+        const refresh_token = jwt.sign({sub: user.email} , process.env.REFRESH_SECRET ) 
         refreshTokens.push(refresh_token);
 
         // send the user data and refresh, access tokens
@@ -62,7 +62,7 @@ router.post("/login",async(req,res)=>{
 // log out
 router.post('/logout' , (req, res) =>{
     const refreshToken = req.header('token');
-    if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
+    !refreshToken && res.status(401).json({message:'Authentication failed'})
 
     refreshTokens = refreshTokens.filter( token => token !== refreshToken)
     res.status(204).json({message:'Successfuly logged out'})
@@ -73,12 +73,12 @@ router.post('/logout' , (req, res) =>{
 router.post('/token' , (req, res)=>{
     const refreshToken = req.header('token');
 
-    if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
-    if(!refreshTokens.includes(refreshToken)) return res.status(403).json({message:'Authentication failed'})
+    !refreshToken && res.status(401).json({message:'Authentication failed'})
+    !refreshTokens.includes(refreshToken) && res.status(403).json({message:'Authentication failed'})
     
 
     jwt.verify(refreshToken, process.env.REFRESH_SECRET ,(err , result)=>{
-        if(err) return res.status(500).json({message:'Authentication failed'})
+        err && res.status(500).json({message:'Authentication failed'})
         
         const access_token = jwt.sign({sub: result.email} , process.env.ACCESS_SECRET , {expiresIn: process.env.REFRESH_TIME})
         res.status(200).json({"access_token":access_token });
