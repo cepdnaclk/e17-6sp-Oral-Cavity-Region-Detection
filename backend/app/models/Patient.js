@@ -1,28 +1,25 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
-    username:{
+const PatientSchema = new mongoose.Schema({
+    examiner_id:{
         type: String,
         required: true,
-        unique: true
     },
-    email:{
+    patient_name:{
         type: String,
         required: true,
-        unique: true
+    },
+    patient_address:{
+        type: String,
+        required: true,
 
     },
-    reg_no:{
+    patient_district:{
         type: String,
         required: true,
-        unique: true
 
     },
-    password:{
-        type: String,
-        required: true,                                        
-    },
-    profile_pic:{
+    patient_photo:{
         type: String,
         required: false,
         default:"",
@@ -33,4 +30,4 @@ const UserSchema = new mongoose.Schema({
 }
 );
 
-module.exports = mongoose.model("User",UserSchema)
+module.exports = mongoose.model("Patient",PatientSchema)
