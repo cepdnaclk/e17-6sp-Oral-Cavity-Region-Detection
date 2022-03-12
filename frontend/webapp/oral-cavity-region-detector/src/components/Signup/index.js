@@ -2,7 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 // Styles
-import {Wrapper, Navbar, Container, Img, Form, Border} from '../Login/Login.styles'
+import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
+import  {Navbar} from "../Navbar"
 
 const Signup = () => {
   return (
@@ -14,7 +15,6 @@ const Signup = () => {
         <Img/>
         <Form>
         <Border>
-            <h2>Signup</h2>
             <br/>
             <table>
                 <tbody>
@@ -31,6 +31,10 @@ const Signup = () => {
                 <th><input></input></th>
                 </tr>
                 <tr><th>Password:</th></tr>
+                <tr>
+                <th><input></input></th>
+                </tr>
+                <tr><th>Confirm Password:</th></tr>
                 <tr>
                 <th><input></input></th>
                 </tr>

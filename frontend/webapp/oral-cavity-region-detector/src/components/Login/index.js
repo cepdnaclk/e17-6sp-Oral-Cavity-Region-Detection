@@ -3,18 +3,22 @@ import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
 // Styles
-import {Wrapper, Navbar, Container, Img, Form, Border} from './Login.styles'
+import {Wrapper, Container, Img, Form, Border} from './Login.styles'
+import  {Navbar} from "../Navbar"
 
 const Login = () => {
 
+    
     const emailRef = useRef();
     const passwordRef = useRef();
     const navigate = useNavigate();
 
     const[message,setMessage] = useState("");
+    const[isfetching, setIsFetching] = useState(false);
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
+        setIsFetching(true)
         setMessage("");
         axios.post("http://localhost:5000/api/auth/login",{
                 email: emailRef.current.value,
@@ -25,6 +29,7 @@ const Login = () => {
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
             else setMessage(err)
+            setIsFetching(false)
         }) 
 
     }
@@ -38,8 +43,8 @@ const Login = () => {
         <Img/>
         <Form>
         <Border>
+        <h2>Login</h2>
         <form id="login" onSubmit={handleSubmit}>
-            <h2>Login</h2>
             <p style={{color: 'red'}}>{message}</p>
             <table>
                 <tbody>
@@ -52,7 +57,7 @@ const Login = () => {
                     <th><input ref={passwordRef} required type="password" maxLength={128}></input></th>
                 </tr>
                 <tr>
-                    <th><button type="submit">Sign in</button></th>
+                    <th><button type="submit" disabled={isfetching}>Sign in</button></th>
                 </tr>
                 <tr><th>Don't have an account? <Link to="/signup"><span>Sign up</span></Link></th></tr>
                 </tbody>

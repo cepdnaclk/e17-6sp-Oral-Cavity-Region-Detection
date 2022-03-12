@@ -26,5 +26,8 @@ app.get('/',(req, res) => {
 
 
 // import routes
-const authRoute = require('./routes/auth');
-app.use("/api/auth",authRoute);
+const userAuthRoute = require('./routes/user_auth');
+app.use("/api/auth",userAuthRoute);
+
+const adminAuthRoute = require('./routes/admin_auth');
+app.use("/api/admin/auth",adminAuthRoute);

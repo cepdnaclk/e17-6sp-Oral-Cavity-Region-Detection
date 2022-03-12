@@ -5,21 +5,6 @@ export const Wrapper = styled.div`
     position: relative;
 `;
 
-export const Navbar = styled.div`
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 50px;
-
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-     
-    padding: 0 30px;
-    color: white;
-    background-color: var(--lightColor);
-`;
-
 export const Container = styled.div`
     display: flex;
 
@@ -84,6 +69,10 @@ export const Form = styled.div`
 
         :active {
             transform: translateY(2px);
+        }
+
+        :disabled {
+            background-color: lightGray;
         }
     }
 
