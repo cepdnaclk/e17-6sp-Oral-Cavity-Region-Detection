@@ -7,8 +7,6 @@ import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
 import  {Navbar} from "../Navbar"
 
 const AdminLogin = () => {
-
-    
     const emailRef = useRef();
     const passwordRef = useRef();
     const navigate = useNavigate();
@@ -25,6 +23,8 @@ const AdminLogin = () => {
                 password: passwordRef.current.value 
         }).then(res=>{
             setMessage(res.data.message)
+            sessionStorage.setItem("artoken", res.data.refresh_token)
+            sessionStorage.setItem("aatoken", res.data.access_token)
             navigate('/adminportal');
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
