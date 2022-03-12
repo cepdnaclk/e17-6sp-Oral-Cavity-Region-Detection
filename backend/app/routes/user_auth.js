@@ -1,32 +1,65 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken')
 const User = require('../models/User');
+const Admin = require('../models/Admin');
 const bcrypt = require('bcrypt');
 
 let refreshTokens = [];
 
 // user sign up
-router.post("/signup",async(req,res)=>{
+// update the admins request list
+router.put("/signup",async(req,res)=>{
     try{
-        const username = await User.findOne({username: req.body.username});
+        const userregno = await User.findOne({reg_no: req.body.reg_no});
         const useremail = await User.findOne({email: req.body.email});
 
-        if(username){
-            res.status(401).json({message:'User name is taken'});
+        if(userregno){
+            res.status(401).json({message:'The register number is already registered'});
         }else if(useremail){
             res.status(401).json({message:"The email address is already in use"});
         }else{
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(req.body.password,salt);
-            const newUser = new User({
+            const newUser = {
                 username: req.body.username,
                 email: req.body.email,
+                reg_no: req.body.reg_no,
                 password: hashedPassword
-            })
-            const user = await newUser.save();
-            const {password,...others} = user._doc;
-            others["message"] = "Successfully signed in";
-            res.status(200).json(others);
+            }
+
+            try{
+                const admin = await Admin.findOne({email: req.body.admin});
+                try{
+                    const exists = await Admin.findOne({requests: {$elemMatch: {reg_no:req.body.reg_no}}})
+
+                    if(exists){
+                        const updated = await Admin.updateOne({ email: req.body.admin, requests: { $elemMatch: { reg_no: req.body.reg_no } }},{
+                            $set: {
+                              "requests.$" : newUser
+                            }
+                          }
+                        )
+
+                    }else{
+                        const added = await Admin.updateOne({ email: req.body.admin },{
+                            $push: {
+                              requests: {
+                                 $each: [newUser]
+                              }
+                            }
+                          }
+                        )
+                    }
+                    
+                    res.status(200).json({message: "Request sent successfully"});
+                    
+                }catch(error){
+                    res.status(500).json(error);
+                }
+            }catch(error){
+                res.status(404).json({message :"Admin not found"})
+            }
+
         }
 
     }catch(error){
