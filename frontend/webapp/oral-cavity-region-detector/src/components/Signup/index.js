@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 
 // Styles
 import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
 import  {Navbar} from "../Navbar"
+
+
 
 const Signup = () => {
   return (
@@ -15,10 +17,22 @@ const Signup = () => {
         <Img/>
         <Form>
         <Border>
-            <br/>
             <table>
                 <tbody>
-                <tr><th>User Name:</th></tr>
+                <tr><th>Request access from:</th></tr>
+                <tr>
+                <th>
+                <input list="admins" name="admins"/>
+                <datalist id="admins">
+                  <option value="admin1"/>
+                  <option value="admin2"/>
+                  <option value="admin3"/>
+                  <option value="admin4"/>
+                  <option value="admin5"/>
+                </datalist>
+                </th>
+                </tr>
+                <tr><th>Full Name:</th></tr>
                 <tr>
                 <th><input></input></th>
                 </tr>
@@ -31,10 +45,6 @@ const Signup = () => {
                 <th><input></input></th>
                 </tr>
                 <tr><th>Password:</th></tr>
-                <tr>
-                <th><input></input></th>
-                </tr>
-                <tr><th>Confirm Password:</th></tr>
                 <tr>
                 <th><input></input></th>
                 </tr>
