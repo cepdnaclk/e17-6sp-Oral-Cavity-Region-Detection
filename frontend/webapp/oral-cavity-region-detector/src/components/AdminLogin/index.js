@@ -1,7 +1,7 @@
 import {React, useRef, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
-
+import {saveInfo} from '../Userinfo'
 // Styles
 import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
 import  {Navbar} from "../Navbar"
@@ -25,6 +25,7 @@ const AdminLogin = () => {
             setMessage(res.data.message)
             sessionStorage.setItem("artoken", res.data.refresh_token)
             sessionStorage.setItem("aatoken", res.data.access_token)
+            saveInfo(res.data.username,res.data.email,"admin",0,res.data.access_token)
             navigate('/adminportal');
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
@@ -37,7 +38,7 @@ const AdminLogin = () => {
     return (
     <Wrapper>
         <Navbar>
-        <Link to="/">Back</Link>
+        <Link to="/">User</Link>
         </Navbar>
         <Container>
         <Img/>

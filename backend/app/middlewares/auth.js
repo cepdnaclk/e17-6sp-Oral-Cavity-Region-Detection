@@ -9,7 +9,7 @@ const authenticateToken = (req, res , next) =>{
     try{
         decodeRes= jwt.verify(token,process.env.ACCESS_SECRET );
         req.email = decodeRes.sub
-
+        
         next();
     }catch(error){
         res.status(401).json({message: "Your session is expired"})

@@ -11,6 +11,7 @@ export const Button = styled.button`
         margin: 10px 0;
         background-color: var(--medColor);
         border: 0;
+        margin-right: 10px;
         border-radius: 5px;
         height: 40px ;
         color: white;
