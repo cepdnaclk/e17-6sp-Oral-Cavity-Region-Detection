@@ -23,8 +23,6 @@ const AdminLogin = () => {
                 password: passwordRef.current.value 
         }).then(res=>{
             setMessage(res.data.message)
-            sessionStorage.setItem("artoken", res.data.refresh_token)
-            sessionStorage.setItem("aatoken", res.data.access_token)
             saveInfo(res.data.username,res.data.email,"admin",0,res.data.access_token)
             navigate('/adminportal');
         }).catch(err=>{

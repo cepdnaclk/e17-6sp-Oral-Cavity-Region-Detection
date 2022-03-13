@@ -14,11 +14,11 @@ const Card = ({name,email,regno, id}) => {
     setIsFetching(true)
     axios.delete(`http://localhost:5000/api/admin/requests/${id}`,
       { headers: {
-        'Authorization': 'BEARER '+ sessionStorage.getItem("aatoken")
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
       }},
       {
-        email: "admin1@gmail.com",
-        username: "admin1"
+        email: JSON.parse(sessionStorage.getItem("info")).email,
+        username: JSON.parse(sessionStorage.getItem("info")).username
       }
       ).then(res=>{
             setMessage(res.data.message)
@@ -35,11 +35,11 @@ const Card = ({name,email,regno, id}) => {
     setIsFetching(true)
     axios.post(`http://localhost:5000/api/admin/accept/${id}`,
       {
-        email: "admin1@gmail.com",
-        username: "admin1"
+        email: JSON.parse(sessionStorage.getItem("info")).email,
+        username: JSON.parse(sessionStorage.getItem("info")).username
       },
       { headers: {
-        'Authorization': 'BEARER '+ sessionStorage.getItem("aatoken")
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
       }}
       ).then(res=>{
             setMessage(res.data.message)
