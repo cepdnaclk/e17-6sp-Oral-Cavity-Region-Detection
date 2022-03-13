@@ -7,6 +7,7 @@ import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
 import  {Navbar} from "../Navbar"
 
 const AdminLogin = () => {
+
     const emailRef = useRef();
     const passwordRef = useRef();
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const AdminLogin = () => {
                 password: passwordRef.current.value 
         }).then(res=>{
             setMessage(res.data.message)
-            saveInfo(res.data.username,res.data.email,"admin",0,res.data.access_token)
+            saveInfo(res.data.username,res.data.email,[1],0,res.data.access_token)
             navigate('/adminportal');
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)

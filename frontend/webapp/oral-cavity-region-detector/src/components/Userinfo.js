@@ -1,8 +1,8 @@
-export const saveInfo= function(username,email,status,regno,atoken) {
+export const saveInfo= function(username,email,roles,regno,atoken) {
     const object = {
         username: username,
         email: email,
-        status: status,
+        roles: roles,
         atoken: atoken,
         regno:regno
     }
@@ -14,9 +14,4 @@ export const saveInfo= function(username,email,status,regno,atoken) {
 export const deleteInfo= ()=>{
     sessionStorage.removeItem("info")
     return
-}
-
-export const getUser= ()=>{
-    if(sessionStorage.getItem("info"))
-        return JSON.parse(sessionStorage.getItem("info")).status
 }
