@@ -14,6 +14,17 @@ export const GlobalStyle = createGlobalStyle `
         --fontSmall: 1rem;
     }
 
+    /******** scroll bar **********/
+
+    ::-webkit-scrollbar {
+        width: 15px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: lightgray;
+        border-radius: 0;
+    }
+
     html {
         height: 100%;
     }

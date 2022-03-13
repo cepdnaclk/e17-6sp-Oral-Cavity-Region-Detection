@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const RequestSchema = new mongoose.Schema({
+    admin:{
+        type: String,
+        required: true,
+    },
     username:{
         type: String,
         required: true,
@@ -21,15 +25,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,                                        
     },
-    profile_pic:{
-        type: String,
-        required: false,
-        default:"",
-    }
 },
 {
     timestamps:true
 }
 );
 
-module.exports = mongoose.model("User",UserSchema)
+module.exports = mongoose.model("Request",RequestSchema)

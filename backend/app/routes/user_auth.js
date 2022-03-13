@@ -2,64 +2,51 @@ const router = require('express').Router();
 const jwt = require('jsonwebtoken')
 const User = require('../models/User');
 const Admin = require('../models/Admin');
+const Request = require('../models/Request');
 const bcrypt = require('bcrypt');
 
 let refreshTokens = [];
 
 // user sign up
-// update the admins request list
-router.put("/signup",async(req,res)=>{
+// add to request list
+router.post("/signup",async(req,res)=>{
     try{
+        const admin = await Admin.findOne({email: req.body.admin});
+        const user = await Request.findOne({reg_no: req.body.reg_no});
         const userregno = await User.findOne({reg_no: req.body.reg_no});
-        const useremail = await User.findOne({email: req.body.email});
+        const email = await User.findOne({email: req.body.email});
+        
+        if(userregno){return res.status(401).json({message:'The Reg No is already registered'});}
 
-        if(userregno){
-            res.status(401).json({message:'The Reg No is already registered'});
-        }else if(useremail){
-            res.status(401).json({message:"The email address is already in use"});
+        if(email){return res.status(401).json({message:'The Reg No is already registered'});}
+
+        if(!admin){return res.status(401).json({message:"Admin doesn't exist"});}
+        
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password,salt);
+
+        if(user){
+            const update = Request.findOne({reg_no: req.body.reg_no},{
+                $set : {
+                    admin: req.body.admin,
+                    username: req.body.username,
+                    email: req.body.email,
+                    password: hashedPassword
+                }
+            });
+            return res.status(200).json({message:"The Request sent successfully"});
         }else{
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(req.body.password,salt);
-            const newUser = {
+            const newUser = new Request({
+                admin: req.body.admin,
+                reg_no: req.body.reg_no,
                 username: req.body.username,
                 email: req.body.email,
-                reg_no: req.body.reg_no,
                 password: hashedPassword
-            }
-
-            try{
-                const admin = await Admin.findOne({email: req.body.admin});
-                try{
-                    const exists = await Admin.findOne({requests: {$elemMatch: {reg_no:req.body.reg_no}}})
-
-                    if(exists){
-                        const updated = await Admin.updateOne({ email: req.body.admin, requests: { $elemMatch: { reg_no: req.body.reg_no } }},{
-                            $set: {
-                              "requests.$" : newUser
-                            }
-                          }
-                        )
-
-                    }else{
-                        const added = await Admin.updateOne({ email: req.body.admin },{
-                            $push: {
-                              requests: {
-                                 $each: [newUser]
-                              }
-                            }
-                          }
-                        )
-                    }
-                    
-                    res.status(200).json({message: "Request sent successfully"});
-                    
-                }catch(error){
-                    res.status(500).json(error);
-                }
-            }catch(error){
-                res.status(404).json({message :"Admin not found"})
-            }
-
+            })
+            const user = await newUser.save();
+            const {password,...others} = user._doc;
+            others["message"] = "Successfully signed in";
+            return res.status(200).json(others);
         }
 
     }catch(error){

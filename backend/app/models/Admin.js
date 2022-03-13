@@ -20,16 +20,6 @@ const AdminSchema = new mongoose.Schema({
         type: String,
         required: false,
         default:"",
-    },
-    requests:{
-        type: Array,
-        required: false,
-        default:[],
-    },
-    users:{
-        type: Array,
-        required: false,
-        default:[],
     }
 },
 {

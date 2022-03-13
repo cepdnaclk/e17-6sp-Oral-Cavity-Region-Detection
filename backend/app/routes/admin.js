@@ -1,21 +1,23 @@
 const router = require('express').Router();
 const Admin = require('../models/Admin');
+const Request = require('../models/Request');
 const authenticateToken = require('../middlewares/auth')
 
+// get all requests
 router.get('/requests', authenticateToken, async(req, res)=>{
     try{
         
         const admin = await Admin.findOne({email: req.email});
+    
+        if(!admin){return res.status(401).json({message:'Authentication failed'})}
 
-        if(!admin){
-            return res.status(401).json({message:'Authentication failed'})
-        }
-
-        for(i in admin.requests){
-            delete admin.requests[i].password
-        }
+        const requests = await Request.find({admin: req.email})
         
-        return res.status(200).json(admin.requests)
+        for (req in requests) {
+            delete requests[req].password
+        }
+
+        return res.status(200).json(requests)
 
 
     }catch(err){
@@ -23,30 +25,9 @@ router.get('/requests', authenticateToken, async(req, res)=>{
     }
 })
 
+
+// delete requests
+
+
+
 module.exports = router;
-
-
-// GET ALL POSTS
-router.get("/",async(req,res) => {
-    const username = req.query.user;
-    const category = req.query.category;
-    const newPosts = req.query.new;
-    try{
-        let posts;
-        if(username){
-            posts= await Post.find({username}).sort( { "createdAt": -1 } )
-        }else if(category){
-            posts = await Post.find({category:{
-                $in:[category]
-            }}).sort( { "createdAt": -1 } )
-        }else if(newPosts){
-            posts = await Post.find().sort( { "createdAt": -1 } ).limit(3);
-        }else{
-            posts = await Post.find().sort( { "updatedAt": -1 } );
-        }
-        res.status(200).json(posts)
-
-    }catch(error){
-        res.status(500).json(error)
-    }
-})
