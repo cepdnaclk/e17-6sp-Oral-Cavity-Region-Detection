@@ -30,7 +30,7 @@ const Signup = () => {
           setIsFetching(false)
           return
         }
-        axios.put("http://localhost:5000/api/auth/signup",{
+        axios.post("http://localhost:5000/api/auth/signup",{
               username: usernameRef.current.value,
               email: emailRef.current.value,
               reg_no: regnoRef.current.value,

@@ -4,7 +4,8 @@ export const Wrapper = styled.div`
     padding-top: 50px;
 `
 export const Navbar = styled.div`
-    position: absolute;
+    position: fixed;
+    z-index:10;
     top: 0;
     width: 100%;
     height: 50px;

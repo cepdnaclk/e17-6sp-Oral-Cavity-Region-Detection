@@ -10,7 +10,7 @@ import {Navbar} from '../Navbar'
 const AdminPortal = () => {
 
   const[requests, setRequests] = useState([]);
-  const[message, setMessage] = useState("No new request");
+  const[message, setMessage] = useState("Loading...");
 
   useEffect(()=>{
       axios.get("http://localhost:5000/api/admin/requests",
@@ -22,9 +22,8 @@ const AdminPortal = () => {
         username: "admin1"
       }
       ).then(res=>{
-            setMessage(res.data.message)
             setRequests(res.data)
-            console.log(res.data)
+            if (requests.length==0) setMessage("No new requests")
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
             else setMessage(err)
