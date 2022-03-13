@@ -1,4 +1,4 @@
-import React, { useState, useRef} from 'react'
+import React, { useState, useRef, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 
@@ -20,6 +20,17 @@ const Signup = () => {
     const[message,setMessage] = useState("");
     const[isfetching, setIsFetching] = useState(false);
     const[success, setSuccess] = useState(false);
+    const[admins, setAdmins] = useState([])
+
+    useEffect(() =>{
+        axios.get("http://localhost:5000/api/user/admins"
+        ).then(res=>{
+            setAdmins(res.data)
+            console.log(res.data)
+        }).catch(err=>{
+            setAdmins([])
+        }) 
+    },[])
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
@@ -71,31 +82,33 @@ const Signup = () => {
                 <tr><th>Request access from:</th></tr>
                 <tr>
                 <th>
-                <input list="admins" name="admins" ref={adminRef} required type="email" maxLength={128}/>
+                <input list="admins" name="admins" ref={adminRef} required type="email" maxLength={128} autoComplete="off"/>
                 <datalist id="admins">
-                  <option value="admin1@gmail.com"/>
+                {admins.map((admin, index )=>(
+                <option key={index} value={admin[0]}/>
+                ))}
                 </datalist>
                 </th>
                 </tr>
                 <tr><th>Full Name:</th></tr>
                 <tr>
-                <th><input ref={usernameRef} required type="text" maxLength={128}></input></th>
+                <th><input ref={usernameRef} required type="text" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr><th>Reg No:</th></tr>
                 <tr>
-                <th><input ref={regnoRef} required type="text" maxLength={128}></input></th>
+                <th><input ref={regnoRef} required type="text" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr><th>Email:</th></tr>
                 <tr>
-                <th><input ref={emailRef} required type="email" maxLength={128}></input></th>
+                <th><input ref={emailRef} required type="email" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr><th>Password:</th></tr>
                 <tr>
-                <th><input ref={passwordRef} required type="password" maxLength={128}></input></th>
+                <th><input ref={passwordRef} required type="password" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr><th>Confirm Password:</th></tr>
                 <tr>
-                <th><input ref={confirmpasswordRef} required type="password" maxLength={128}></input></th>
+                <th><input ref={confirmpasswordRef} required type="password" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr>
                 <th><button type="submit" disabled={isfetching}>Request to sign up</button></th>

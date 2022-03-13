@@ -39,14 +39,15 @@ const AdminPortal = () => {
   useEffect(()=>{
       axios.get("http://localhost:5000/api/admin/requests",
       { headers: {
-        'Authorization': 'BEARER '+ sessionStorage.getItem("aatoken")
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
       }},
       {
-        email: "admin1@gmail.com",
-        username: "admin1"
+        email: JSON.parse(sessionStorage.getItem("info")).email,
+        username: JSON.parse(sessionStorage.getItem("info")).username
       }
       ).then(res=>{
             setRequests(res.data)
+            setMessage("")
             if (res.data.length===0) setMessage("No new requests")
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
