@@ -25,7 +25,7 @@ const Signup = () => {
         e.preventDefault();
         setIsFetching(true)
         setMessage("");
-        if(passwordRef.current.value!=confirmpasswordRef.current.value){
+        if(passwordRef.current.value!==confirmpasswordRef.current.value){
           setMessage("Passwords don't match");
           setIsFetching(false)
           return

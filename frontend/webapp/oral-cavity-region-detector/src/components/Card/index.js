@@ -1,20 +1,72 @@
-import React from 'react'
+import {React , useState} from 'react'
+import axios from 'axios'
+
+//styles
 import {Wrapper, Button} from './Card.styles'
 
-const Card = ({name,email,regno}) => {
+const Card = ({name,email,regno, id}) => {
 
-  function handleAccept(event){
-    console.log(event)
+  const[message, setMessage] = useState("");
+  const[success, setSuccess] = useState(false)
+  const[isFetching, setIsFetching] = useState(false)
+
+  function handleReject(id){
+    setIsFetching(true)
+    axios.delete(`http://localhost:5000/api/admin/requests/${id}`,
+      { headers: {
+        'Authorization': 'BEARER '+ sessionStorage.getItem("aatoken")
+      }},
+      {
+        email: "admin1@gmail.com",
+        username: "admin1"
+      }
+      ).then(res=>{
+            setMessage(res.data.message)
+            setSuccess(true)
+        }).catch(err=>{
+            if(err.response) setMessage(err.response.data.message)
+            else setMessage(err)
+            setSuccess(false)
+            setIsFetching(false)
+        }) 
   }
+
+  function handleAccept(id){
+    setIsFetching(true)
+    axios.post(`http://localhost:5000/api/admin/accept/${id}`,
+      {
+        email: "admin1@gmail.com",
+        username: "admin1"
+      },
+      { headers: {
+        'Authorization': 'BEARER '+ sessionStorage.getItem("aatoken")
+      }}
+      ).then(res=>{
+            setMessage(res.data.message)
+            setSuccess(true)
+        }).catch(err=>{
+            if(err.response) setMessage(err.response.data.message)
+            else setMessage(err)
+            setSuccess(false)
+            setIsFetching(false)
+        }) 
+  }
+
+  
   
   return (
 
     <Wrapper>
-        <p>Name: <span style={{fontWeight: 'bold'}}>{name}</span></p>
-        <p>Email: {email}</p>
-        <p>Register No:{regno}</p>
-        <Button onClick={()=>handleAccept(regno)}>Accept</Button>
-        <Button>Reject</Button>
+        <p style={{color: 'red'}}>{message}</p>
+        {success===false?
+          <>
+          <p>Name: <span style={{fontWeight: 'bold'}}>{name}</span></p>
+          <p>Email: {email}</p>
+          <p>Register No:{regno}</p>
+          <Button onClick={()=>handleAccept(id)} disabled={isFetching}>Accept</Button>
+          <Button onClick={()=>handleReject(id)} disabled={isFetching}>Reject</Button>
+        </>:<></>}
+        
     </Wrapper>
   )
 }

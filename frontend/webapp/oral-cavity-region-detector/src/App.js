@@ -1,4 +1,5 @@
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import {getUser} from './components/Userinfo'
 
 // Styles
 import {GlobalStyle} from './GlobalStyle';
@@ -10,9 +11,6 @@ import Signup from './components/Signup'
 import Collections from './components/Collections'
 import AdminPortal from './components/AdminPortal'
 
-const user= false;
-const admin = true;
-
 function App() {
   return (
     <Router>
@@ -20,8 +18,8 @@ function App() {
       <Route exact path="/" element={<Login/>}/>
       <Route exact path="/adminlogin" element={<AdminLogin/>}/>
       <Route exact path="/signup" element={<Signup/>}/>
-      <Route exact path="/collections" element={user?<Collections/>:<Login/>}/>
-      <Route exact path="/adminportal" element={admin?<AdminPortal/>:<AdminLogin/>}/>
+      <Route exact path="/collections" element={getUser()==="user"?<Collections/>:<Login/>}/>
+      <Route exact path="/adminportal" element={getUser()==="admin"?<AdminPortal/>:<AdminLogin/>}/>
       </Routes>
       <GlobalStyle/>
     </Router>
