@@ -32,6 +32,10 @@ app.use("/api/auth",userAuthRoute);
 const adminAuthRoute = require('./routes/admin_auth');
 app.use("/api/admin/auth",adminAuthRoute);
 
+
+const patientroute = require('./routes/patient');
+app.use("/api/patient" , patientroute);
+
 const userRoute = require('./routes/user');
 app.use("/api/user",userRoute);
 

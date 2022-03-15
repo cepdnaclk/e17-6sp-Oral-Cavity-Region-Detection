@@ -1,4 +1,3 @@
-
 Web application mainly consists of 4 pages,
     
 1. Login Page
@@ -18,18 +17,23 @@ See the prototype of the web interface [here](https://www.figma.com/proto/4IeXgo
 
 **Wire frame Diagram for the Web 
 application**
+
 ![WorkPlacePage](UI/wireframe.JPG)
 
 
 **Login Page**
+
 ![loginPage](UI/login.JPG)
 
 **Signup Page**
+
 ![SignupPage](UI/signup.JPG)
 
 **Collection & Upload Page**
+
 ![Collection&UploadPage](UI/collection.JPG)
 
 **Work Place Page**
+
 ![WorkPlacePage](UI/workplace.JPG)
 
