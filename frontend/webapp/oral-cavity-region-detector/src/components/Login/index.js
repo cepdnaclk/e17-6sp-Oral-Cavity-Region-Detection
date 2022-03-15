@@ -1,6 +1,7 @@
 import {React, useRef, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
+import {saveInfo} from '../Userinfo'
 
 // Styles
 import {Wrapper, Container, Img, Form, Border} from './Login.styles'
@@ -8,7 +9,6 @@ import  {Navbar} from "../Navbar"
 
 const Login = () => {
 
-    
     const emailRef = useRef();
     const passwordRef = useRef();
     const navigate = useNavigate();
@@ -25,6 +25,7 @@ const Login = () => {
                 password: passwordRef.current.value 
         }).then(res=>{
             setMessage(res.data.message)
+            saveInfo(res.data.username,res.data.email,[2],res.data.reg_no,res.data.access_token)
             navigate('/collections');
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)

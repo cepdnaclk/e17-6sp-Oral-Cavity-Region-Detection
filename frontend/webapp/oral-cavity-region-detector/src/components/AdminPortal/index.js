@@ -1,23 +1,73 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import {React , useState, useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
+import Card from '../Card'
+import {deleteInfo} from '../Userinfo'
+
 //styles
 import { Wrapper, Border } from './AdminPortal.styles'
 import {Navbar} from '../Navbar'
 
 const AdminPortal = () => {
+
+  const[requests, setRequests] = useState([]);
+  const[message, setMessage] = useState("Loading...");
+  const navigate = useNavigate();
+
+  // function handleLogout(){
+  //   axios.post("http://localhost:5000/api/admin/auth/logout",
+  //     {
+  //       email: "admin1@gmail.com",
+  //       username: "admin1"
+  //     },
+  //     { headers: {
+  //       'Authorization': 'BEARER '+ sessionStorage.getItem("artoken")
+  //     }}
+  //     ).then(res=>{
+  //       navigate('/adminlogin');
+  //     }).catch(err=>{
+  //           if(err.response) alert(err.response.data.message)
+  //           else alert(err)  
+  //     }) 
+  // }
+
+  function handleLogout(){
+      deleteInfo();
+      navigate('/adminlogin')
+  }
+
+  useEffect(()=>{
+      axios.get("http://localhost:5000/api/admin/requests",
+      { headers: {
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
+      }},
+      {
+        email: JSON.parse(sessionStorage.getItem("info")).email,
+        username: JSON.parse(sessionStorage.getItem("info")).username
+      }
+      ).then(res=>{
+            setRequests(res.data)
+            setMessage("")
+            if (res.data.length===0) setMessage("No new requests")
+        }).catch(err=>{
+            if(err.response) setMessage(err.response.data.message)
+            else setMessage(err)
+        }) 
+  },[])
+
   return (
     <>
     <Navbar>
-    <Link to="/adminlogin">Logout</Link>
+    <p onClick={()=>handleLogout()}>Logout</p>
     </Navbar>
     <Wrapper>
         <Border>
         <h2>Requests</h2>
-           <p>hey</p> 
-           <p>hey</p> 
-           <p>hey</p> 
-           <p>hey</p> 
-           <p>hey</p> 
+        <br/>
+        <p style={{color: "lightgray"}}>{message}</p>
+        {requests.map((request, index )=>(
+          <Card key={index} name={request.username} email={request.email} regno={request.reg_no} id={request._id}/>
+        ))}
         </Border>
     </Wrapper>
     </>

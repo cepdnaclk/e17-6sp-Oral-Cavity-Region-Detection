@@ -14,22 +14,12 @@ const AdminSchema = new mongoose.Schema({
     },
     password:{
         type: String,
-        required: true,                                        
+        required: true,                                       
     },
     profile_pic:{
         type: String,
         required: false,
         default:"",
-    },
-    requests:{
-        type: Array,
-        required: false,
-        default:[],
-    },
-    users:{
-        type: Array,
-        required: false,
-        default:[],
     }
 },
 {

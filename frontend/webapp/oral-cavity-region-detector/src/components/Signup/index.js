@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState, useRef, useEffect} from 'react'
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 // Styles
 import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
@@ -8,6 +9,55 @@ import  {Navbar} from "../Navbar"
 
 
 const Signup = () => {
+
+    const usernameRef = useRef();
+    const emailRef = useRef();
+    const adminRef = useRef();
+    const passwordRef = useRef();
+    const regnoRef = useRef();
+    const confirmpasswordRef = useRef();
+
+    const[message,setMessage] = useState("");
+    const[isfetching, setIsFetching] = useState(false);
+    const[success, setSuccess] = useState(false);
+    const[admins, setAdmins] = useState([])
+
+    useEffect(() =>{
+        axios.get("http://localhost:5000/api/user/admins"
+        ).then(res=>{
+            setAdmins(res.data)
+            console.log(res.data)
+        }).catch(err=>{
+            setAdmins([])
+        }) 
+    },[])
+
+    const handleSubmit = async(e)=>{
+        e.preventDefault();
+        setIsFetching(true)
+        setMessage("");
+        if(passwordRef.current.value!==confirmpasswordRef.current.value){
+          setMessage("Passwords don't match");
+          setIsFetching(false)
+          return
+        }
+        axios.post("http://localhost:5000/api/auth/signup",{
+              username: usernameRef.current.value,
+              email: emailRef.current.value,
+              reg_no: regnoRef.current.value,
+              password: passwordRef.current.value,
+              admin: adminRef.current.value
+        }).then(res=>{
+            setMessage(res.data.message)
+            setSuccess(true)
+        }).catch(err=>{
+            if(err.response) setMessage(err.response.data.message)
+            else setMessage(err)
+            setIsFetching(false)
+        }) 
+
+    }
+
   return (
     <Wrapper>
         <Navbar>
@@ -17,47 +67,56 @@ const Signup = () => {
         <Img/>
         <Form>
         <Border>
-            <table>
+        <form id="login" onSubmit={handleSubmit}>
+            {success? 
+            <>
+            <p style={{color: 'green', fontWeight:"500"}}>Your request has been sent successfully!</p>
+            <p>Please wait for Admin approval</p>
+            <br/>
+            <p style={{color: "var(--medColor)"}}><Link to="/">Login</Link></p>
+            </>
+              :
+              <><p style={{color: "red"}}>{message}</p>
+              <table>
                 <tbody>
                 <tr><th>Request access from:</th></tr>
                 <tr>
                 <th>
-                <input list="admins" name="admins"/>
+                <input list="admins" name="admins" ref={adminRef} required type="email" maxLength={128} autoComplete="off"/>
                 <datalist id="admins">
-                  <option value="admin1"/>
-                  <option value="admin2"/>
-                  <option value="admin3"/>
-                  <option value="admin4"/>
-                  <option value="admin5"/>
+                {admins.map((admin, index )=>(
+                <option key={index} value={admin[0]}/>
+                ))}
                 </datalist>
                 </th>
                 </tr>
                 <tr><th>Full Name:</th></tr>
                 <tr>
-                <th><input></input></th>
+                <th><input ref={usernameRef} required type="text" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr><th>Reg No:</th></tr>
                 <tr>
-                <th><input></input></th>
+                <th><input ref={regnoRef} required type="text" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr><th>Email:</th></tr>
                 <tr>
-                <th><input></input></th>
+                <th><input ref={emailRef} required type="email" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr><th>Password:</th></tr>
                 <tr>
-                <th><input></input></th>
+                <th><input ref={passwordRef} required type="password" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr><th>Confirm Password:</th></tr>
                 <tr>
-                <th><input></input></th>
+                <th><input ref={confirmpasswordRef} required type="password" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr>
-                <th><button type="button">Request to Sign up</button></th>
+                <th><button type="submit" disabled={isfetching}>Request to sign up</button></th>
                 </tr>
                 <tr><th>Already have an account? <Link to="/"><span>Sign in</span></Link></th></tr>
                 </tbody>
-            </table>
+            </table></>}
+          </form>
         </Border>
         </Form>
         </Container>

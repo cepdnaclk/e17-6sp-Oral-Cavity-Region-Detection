@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const Admin = require('../models/Admin');
 const bcrypt = require('bcrypt');
 
-let admin_refreshTokens = [];
+// let admin_refreshTokens = [];
 
 // user sign up
 router.post("/signup",async(req,res)=>{
@@ -44,7 +44,7 @@ router.post("/login",async(req,res)=>{
 
         const access_token = jwt.sign({ sub: user.email }, process.env.ACCESS_SECRET, { expiresIn: process.env.REFRESH_TIME })
         const refresh_token = jwt.sign({ sub: user.email }, process.env.REFRESH_SECRET) 
-        admin_refreshTokens.push(refresh_token);
+        // admin_refreshTokens.push(refresh_token);
 
         // send the user data and refresh, access tokens
         const {password,...others} = user._doc;
@@ -60,30 +60,32 @@ router.post("/login",async(req,res)=>{
 
 
 // log out
-router.post('/logout' , (req, res) =>{
-    const refreshToken = req.header('token');
-    if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
+// router.post('/logout' , (req, res) =>{
+//     const authHeader = req.headers.authorization;
+//     const refreshToken = authHeader && authHeader.split(" ")[1];
+    
+//     if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
 
-    admin_refreshTokens = admin_refreshTokens.filter( token => token !== refreshToken)
-    res.status(204).json({message:'Successfuly logged out'})
-})
+//     admin_refreshTokens = admin_refreshTokens.filter( token => token !== refreshToken)
+//     res.status(204).json({message:'Successfuly logged out'})
+// })
 
 
 // re-new access token 
-router.post('/token' , (req, res)=>{
-    const refreshToken = req.header('token');
+// router.post('/token' , (req, res)=>{
+//     const refreshToken = req.headers('refresh_token');
 
-    if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
-    if(!admin_refreshTokens.includes(refreshToken)) return res.status(403).json({message:'Authentication failed'})
+//     if(!refreshToken) return res.status(401).json({message:'Authentication failed'})
+//     if(!admin_refreshTokens.includes(refreshToken)) return res.status(403).json({message:'Authentication failed'})
     
 
-    jwt.verify(refreshToken, process.env.REFRESH_SECRET ,(err , result)=>{
-        if(err) return res.status(500).json({message:'Authentication failed'})
+//     jwt.verify(refreshToken, process.env.REFRESH_SECRET ,(err , result)=>{
+//         if(err) return res.status(500).json({message:'Authentication failed'})
         
-        const access_token = jwt.sign({sub: result.email} , process.env.ACCESS_SECRET , {expiresIn: process.env.REFRESH_TIME})
-        res.status(200).json({"access_token":access_token });
-    })
+//         const access_token = jwt.sign({sub: result.email} , process.env.ACCESS_SECRET , {expiresIn: process.env.REFRESH_TIME})
+//         res.status(200).json({"access_token":access_token });
+//     })
 
-})
+// })
 
 module.exports = router;
