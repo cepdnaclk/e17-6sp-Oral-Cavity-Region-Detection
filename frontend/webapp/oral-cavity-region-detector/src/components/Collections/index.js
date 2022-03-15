@@ -1,8 +1,15 @@
 import React from 'react'
 
+import {Wrapper, Border} from '../Styles'
+
 const Collections = () => {
   return (
-    <div>Collections</div>
+    <Wrapper>
+      <Border>
+        Collections
+      </Border>
+    </Wrapper>
+    
   )
 }
 

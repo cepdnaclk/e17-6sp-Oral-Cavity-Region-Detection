@@ -61,7 +61,7 @@ const Signup = () => {
   return (
     <Wrapper>
         <Navbar>
-        <Link to="/adminlogin">Admin</Link>
+        <Link to="/adminlogin">Login as Admin</Link>
         </Navbar>
         <Container>
         <Img/>

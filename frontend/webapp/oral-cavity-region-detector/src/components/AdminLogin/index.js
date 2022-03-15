@@ -37,7 +37,7 @@ const AdminLogin = () => {
     return (
     <Wrapper>
         <Navbar>
-        <Link to="/">User</Link>
+        <Link to="/">Login as User</Link>
         </Navbar>
         <Container>
         <Img/>

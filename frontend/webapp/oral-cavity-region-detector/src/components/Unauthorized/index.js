@@ -1,8 +1,7 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
-import { Button } from '../Card/Card.styles';
 
-import {Wrapper,Border} from './Unauthorized.styles'
+import {Wrapper,Border, Button} from '../Styles'
 
 const Unauthorized = () => {
     const navigate = useNavigate();
