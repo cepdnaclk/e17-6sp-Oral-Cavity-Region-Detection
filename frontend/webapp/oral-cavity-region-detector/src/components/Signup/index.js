@@ -4,8 +4,8 @@ import axios from 'axios'
 
 // Styles
 import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
-import  {Navbar} from "../Navbar"
-
+import  LoginNavbar from "../LoginNavbar"
+import MedButton from "../Buttons"
 
 
 const Signup = () => {
@@ -26,7 +26,6 @@ const Signup = () => {
         axios.get("http://localhost:5000/api/user/admins"
         ).then(res=>{
             setAdmins(res.data)
-            console.log(res.data)
         }).catch(err=>{
             setAdmins([])
         }) 
@@ -60,9 +59,7 @@ const Signup = () => {
 
   return (
     <Wrapper>
-        <Navbar>
-        <Link to="/adminlogin">Login as Admin</Link>
-        </Navbar>
+        <LoginNavbar role={2}/>
         <Container>
         <Img/>
         <Form>
@@ -111,9 +108,9 @@ const Signup = () => {
                 <th><input ref={confirmpasswordRef} required type="password" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr>
-                <th><button type="submit" disabled={isfetching}>Request to sign up</button></th>
+                <th><MedButton  variant="contained" type="submit" disabled={isfetching}>Request to sign up</MedButton></th>
                 </tr>
-                <tr><th>Already have an account? <Link to="/"><span>Sign in</span></Link></th></tr>
+                <tr><th>Already have an account? <Link to="/user/login"><span>Sign in</span></Link></th></tr>
                 </tbody>
             </table></>}
           </form>

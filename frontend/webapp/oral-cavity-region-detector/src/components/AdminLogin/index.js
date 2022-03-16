@@ -1,10 +1,11 @@
 import {React, useRef, useState} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import {saveInfo} from '../Userinfo'
+import LoginNavbar from '../LoginNavbar'
 // Styles
 import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
-import  {Navbar} from "../Navbar"
+import MedButton from '../Buttons'
 
 const AdminLogin = () => {
 
@@ -25,7 +26,7 @@ const AdminLogin = () => {
         }).then(res=>{
             setMessage(res.data.message)
             saveInfo(res.data.username,res.data.email,[1],0,res.data.access_token)
-            navigate('/adminportal');
+            navigate('/admin/portal');
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
             else setMessage(err)
@@ -36,9 +37,7 @@ const AdminLogin = () => {
 
     return (
     <Wrapper>
-        <Navbar>
-        <Link to="/">Login as User</Link>
-        </Navbar>
+        <LoginNavbar role={1}/>
         <Container>
         <Img/>
         <Form>
@@ -57,7 +56,7 @@ const AdminLogin = () => {
                     <th><input ref={passwordRef} required type="password" maxLength={128}></input></th>
                 </tr>
                 <tr>
-                    <th><button type="submit" disabled={isfetching}>Sign in</button></th>
+                    <th><MedButton  variant="contained" type="submit" disabled={isfetching}>Sign in</MedButton></th>
                 </tr>
                 </tbody>
             </table>
