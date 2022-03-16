@@ -6,7 +6,7 @@ import {deleteInfo} from '../Userinfo'
 
 //styles
 import { Wrapper, Border } from './AdminPortal.styles'
-import {Navbar} from '../Navbar'
+import AdminNavbar from '../AdminNavbar'
 
 const AdminPortal = () => {
 
@@ -33,7 +33,7 @@ const AdminPortal = () => {
 
   function handleLogout(){
       deleteInfo();
-      navigate('/adminlogin')
+      navigate('/admin/login')
   }
 
   useEffect(()=>{
@@ -57,9 +57,7 @@ const AdminPortal = () => {
 
   return (
     <>
-    <Navbar>
-    <p onClick={()=>handleLogout()}>Logout</p>
-    </Navbar>
+    <AdminNavbar/>
     <Wrapper>
         <Border>
         <h2>Requests</h2>

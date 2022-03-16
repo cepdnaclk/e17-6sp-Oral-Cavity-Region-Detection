@@ -1,8 +1,11 @@
 import {React , useState} from 'react'
 import axios from 'axios'
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 //styles
-import {Wrapper, Button} from './Card.styles'
+import {Wrapper} from './Card.styles'
+import {MedButton, OutlinedButton} from '../Buttons'
 
 const Card = ({name,email,regno, id}) => {
 
@@ -63,8 +66,11 @@ const Card = ({name,email,regno, id}) => {
           <p>Name: <span style={{fontWeight: 'bold'}}>{name}</span></p>
           <p>Email: {email}</p>
           <p>Register No:{regno}</p>
-          <Button onClick={()=>handleAccept(id)} disabled={isFetching}>Accept</Button>
-          <Button onClick={()=>handleReject(id)} disabled={isFetching}>Reject</Button>
+          <br/>
+          <Stack spacing={2} direction="row">
+          <MedButton variant="contained" onClick={()=>handleAccept(id)} disabled={isFetching}>Accept</MedButton>
+          <OutlinedButton variant="outlined" onClick={()=>handleReject(id)} disabled={isFetching}>Reject</OutlinedButton>
+          </Stack>
         </>:<></>}
         
     </Wrapper>

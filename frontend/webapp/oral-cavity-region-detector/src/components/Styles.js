@@ -12,6 +12,5 @@ export const Border = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px ;
+    padding: 5% ;
 `;
-

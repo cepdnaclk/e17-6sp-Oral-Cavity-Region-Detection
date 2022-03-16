@@ -25,18 +25,18 @@ function App() {
       <Route path="/" element={<Layout/>}>
           {/* public routes */}
           <Route exact path="/" element={<Login/>}/>
-          <Route exact path="adminlogin" element={<AdminLogin/>}/>
-          <Route exact path="signup" element={<Signup/>}/>
+          <Route exact path="user/login" element={<Login/>}/>
+          <Route exact path="admin/login" element={<AdminLogin/>}/>
+          <Route exact path="user/signup" element={<Signup/>}/>
           <Route exact path="unauthorized" element={<Unauthorized/>}/>
 
           {/* protected routes */}
           <Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}>
-              <Route exact path="collections" element={<Collections/>}/>
-              <Route exact path="login" element={<Login/>}/>
+              <Route exact path="user/collections" element={<Collections/>}/>
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]}/>}>
-              <Route exact path="adminportal" element={<AdminPortal/>}/>
+              <Route exact path="admin/portal" element={<AdminPortal/>}/>
           </Route>
 
           {/* error page comes here*/}

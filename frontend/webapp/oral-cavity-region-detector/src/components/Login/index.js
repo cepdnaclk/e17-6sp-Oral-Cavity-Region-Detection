@@ -5,7 +5,8 @@ import {saveInfo} from '../Userinfo'
 
 // Styles
 import {Wrapper, Container, Img, Form, Border} from './Login.styles'
-import  {Navbar} from "../Navbar"
+import  LoginNavbar from "../LoginNavbar"
+import MedButton from '../Buttons'
 
 const Login = () => {
 
@@ -26,7 +27,7 @@ const Login = () => {
         }).then(res=>{
             setMessage(res.data.message)
             saveInfo(res.data.username,res.data.email,[2],res.data.reg_no,res.data.access_token)
-            navigate('/collections');
+            navigate('/user/collections');
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
             else setMessage(err)
@@ -37,9 +38,7 @@ const Login = () => {
 
     return (
     <Wrapper>
-        <Navbar>
-        <Link to="/adminlogin">Admin</Link>
-        </Navbar>
+        <LoginNavbar role={2}/>
         <Container>
         <Img/>
         <Form>
@@ -58,9 +57,9 @@ const Login = () => {
                     <th><input ref={passwordRef} required type="password" maxLength={128}></input></th>
                 </tr>
                 <tr>
-                    <th><button type="submit" disabled={isfetching}>Sign in</button></th>
+                    <th><MedButton  variant="contained" type="submit" disabled={isfetching}>Sign in</MedButton></th>
                 </tr>
-                <tr><th>Don't have an account? <Link to="/signup"><span>Sign up</span></Link></th></tr>
+                <tr><th>Don't have an account? <Link to="/user/signup"><span>Sign up</span></Link></th></tr>
                 </tbody>
             </table>
         </form>
