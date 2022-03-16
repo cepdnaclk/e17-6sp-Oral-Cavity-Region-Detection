@@ -1,7 +1,8 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
 
-import {Wrapper,Border, Button} from '../Styles'
+import {Wrapper,Border} from './Styles'
+import MedButton from './Buttons'
 
 const Unauthorized = () => {
     const navigate = useNavigate();
@@ -10,7 +11,9 @@ const Unauthorized = () => {
         <Wrapper>
             <Border>
                 Unauthorized Access!
-                <Button onClick={()=> navigate(-1)}>Go Back</Button>
+                <br/>
+                <br/>
+                <MedButton variant="contained" onClick={()=> navigate(-1)}>Go Back</MedButton>
             </Border>
         </Wrapper>
   )
