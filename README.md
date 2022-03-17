@@ -99,6 +99,10 @@ application**
 
 ![image](docs/images/usecase_diagram.png)
 
+### Relese Plan
+
+![relesePlane](docs/images/releasePlan.png)
+
 ## Testing
 
 <!--Testing done on hardware and software, detailed + summarized results-->
