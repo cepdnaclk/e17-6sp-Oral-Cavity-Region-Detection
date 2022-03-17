@@ -28,9 +28,11 @@ title: Oral Cavity Region Detection Tool
 1. [Introduction](#introduction)
 2. [Solution Architecture](#solution-architecture )
 3. [Software Design](#software-design)
+4. [Machine Learning Model](#machine-learning-model)
+5. [Links](#links)
 <!--4. [Testing](#testing)
 5. [Conclusion](#conclusion)-->
-6. [Links](#links)
+
 
 ## Introduction
 
@@ -107,6 +109,19 @@ The Administrators's portal have the following functionalities.
 
 **Portal showing the registration requests (Implemented)**
 ![Admin](./images/admin_portal.png)
+
+## Machine Learning Model
+
+A machine learning model is built to identify and correctly segment the known, normal regions of an Oral Cavity image.
+
+The process of building the model is devided into 8 phases as shown in the below figure
+
+## Machine Learning Model Work Flow
+![workflow](../machine-learning/workflow_r.jpg)
+
+![maskrcnn](../machine-learning/maskrcnn_r.jpg)
+
+![dataset](../machine-learning/dataset_r.jpg)
 
 
 ## Release Plan
