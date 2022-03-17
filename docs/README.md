@@ -30,8 +30,7 @@ title: Oral Cavity Region Detection Tool
 3. [Software Design](#software-design)
 4. [Machine Learning Model](#machine-learning-model)
 5. [Links](#links)
-<!--4. [Testing](#testing)
-5. [Conclusion](#conclusion)-->
+
 
 
 ## Introduction
