@@ -112,6 +112,10 @@ application**
 ### Admin portal
 ![image](docs/images/admin_portal.png)
 
+### Relese Plan
+
+![relesePlane](docs/images/releasePlan.png)
+
 ## Testing
 
 <!--Testing done on hardware and software, detailed + summarized results-->
