@@ -114,11 +114,9 @@ The Administrators's portal have the following functionalities.
 A machine learning model is built to identify and correctly segment the known, normal regions of an Oral Cavity image.
 
 The process of building the model is devided into 8 phases as shown in the below figure
-![workflow](../machine-learning/workflow_r.jpg)
-
-![maskrcnn](../machine-learning/maskrcnn_r.jpg)
-
-![dataset](../machine-learning/dataset_r.jpg)
+![workflow_r](https://user-images.githubusercontent.com/71621792/158862628-92305ec9-a7a8-4c02-8163-1ac7f5607945.jpg)
+![dataset_r](https://user-images.githubusercontent.com/71621792/158862638-663407a1-02e4-4f02-98ee-145386bd8cd0.jpg)
+![maskrcnn_r](https://user-images.githubusercontent.com/71621792/158862640-f60f3e9d-2d00-4224-9ef7-9df97ff89e86.jpg)
 
 
 
