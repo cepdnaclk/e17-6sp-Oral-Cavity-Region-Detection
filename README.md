@@ -28,15 +28,17 @@ title: Oral Cavity Region Detection Tool
 1. [Introduction](#introduction)
 2. [Solution Architecture](#solution-architecture )
 3. [Software Design](#software-design)
-4. [Testing](#testing)
-5. [Conclusion](#conclusion)
-6. [Links](#links)
+4. [Machine Learning Model](#machine-learning-model)
+5. [Links](#links)
+<!--4. [Testing](#testing)
+5. [Conclusion](#conclusion)-->
+
 
 ## Introduction
 
 This project contains a web-based application that can be used to upload images of the oral cavity and identify the known regions which are normal. For example: The tool will process an image uploaded by the clinician and apply masks to easily recognize a specific region of the oral cavity which does not indicate any abnormality.
 
-![image](docs/images/detection.png)
+![image](./docs/images/detection.png)
 
 ### Why
 
@@ -47,11 +49,18 @@ On the other hand, AI detection systems that are used to detect oral cancers req
 
 ## Solution Architecture
 
-![image](docs/images/syste_architecture.png)
+![image](./docs/images/syste_architecture.png)
+
+## Use Case Diagram
+
+![image](./docs/images/usecase_diagram.jpg)
+
+## UML Class Diagram
+![Class](./docs/images/uml_diagram.jpg)
 
 ## Software Design
 
-### User Interface
+### User Interface for Dentists
 
 Web application mainly consists of 4 pages,
     
@@ -73,52 +82,55 @@ See the prototype of the web interface [here](https://www.figma.com/proto/4IeXgo
 **Wire frame Diagram for the Web 
 application**
 
-![WorkPlacePage](docs/images/wireframe.JPG)
+![WorkPlacePage](./docs/images/wireframe.JPG)
 
 
-**Login Page**
+**Login Page (Implemented)**
 
-![loginPage](docs/images/wf_login.JPG)
+![loginPage](./docs/images/login.png)
 
-**Signup Page**
+**Signup Page (Implemented)**
 
-![SignupPage](docs/images/wf_signup.JPG)
+![SignupPage](./docs/images/signup.png)
 
-**Collection & Upload Page**
+**Collection & Upload Page (Wireframe)**
 
-![Collection&UploadPage](docs/images/wf_collection.JPG)
+![Collection&UploadPage](./docs/images/wf_collection.JPG)
 
-**Work Place Page**
+**Work Place Page (Wireframe)**
 
-![WorkPlacePage](docs/images/wf_workplace.JPG)
-
-
+![WorkPlacePage](./docs/images/wf_workplace.JPG)
 
 
-### Use Case Diagram
+### User Interface for Administrators
+The Administrators's portal have the following functionalities.
+1. Login Page
+2. Accept registration requests of the authorized Dentists
 
-![image](docs/images/usecase_diagram.jpg)
+**Portal showing the registration requests (Implemented)**
+![Admin](./docs/images/admin_portal.png)
 
-### UML Diagram for REST API
+## Machine Learning Model
 
-![image](docs/images/uml_diagram.jpg)
+A machine learning model is built to identify and correctly segment the known, normal regions of an Oral Cavity image.
+
+The process of building the model is devided into 8 phases as shown in the below figure
+
+## Machine Learning Model Work Flow
+![workflow](./machine-learning/workflow_r.jpg)
+
+![maskrcnn](./machine-learning/maskrcnn_r.jpg)
+
+![dataset](./machine-learning/dataset_r.jpg)
 
 
-## Progress So Far
+## Release Plan
 
-### User signin/ login
-![image](docs/images/login.png)
-![image](docs/images/signup.png)
-### Admin portal
-![image](docs/images/admin_portal.png)
+![relesePlane](./docs/images/releasePlan.png)
 
-### Relese Plan
+<!--## Testing
 
-![relesePlane](docs/images/releasePlan.png)
-
-## Testing
-
-<!--Testing done on hardware and software, detailed + summarized results-->
+Testing done on hardware and software, detailed + summarized results-->
 
 <!--## Detailed budget
 
@@ -128,9 +140,9 @@ All items and costs
 | ------------- |:---------:|:----------:|-------:|
 | Sample item   | 5         | 10 LKR     | 50 LKR |
 -->
-## Conclusion
+<!--## Conclusion
 
-<!--What was achieved, future developments, commercialization plans-->
+What was achieved, future developments, commercialization plans-->
 
 ## Links
 
