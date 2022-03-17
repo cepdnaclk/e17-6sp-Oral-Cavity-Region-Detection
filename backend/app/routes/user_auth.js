@@ -11,7 +11,6 @@ const bcrypt = require('bcrypt');
 // add to request list
 router.post("/signup",async(req,res)=>{
     try{
-        const admin = await Admin.findOne({email: req.body.admin});
         const user = await Request.findOne({reg_no: req.body.reg_no});
         const userregno = await User.findOne({reg_no: req.body.reg_no});
         const email = await User.findOne({email: req.body.email});
@@ -19,8 +18,6 @@ router.post("/signup",async(req,res)=>{
         if(userregno){return res.status(401).json({message:'The Reg No is already registered'});}
 
         if(email){return res.status(401).json({message:'Email address is already registered'});}
-
-        if(!admin){return res.status(401).json({message:"Admin doesn't exist"});}
         
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password,salt);
@@ -28,7 +25,6 @@ router.post("/signup",async(req,res)=>{
         if(user){
             const update = Request.findOne({reg_no: req.body.reg_no},{
                 $set : {
-                    admin: req.body.admin,
                     username: req.body.username,
                     email: req.body.email,
                     password: hashedPassword
@@ -37,7 +33,6 @@ router.post("/signup",async(req,res)=>{
             return res.status(200).json({message:"The Request sent successfully"});
         }else{
             const newUser = new Request({
-                admin: req.body.admin,
                 reg_no: req.body.reg_no,
                 username: req.body.username,
                 email: req.body.email,

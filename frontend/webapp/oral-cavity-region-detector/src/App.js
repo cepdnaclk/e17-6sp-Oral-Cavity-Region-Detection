@@ -13,6 +13,7 @@ import Collections from './components/Collections'
 import AdminPortal from './components/AdminPortal'
 import Unauthorized from './components/Unauthorized'
 import Layout from './components/Layout'
+import Upload from './components/Upload'
 
 const ROLES ={
   "Admin": 1,
@@ -33,6 +34,7 @@ function App() {
           {/* protected routes */}
           <Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}>
               <Route exact path="user/collections" element={<Collections/>}/>
+              <Route exact path="user/uploads" element={<Upload/>}/>
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]}/>}>

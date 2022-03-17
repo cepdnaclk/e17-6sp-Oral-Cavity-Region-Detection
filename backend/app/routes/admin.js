@@ -7,12 +7,7 @@ const authenticateToken = require('../middlewares/auth')
 // get all requests
 router.get('/requests', authenticateToken, async(req, res)=>{
     try{
-        
-        const admin = await Admin.findOne({email: req.email});
-    
-        if(!admin){return res.status(401).json({message:'Authentication failed'})}
-
-        const requests = await Request.find({admin: req.email})
+        const requests = await Request.find()
         
         for (req in requests) {
             delete requests[req].password

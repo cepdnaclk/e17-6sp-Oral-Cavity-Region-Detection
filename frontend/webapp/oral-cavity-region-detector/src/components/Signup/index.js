@@ -12,7 +12,6 @@ const Signup = () => {
 
     const usernameRef = useRef();
     const emailRef = useRef();
-    const adminRef = useRef();
     const passwordRef = useRef();
     const regnoRef = useRef();
     const confirmpasswordRef = useRef();
@@ -20,16 +19,6 @@ const Signup = () => {
     const[message,setMessage] = useState("");
     const[isfetching, setIsFetching] = useState(false);
     const[success, setSuccess] = useState(false);
-    const[admins, setAdmins] = useState([])
-
-    useEffect(() =>{
-        axios.get("http://localhost:5000/api/user/admins"
-        ).then(res=>{
-            setAdmins(res.data)
-        }).catch(err=>{
-            setAdmins([])
-        }) 
-    },[])
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
@@ -45,7 +34,6 @@ const Signup = () => {
               email: emailRef.current.value,
               reg_no: regnoRef.current.value,
               password: passwordRef.current.value,
-              admin: adminRef.current.value
         }).then(res=>{
             setMessage(res.data.message)
             setSuccess(true)
@@ -76,16 +64,7 @@ const Signup = () => {
               <><p style={{color: "red"}}>{message}</p>
               <table>
                 <tbody>
-                <tr><th>Request access from:</th></tr>
                 <tr>
-                <th>
-                <input list="admins" name="admins" ref={adminRef} required type="email" maxLength={128} autoComplete="off"/>
-                <datalist id="admins">
-                {admins.map((admin, index )=>(
-                <option key={index} value={admin[0]}/>
-                ))}
-                </datalist>
-                </th>
                 </tr>
                 <tr><th>Full Name:</th></tr>
                 <tr>
