@@ -78,26 +78,39 @@ application**
 
 **Login Page**
 
-![loginPage](docs/images/login.JPG)
+![loginPage](docs/images/wf_login.JPG)
 
 **Signup Page**
 
-![SignupPage](docs/images/signup.JPG)
+![SignupPage](docs/images/wf_signup.JPG)
 
 **Collection & Upload Page**
 
-![Collection&UploadPage](docs/images/collection.JPG)
+![Collection&UploadPage](docs/images/wf_collection.JPG)
 
 **Work Place Page**
 
-![WorkPlacePage](docs/images/workplace.JPG)
+![WorkPlacePage](docs/images/wf_workplace.JPG)
 
 
 
 
 ### Use Case Diagram
 
-![image](docs/images/usecase_diagram.png)
+![image](docs/images/usecase_diagram.jpg)
+
+### UML Diagram for REST API
+
+![image](docs/images/uml_diagram.jpg)
+
+
+## Progress So Far
+
+### User signin/ login
+![image](docs/images/login.png)
+![image](docs/images/signup.png)
+### Admin portal
+![image](docs/images/admin_portal.png)
 
 ## Testing
 
