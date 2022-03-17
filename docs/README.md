@@ -115,12 +115,6 @@ A machine learning model is built to identify and correctly segment the known, n
 
 The process of building the model is devided into 8 phases as shown in the below figure
 
-## Machine Learning Model Work Flow
-![workflow](../machine-learning/workflow_r.jpg)
-
-![maskrcnn](../machine-learning/maskrcnn_r.jpg)
-
-![dataset](../machine-learning/dataset_r.jpg)
 
 
 ## Release Plan
