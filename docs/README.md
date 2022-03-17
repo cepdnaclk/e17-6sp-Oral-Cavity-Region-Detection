@@ -28,8 +28,8 @@ title: Oral Cavity Region Detection Tool
 1. [Introduction](#introduction)
 2. [Solution Architecture](#solution-architecture )
 3. [Software Design](#software-design)
-4. [Testing](#testing)
-5. [Conclusion](#conclusion)
+<!--4. [Testing](#testing)
+5. [Conclusion](#conclusion)-->
 6. [Links](#links)
 
 ## Introduction
@@ -49,9 +49,16 @@ On the other hand, AI detection systems that are used to detect oral cancers req
 
 ![image](images/syste_architecture.png)
 
+## Use Case Diagram
+
+![image](./images/usecase_diagram.jpg)
+
+## UML Class Diagram
+![Class](./images/uml_diagram.jpg)
+
 ## Software Design
 
-### User Interface
+### User Interface for Dentists
 
 Web application mainly consists of 4 pages,
     
@@ -73,39 +80,42 @@ See the prototype of the web interface [here](https://www.figma.com/proto/4IeXgo
 **Wire frame Diagram for the Web 
 application**
 
-![WorkPlacePage](images/wireframe.JPG)
+![WorkPlacePage](./images/wireframe.JPG)
 
 
-**Login Page**
+**Login Page (Implemented)**
 
-![loginPage](images/login.JPG)
+![loginPage](./images/login.png)
 
-**Signup Page**
+**Signup Page (Implemented)**
 
-![SignupPage](images/signup.JPG)
+![SignupPage](./images/signup.png)
 
-**Collection & Upload Page**
+**Collection & Upload Page (Wireframe)**
 
-![Collection&UploadPage](images/collection.JPG)
+![Collection&UploadPage](./images/wf_collection.JPG)
 
-**Work Place Page**
+**Work Place Page (Wireframe)**
 
-![WorkPlacePage](images/workplace.JPG)
-
-
+![WorkPlacePage](./images/wf_workplace.JPG)
 
 
-### Use Case Diagram
+### User Interface for Administrators
+The Administrators's portal have the following functionalities.
+1. Login Page
+2. Accept registration requests of the authorized Dentists
 
-![image](images/usecase_diagram.png)
+**Portal showing the registration requests (Implemented)**
+![Admin](./images/admin_portal.png)
 
-### Relese Plan
+
+## Release Plan
 
 ![relesePlane](images/releasePlan.png)
 
-## Testing
+<!--## Testing
 
-<!--Testing done on hardware and software, detailed + summarized results-->
+Testing done on hardware and software, detailed + summarized results-->
 
 <!--## Detailed budget
 
@@ -115,9 +125,9 @@ All items and costs
 | ------------- |:---------:|:----------:|-------:|
 | Sample item   | 5         | 10 LKR     | 50 LKR |
 -->
-## Conclusion
+<!--## Conclusion
 
-<!--What was achieved, future developments, commercialization plans-->
+What was achieved, future developments, commercialization plans-->
 
 ## Links
 
