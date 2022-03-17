@@ -42,16 +42,16 @@ const UserNavbar = () => {
   }
 
   return (
-    <AppBar position="fixed" style={{ backgroundColor: "#74BDDC" }}>
+    <AppBar position="fixed" style={{ backgroundColor: "#74BDDC"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            LOGO
+            <img src="../logo.svg" style={{width: '100%', height : "30px"}} />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -87,8 +87,13 @@ const UserNavbar = () => {
                 <MenuItem onClick={()=>{navigate('/user/collections')}}>
                   <Typography textAlign="center">COLLECTION</Typography>
                 </MenuItem>
+
                 <MenuItem onClick={()=>{navigate('/user/tool')}}>
                   <Typography textAlign="center">TOOL</Typography>
+                </MenuItem>
+
+                <MenuItem onClick={()=>{navigate('/user/uploads')}}>
+                  <Typography textAlign="center">UPLOAD</Typography>
                 </MenuItem>
               
             </Menu>
@@ -105,13 +110,19 @@ const UserNavbar = () => {
               <Button
                 onClick={()=>{navigate('/user/collections')}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-              >cOLLECTION
+              >COLLECTION
               </Button>
 
               <Button
                 onClick={()=>{navigate('/user/tool')}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >TOOL
+              </Button>
+
+              <Button
+                onClick={()=>{navigate('/user/uploads')}}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >UPLOAD
               </Button>
             
           </Box>
