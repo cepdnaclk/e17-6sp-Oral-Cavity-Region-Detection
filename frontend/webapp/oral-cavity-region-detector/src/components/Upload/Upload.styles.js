@@ -19,6 +19,23 @@ export const Wrapper = styled.div`
 
 `;
 
+export const Table = styled.table`
+    tbody tr th input, tbody tr th textarea {
+        border: 2px solid var(--medColor);
+        border-radius: 5px;
+        height: 30px;
+        width: 100%;
+    }
+
+    tbody tr th textarea{
+        max-width: 50vw;
+
+        @media (max-width: 900px) {
+            max-width: 100vw;
+        }
+    }
+`
+
 export const Section = styled.div`
   padding: 1rem;
   height:min-content;
@@ -56,7 +73,7 @@ export const Grid = styled.div`
 
     :checked + label:before {
         content: "✓";
-        background-color: var(--medColor);
+        background-color: var(--lightColor);
         transform: scale(1);
     }
 
