@@ -87,7 +87,9 @@ const Signup = () => {
                 <th><input ref={confirmpasswordRef} required type="password" maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr>
-                <th><MedButton  variant="contained" type="submit" disabled={isfetching}>Request to sign up</MedButton></th>
+                <th>
+                  <br/>
+                  <MedButton  variant="contained" type="submit" sx={{width:"100%"}} disabled={isfetching}>Request to sign up</MedButton></th>
                 </tr>
                 <tr><th>Already have an account? <Link to="/user/login"><span>Sign in</span></Link></th></tr>
                 </tbody>

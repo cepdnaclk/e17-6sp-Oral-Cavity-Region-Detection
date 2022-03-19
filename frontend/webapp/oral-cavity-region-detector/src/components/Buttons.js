@@ -11,6 +11,9 @@ export const MedButton = styled(Button)(() => ({
     '&:hover': {
       backgroundColor: "#0A9396",
     },
+    '&:disabled': {
+      backgroundColor: '#D3D3D3',
+    },
   }));
 
 export const OutlinedButton = styled(Button)(() => ({

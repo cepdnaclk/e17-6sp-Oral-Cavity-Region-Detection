@@ -51,35 +51,16 @@ export const Form = styled.div`
     }
 
     input{
-        border: 2px solid var(--medColor);
+        border: 1px solid var(--medColor);
         border-radius: 5px;
         height: 30px;
         width: 100%;
     }
 
-    button{
-        width: 100%;
-        margin: 10px 0;
-        background-color: var(--medColor);
-        border: 0;
-        border-radius: 5px;
-        height: 40px ;
-        color: white;
-        cursor: pointer;
-
-        :active {
-            transform: translateY(2px);
-        }
-
-        :disabled {
-            background-color: lightGray;
-        }
-    }
-
 `;
 
 export const Border = styled.div`
-    border: 4px solid var(--medColor);
+    border: 2px solid var(--medColor);
     border-radius: 5px;
     display: flex;
     flex-direction: column;

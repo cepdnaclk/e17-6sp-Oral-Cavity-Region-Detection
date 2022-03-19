@@ -6,11 +6,12 @@ export const Wrapper = styled.div`
 `
 
 export const Border = styled.div`
-    border: 4px solid var(--medColor);
+    border: 2px solid var(--medColor);
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 5% ;
+    font-size: 15px;
 `;

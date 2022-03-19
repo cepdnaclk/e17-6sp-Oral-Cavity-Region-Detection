@@ -57,7 +57,9 @@ const Login = () => {
                     <th><input ref={passwordRef} required type="password" maxLength={128}></input></th>
                 </tr>
                 <tr>
-                    <th><MedButton  variant="contained" type="submit" disabled={isfetching}>Sign in</MedButton></th>
+                    <th>
+                        <br></br>
+                        <MedButton  variant="contained" sx={{width:"100%"}} type="submit" disabled={isfetching}>Sign in</MedButton></th>
                 </tr>
                 <tr><th>Don't have an account? <Link to="/user/signup"><span>Sign up</span></Link></th></tr>
                 </tbody>
