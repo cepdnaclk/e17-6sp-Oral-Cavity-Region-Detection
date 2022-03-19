@@ -56,7 +56,9 @@ const AdminLogin = () => {
                     <th><input ref={passwordRef} required type="password" maxLength={128}></input></th>
                 </tr>
                 <tr>
-                    <th><MedButton  variant="contained" type="submit" disabled={isfetching}>Sign in</MedButton></th>
+                    <th>
+                        <br/>
+                        <MedButton  variant="contained" type="submit" sx={{width:"100%"}} disabled={isfetching}>Sign in</MedButton></th>
                 </tr>
                 </tbody>
             </table>

@@ -2,43 +2,47 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
     padding-top: 70px;
-    display: flex;
 
     width: 100%;
     margin: 0 auto;
     display: grid;
     grid-gap: 1rem;
 
-    @media (min-width: 900px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    grid-template-columns: repeat(1, 1fr);
     
-    @media (min-width: 600px) {
-        grid-template-columns: repeat(2, 1fr);
+    @media (min-width: 700px) {
+        grid-template-columns: auto 50%;
+    }
+
+    @media (min-width: 850px) {
+        grid-template-columns: auto 500px;
     }
 
 `;
 
 export const Table = styled.table`
-    tbody tr th input, tbody tr th textarea {
-        border: 2px solid var(--medColor);
+    tbody tr td input,
+    tbody tr td textarea,
+    tbody tr td select {
+        border: 2px solid #D3D3D3;
         border-radius: 5px;
         height: 30px;
-        width: 100%;
+        min-width: 150px;
     }
 
-    tbody tr th textarea{
-        max-width: 50vw;
-
-        @media (max-width: 900px) {
-            max-width: 100vw;
-        }
-    }
 `
 
 export const Section = styled.div`
   padding: 1rem;
-  height:min-content;
+  
+  
+    ul li button{
+        font-weight: 600 ;
+        color: var(--medColor);
+        :hover{
+        color: var(--medColor) 
+        }
+    }
 `
 
 export const Grid = styled.div`
@@ -113,3 +117,14 @@ label:before {
   padding: 5px;
 }
 `
+
+export const Border = styled.div`
+    border: 2px solid #D3D3D3;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5% ;
+    font-size: 15px;
+`;
