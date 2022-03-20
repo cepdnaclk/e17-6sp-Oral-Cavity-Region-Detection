@@ -14,7 +14,7 @@ router.post("/add", async(req,res)=>{
         
         
             const newPatient = new Patient({
-                examiner_email: req.body.email,
+                examiner_reg_no: req.body.reg_no,
                 patient_name: req.body.patient_name,
                 patient_address:req.body.patient_address,
                 patient_district:req.body.patient_district,

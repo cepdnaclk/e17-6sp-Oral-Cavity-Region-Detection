@@ -30,7 +30,8 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
         'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
     }},
     {
-        email: JSON.parse(sessionStorage.getItem("info")).email
+        email: JSON.parse(sessionStorage.getItem("info")).email,
+        reg_no: JSON.parse(sessionStorage.getItem("info")).reg_no
     }
     ).then(res=>{
         if(res.data.patients.length===0) setOpen(false)
@@ -62,13 +63,13 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
         return
       }
       setIsFetching(true)
-      const id = JSON.parse(sessionStorage.getItem('info')).regno
+      const reg_no = JSON.parse(sessionStorage.getItem('info')).reg_no
       const info = []
       const data = new FormData();
       for (let i = 0; i < files.length; i++) {
         var filename = Date.now()+i+files[i].name
         data.append('files', files[i], filename);
-        info.push({patient_id:userDetails._id, original:filename})
+        info.push({patient_id:userDetails._id, original:filename, examiner_reg_no:reg_no})
       }
   
       // for (var pair of data.entries()) {
@@ -77,11 +78,12 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
       axios.post("http://localhost:5000/api/user/image/add",
       {
           email: JSON.parse(sessionStorage.getItem("info")).email,
+          reg_no: JSON.parse(sessionStorage.getItem("info")).reg_no,
           info : info
       }
       ).then(res=>{
             
-            axios.post(`http://localhost:5000/api/user/uploads/${id}`,
+            axios.post(`http://localhost:5000/api/user/uploads/${reg_no}`,
             data
             ).then(res=>{
               setError("Images uploaded successfully");

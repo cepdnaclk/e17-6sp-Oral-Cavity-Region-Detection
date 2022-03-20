@@ -48,7 +48,7 @@ const Upload = () => {
     <>
     <UserNavbar/>
     <Wrapper>
-      <Section>
+      <Section style={{borderRight: "2px solid #D3D3D3"}}>
       <label htmlFor="icon-button-file">
         <input accept="image/*" id="icon-button-file" type="file"  style={{display: 'none'}}
         onChange={fileSelectedHandler}
@@ -72,7 +72,7 @@ const Upload = () => {
         </div> */}
 	    </Grid>
       </Section>
-      <Section style={{ position: "sticky",top: 70, borderLeft:"2px solid lightgray"}}>
+      <Section style={{minHeight:"100vh"}}>
       <ul className="nav nav-tabs" id="myTab" role="tablist">
       <li className="nav-item" role="presentation">
         <button className="nav-link active" id="selectpatient-tab" data-bs-toggle="tab" data-bs-target="#selectpatient" type="button" role="tab" aria-controls="selectpatient" aria-selected="true">Upload</button>

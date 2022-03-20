@@ -28,6 +28,7 @@ const AddPatient = () => {
       
         axios.post("http://localhost:5000/api/user/patient/add",{
               email: JSON.parse(sessionStorage.getItem("info")).email,
+              reg_no: JSON.parse(sessionStorage.getItem("info")).reg_no,
               patient_name: nameRef.current.value,
               patient_address : addressRef.current.value,
               patient_district: districtRef.current.value,

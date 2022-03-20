@@ -54,7 +54,7 @@ const Login = () => {
                 </tr>
                 <tr><th>Password:</th></tr>
                 <tr>
-                    <th><input ref={passwordRef} required type="password" maxLength={128}></input></th>
+                    <th><input ref={passwordRef} required type="password" maxLength={128} minLength={8}></input></th>
                 </tr>
                 <tr>
                     <th>

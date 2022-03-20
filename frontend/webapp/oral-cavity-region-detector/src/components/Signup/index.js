@@ -80,11 +80,11 @@ const Signup = () => {
                 </tr>
                 <tr><th>Password:</th></tr>
                 <tr>
-                <th><input ref={passwordRef} required type="password" maxLength={128} autoComplete="off"></input></th>
+                <th><input ref={passwordRef} required type="password" minLength={8} maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr><th>Confirm Password:</th></tr>
                 <tr>
-                <th><input ref={confirmpasswordRef} required type="password" maxLength={128} autoComplete="off"></input></th>
+                <th><input ref={confirmpasswordRef} required type="password"  minLength={8} maxLength={128} autoComplete="off"></input></th>
                 </tr>
                 <tr>
                 <th>

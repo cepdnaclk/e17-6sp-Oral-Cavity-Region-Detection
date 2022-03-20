@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import {Wrapper} from './Card.styles'
 import {MedButton, OutlinedButton} from '../Buttons'
 
-const Card = ({name,email,regno, id}) => {
+const Card = ({name,email,reg_no, id}) => {
 
   const[message, setMessage] = useState("");
   const[success, setSuccess] = useState(false)
@@ -65,7 +65,7 @@ const Card = ({name,email,regno, id}) => {
           <>
           <p>Name: <span style={{fontWeight: 'bold'}}>{name}</span></p>
           <p>Email: {email}</p>
-          <p>Register No:{regno}</p>
+          <p>Register No:{reg_no}</p>
           <br/>
           <Stack spacing={2} direction="row">
           <MedButton variant="contained" onClick={()=>handleAccept(id)} disabled={isFetching}>Accept</MedButton>

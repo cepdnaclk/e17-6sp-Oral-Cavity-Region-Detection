@@ -1,10 +1,10 @@
-export const saveInfo= function(username,email,roles,regno,atoken) {
+export const saveInfo= function(username,email,roles,reg_no,atoken) {
     const object = {
         username: username,
         email: email,
         roles: roles,
         atoken: atoken,
-        regno:regno
+        reg_no:reg_no
     }
 
     sessionStorage.setItem("info",JSON.stringify(object))
