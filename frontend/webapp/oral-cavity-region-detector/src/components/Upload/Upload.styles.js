@@ -1,12 +1,9 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-    padding-top: 70px;
-
     width: 100%;
     margin: 0 auto;
     display: grid;
-    grid-gap: 1rem;
 
     grid-template-columns: repeat(1, 1fr);
     
@@ -33,9 +30,12 @@ export const Table = styled.table`
 `
 
 export const Section = styled.div`
-  padding: 1rem;
-  
-  
+    max-height: 100vh;
+    @media (max-width: 700px) {
+        border: 0 !important;
+    }
+  overflow: auto;
+  padding: 80px 1rem 0 1rem;
     ul li button{
         font-weight: 600 ;
         color: var(--medColor);
@@ -47,10 +47,10 @@ export const Section = styled.div`
 
 export const Grid = styled.div`
     display: grid;
-    grid-gap: 5px;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     grid-auto-rows: min-content;
-	grid-auto-flow: dense; /* Fill all spaces with fitted images */
+	//grid-auto-flow: dense; /* Fill all spaces with fitted images */
 
     div {
         display: flex;
@@ -61,7 +61,6 @@ export const Grid = styled.div`
 
     img {
         width: 100%;
-        height: 100%;
         object-fit: cover;
     }
 

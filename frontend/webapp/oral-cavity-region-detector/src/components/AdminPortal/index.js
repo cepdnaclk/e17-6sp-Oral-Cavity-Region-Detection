@@ -64,7 +64,7 @@ const AdminPortal = () => {
         <br/>
         <p style={{color: "lightgray"}}>{message}</p>
         {requests.map((request, index )=>(
-          <Card key={index} name={request.username} email={request.email} regno={request.reg_no} id={request._id}/>
+          <Card key={index} name={request.username} email={request.email} reg_no={request.reg_no} id={request._id}/>
         ))}
         </Border>
     </Wrapper>

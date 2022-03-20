@@ -3,6 +3,9 @@ const router = express.Router()
 const Image = require('../models/Image');
 const User = require('../models/User');
 const authenticateToken = require('../middlewares/auth')
+const path = require("path");
+const fs = require('fs');
+const multer = require('multer')
 
 router.post("/add", async(req,res)=>{
     try{
@@ -19,18 +22,23 @@ router.post("/add", async(req,res)=>{
     }
 })
 
-// get all patients
-// router.get('/all', authenticateToken, async(req, res)=>{
-//     try{
-//         const patients = await Patient.find({examiner_email: req.email})
+// get all images
+router.get('/all', authenticateToken, async(req, res)=>{
+    try{
+        const images = await Image.find({examiner_reg_no:req.body.reg_no})
+        let filepath = [];
+        for(img in images){
+            filepath.push(path.join(__dirname + `/../images/${req.body.reg_no}/${img.original}`))
+        }
+        res.sendFile(filepath);
+        
+        //return res.status(200).json({patients: patients})
 
-//         return res.status(200).json({patients: patients})
 
-
-//     }catch(err){
-//         return res.status(500).json({message: err})
-//     }
-// })
+    }catch(err){
+        return res.status(500).json({message: err})
+    }
+})
 
 
 

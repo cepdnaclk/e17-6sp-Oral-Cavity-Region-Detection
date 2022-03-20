@@ -66,7 +66,7 @@ app.use("/images",express.static(path.join(__dirname, '/images')))
 
 let storage = multer.diskStorage({
     destination: function(req, file, cb) {
-      let dest = path.join(__dirname, '/images', req.params.id);
+      let dest = path.join(__dirname, '/images', req.params.reg_no);
       let stat = null;
       try {
         stat = fs.statSync(dest);
@@ -88,6 +88,6 @@ let storage = multer.diskStorage({
 
 const upload = multer({storage:storage})
 
-app.post("/api/user/uploads/:id",upload.any("file"),(req,res)=>{
+app.post("/api/user/uploads/:reg_no",upload.any("file"),(req,res)=>{
     res.status(200).json("File has been uploaded");
 })

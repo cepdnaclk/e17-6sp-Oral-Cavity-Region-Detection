@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle `
     /******** scroll bar **********/
 
     ::-webkit-scrollbar {
-        width: 15px;
+        width: 1rem;
     }
 
     ::-webkit-scrollbar-thumb {
