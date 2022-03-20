@@ -7,11 +7,12 @@ import {Border} from './Upload.styles'
 import MedButton from '../Buttons'
 import _ from 'lodash';
 
-export default function UploadImg({images}) {
+export default function UploadImg({files, setFiles}) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const [userDetails, setUserDetails] = React.useState()
-  
+  const [error, setError] = React.useState("")
+
   const loading = open && options.length === 0;
 
 
@@ -38,9 +39,9 @@ export default function UploadImg({images}) {
         }) 
     })();
 
-    return () => {
-      active = false;
-    };
+      return () => {
+        active = false;
+      };
   }, [loading]);
 
   React.useEffect(() => {
@@ -49,9 +50,43 @@ export default function UploadImg({images}) {
     }
   }, [open]);
 
+
+  const handleUpload = async(e) => {
+
+      const id = JSON.parse(sessionStorage.getItem('info')).regno
+      const info = []
+      const data = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        var filename = Date.now()+i+files[i].name
+        data.append('files', files[i], filename);
+        info.push({patient_id:userDetails._id, original:filename})
+      }
+  
+      // for (var pair of data.entries()) {
+      //   console.log(pair[0]+ ', ' + pair[1]); 
+      // }
+      axios.post("http://localhost:5000/api/user/image/add",
+      {
+          email: JSON.parse(sessionStorage.getItem("info")).email,
+          info : info
+      }
+      ).then(res=>{
+            axios.post(`http://localhost:5000/api/user/uploads/${id}`,
+            data
+            ).then(res=>{
+              setError("Images uploaded successfully");
+              setFiles(null)
+            }).catch(err=>{
+              console.log(err)
+            });
+      }).catch(err=>{
+          console.log(err)
+      }) 
+  }
+
   return (
     <>
-    <p style={{color: "red"}}> </p>
+    <p style={{color: "red"}}>{error}</p>
     <Autocomplete
       id="asynchronous-demo"
       sx={{width: 300}}
@@ -100,7 +135,7 @@ export default function UploadImg({images}) {
       </table>
     </Border>
     <br/>
-    <MedButton  variant="contained" type="button" sx={{width:"100%"}}>Upload</MedButton>
+    <MedButton  variant="contained" type="button" onClick={handleUpload} sx={{width:"100%"}}>Upload</MedButton>
     </>
     : <p></p>}
     </>

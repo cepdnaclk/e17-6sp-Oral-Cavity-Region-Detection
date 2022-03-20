@@ -12,46 +12,34 @@ import AddPatient from './AddPatient'
 const Upload = () => {
   
   const [img , setImg] = useState([]);
+  const [imgFiles , setImgFiles] = useState();
   var imgArray = []
   let files ;
 
-
   const fileSelectedHandler = async(e) => {
       e.preventDefault();
-      let file;
       files = e.target.files;
 
-      for (let i=0; i<files.length ; i++){
-            let reader = new FileReader();
-            file = files [i];
-            reader.readAsDataURL(file)
-            reader.onload = (file) => {
-              imgArray.push(reader.result);
-          }   
+      setImgFiles(files)  
+  }   
+  
+  useEffect(() => {
+    if(imgFiles){
+      let file;
+      for (let i=0; i<imgFiles.length ; i++){
+        let reader = new FileReader();
+        file = imgFiles [i];
+        reader.readAsDataURL(file)
+        reader.onload = (file) => {
+        imgArray.push(reader.result);
+      }   
       } 
-
-      setTimeout(() => {
-        setImg(imgArray)  
-      }, 100);     
-  }
-
-  
-  
-  const handleUpload = async(e)=>{
-    e.preventDefault()
-
-    if(files !==""){
-        const data = new FormData();
-        const filename = Date.now() + file.name;
-        data.append("name",filename)
-        data.append("file",file)
-        newPost.photo = filename
-        try{
-            await axios.post("/upload",data);
-        }catch(err){}
     }
-    
-}
+
+    setTimeout(() => {
+      setImg(imgArray)  
+    }, 100);   
+  },[imgFiles])
 
 
   return (
@@ -59,6 +47,7 @@ const Upload = () => {
     <UserNavbar/>
     <Wrapper>
       <Section>
+      <form>
       <label htmlFor="icon-button-file">
         <input accept="image/*" id="icon-button-file" type="file"  style={{display: 'none'}}
         onChange={fileSelectedHandler}
@@ -69,7 +58,7 @@ const Upload = () => {
           <PhotoCamera />
         </IconButton>
       </label>
-      <form>
+      </form>
       <Grid>
         {img.map((image, index )=>{
           return (<img key={index} src={image}/>)
@@ -82,7 +71,6 @@ const Upload = () => {
           </label>
         </div> */}
 	    </Grid>
-      </form>
       </Section>
       <Section style={{ position: "sticky",top: 70, borderLeft:"2px solid lightgray"}}>
       <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -96,7 +84,7 @@ const Upload = () => {
       <br/>
       <div className="tab-content" id="myTabContent" style={{display: 'flex', justifyContent: 'center'}}>
       <div className="tab-pane fade show active" id="selectpatient" role="tabpanel" aria-labelledby="selectpatient-tab">
-          <UploadImg images={img}/>
+          <UploadImg files={imgFiles} setFiles={setImgFiles}/>
       </div>
       <div className="tab-pane fade" id="newpatient" role="tabpanel" aria-labelledby="newpatient-tab">
           <AddPatient/>

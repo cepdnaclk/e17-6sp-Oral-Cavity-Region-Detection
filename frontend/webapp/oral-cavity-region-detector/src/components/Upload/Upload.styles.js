@@ -49,7 +49,7 @@ export const Grid = styled.div`
     display: grid;
     grid-gap: 5px;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    grid-auto-rows: 125px;
+    grid-auto-rows: min-content;
 	grid-auto-flow: dense; /* Fill all spaces with fitted images */
 
     div {
