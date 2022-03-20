@@ -50,15 +50,3 @@ function App() {
 }
 
 export default App;
-
-
-// <Router>
-    //   <Routes>
-    //   <Route exact path="/" element={<Login/>}/>
-    //   <Route exact path="/adminlogin" element={<AdminLogin/>}/>
-    //   <Route exact path="/signup" element={<Signup/>}/>
-    //   <Route exact path="/collections" element={getUser()==="user"?<Collections/>:<Login/>}/>
-    //   <Route exact path="/adminportal" element={getUser()==="admin"?<AdminPortal/>:<AdminLogin/>}/>
-    //   </Routes>
-    //   <GlobalStyle/>
-    // </Router>

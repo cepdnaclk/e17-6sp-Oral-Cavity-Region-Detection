@@ -43,11 +43,20 @@ const AddPatient = () => {
         ).then(res=>{
             setMessage(res.data.message)
             setIsFetching(false)
+
+            setTimeout(() => {
+              setMessage("")  
+            }, 10000); 
+
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
             else setMessage(err)
-            console.log(err)
+
             setIsFetching(false)
+            
+            setTimeout(() => {
+              setMessage("")  
+            }, 30000); 
         }) 
       
       }
