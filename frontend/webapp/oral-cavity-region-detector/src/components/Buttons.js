@@ -3,6 +3,8 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
 
 
 export const MedButton = styled(Button)(() => ({
@@ -39,4 +41,15 @@ export function UploadButtons() {
   );
 }
 
+function LinearColor(){
+  return (
+    <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+      <br/>
+      <LinearProgress/>
+      <br/>
+    </Stack>
+  );
+}
+
 export default MedButton
+export {LinearColor}

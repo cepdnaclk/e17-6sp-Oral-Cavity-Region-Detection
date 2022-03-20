@@ -7,7 +7,7 @@ import {Border} from './Upload.styles'
 import MedButton from '../Buttons'
 import _ from 'lodash';
 
-export default function UploadImg({files, setFiles}) {
+export default function UploadImg({files, setFiles, setIsFetching}) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const [userDetails, setUserDetails] = React.useState()
@@ -33,10 +33,11 @@ export default function UploadImg({files, setFiles}) {
         email: JSON.parse(sessionStorage.getItem("info")).email
     }
     ).then(res=>{
-            setOptions(JSON.parse(JSON.stringify(res.data.patients)))
-        }).catch(err=>{
-            console.log(err)
-        }) 
+        if(res.data.patients.length===0) setOpen(false)
+        else setOptions(JSON.parse(JSON.stringify(res.data.patients)))
+    }).catch(err=>{
+        console.log(err)
+    }) 
     })();
 
       return () => {
@@ -52,7 +53,15 @@ export default function UploadImg({files, setFiles}) {
 
 
   const handleUpload = async(e) => {
+      if(!files){
+        setError("Please choose images to upload")
+        setTimeout(() => {
+          setError("")  
+        }, 3000)
 
+        return
+      }
+      setIsFetching(true)
       const id = JSON.parse(sessionStorage.getItem('info')).regno
       const info = []
       const data = new FormData();
@@ -71,16 +80,26 @@ export default function UploadImg({files, setFiles}) {
           info : info
       }
       ).then(res=>{
+            
             axios.post(`http://localhost:5000/api/user/uploads/${id}`,
             data
             ).then(res=>{
               setError("Images uploaded successfully");
               setFiles(null)
+              setIsFetching(false)
+
+              setTimeout(() => {
+                setError("")  
+              }, 10000); 
+
+
             }).catch(err=>{
               console.log(err)
+              setIsFetching(false)
             });
       }).catch(err=>{
           console.log(err)
+          setIsFetching(false)
       }) 
   }
 

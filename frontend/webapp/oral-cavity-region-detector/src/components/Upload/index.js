@@ -1,4 +1,4 @@
-import {React, useState, useEffect, useRef} from 'react'
+import React,{useState, useEffect, useRef} from 'react'
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import axios from 'axios'
@@ -6,13 +6,15 @@ import axios from 'axios'
 import {Wrapper, Section, Grid, Table} from './Upload.styles'
 import UploadImg from './UploadImg'
 import UserNavbar from '../UserNavbar'
-import MedButton from '../Buttons'
 import AddPatient from './AddPatient'
+import {LinearColor} from '../Buttons'
 
 const Upload = () => {
   
   const [img , setImg] = useState([]);
   const [imgFiles , setImgFiles] = useState();
+  const [isFetching, setIsFetching] = useState(false)
+
   var imgArray = []
   let files ;
 
@@ -47,18 +49,16 @@ const Upload = () => {
     <UserNavbar/>
     <Wrapper>
       <Section>
-      <form>
       <label htmlFor="icon-button-file">
         <input accept="image/*" id="icon-button-file" type="file"  style={{display: 'none'}}
         onChange={fileSelectedHandler}
         multiple
         />
-
         <IconButton color="primary" aria-label="upload picture" component="span">
           <PhotoCamera />
         </IconButton>
       </label>
-      </form>
+      {isFetching?<LinearColor/>:null}
       <Grid>
         {img.map((image, index )=>{
           return (<img key={index} src={image}/>)
@@ -84,7 +84,7 @@ const Upload = () => {
       <br/>
       <div className="tab-content" id="myTabContent" style={{display: 'flex', justifyContent: 'center'}}>
       <div className="tab-pane fade show active" id="selectpatient" role="tabpanel" aria-labelledby="selectpatient-tab">
-          <UploadImg files={imgFiles} setFiles={setImgFiles}/>
+          <UploadImg files={imgFiles} setFiles={setImgFiles} setIsFetching={setIsFetching}/>
       </div>
       <div className="tab-pane fade" id="newpatient" role="tabpanel" aria-labelledby="newpatient-tab">
           <AddPatient/>
