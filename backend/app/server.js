@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const multer  = require('multer')
 const path = require('path');
 const cors=require("cors");
+const fs = require('fs');
 const connectDB = require('./configurations/db-config')
 const PORT = process.env.PORT || 5000;
 
@@ -25,24 +26,6 @@ app.get('/',(req, res) => {
     res.send("Welcome to server!")
 });
 
-// local storage
-const storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,"images");
-    },
-    filename:(req,file,cb)=>{
-        cb(null,req.body.name)
-    }
-});
-
-const upload = multer({storage:storage})
-
-app.use("/images",express.static(path.join(__dirname, '/localStorage')))
-
-app.post("/api/upload",upload.array("photos",50),(req,res)=>{
-    res.status(200).json("Files has been uploaded");
-})
-
 
 // import routes
 const userAuthRoute = require('./routes/user_auth');
@@ -60,3 +43,51 @@ app.use("/api/admin", adminRoute);
 
 const patientRoute = require('./routes/patient');
 app.use("/api/user/patient", patientRoute);
+
+const imageRoute = require('./routes/image');
+app.use("/api/user/image",imageRoute);
+
+
+
+
+
+// image uploads
+app.use("/images",express.static(path.join(__dirname, '/images')))
+
+// const storage = multer.diskStorage({
+//     destination:(req,file,cb)=>{
+//         cb(null,"images");
+//     },
+//     filename:(req,file,cb)=>{
+//         cb(null, file.originalname);   
+//         console.log(req.params)     
+//     }
+// });
+
+let storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      let dest = path.join(__dirname, '/images', req.params.id);
+      let stat = null;
+      try {
+        stat = fs.statSync(dest);
+      }
+      catch (err) {
+        fs.mkdirSync(dest);
+      }
+      if (stat && !stat.isDirectory()) {
+        throw new Error('Directory cannot be created');
+      } 
+      cb(null, dest);
+    },
+    filename:(req,file,cb)=>{
+        cb(null, file.originalname);   
+        console.log(req.params)     
+    }
+  });
+
+
+const upload = multer({storage:storage})
+
+app.post("/api/user/uploads/:id",upload.any("file"),(req,res)=>{
+    res.status(200).json("File has been uploaded");
+})
