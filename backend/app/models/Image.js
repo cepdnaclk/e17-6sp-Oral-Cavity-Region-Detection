@@ -6,7 +6,7 @@ const ImageSchema = new mongoose.Schema({
         required: true,
     },
     patient_id:{
-        type: String,
+        type: mongoose.Schema.ObjectId,
         required: true,
     },
     segmented:{

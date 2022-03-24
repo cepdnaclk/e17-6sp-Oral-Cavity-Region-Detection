@@ -1,4 +1,4 @@
-import {React, useRef, useState} from 'react'
+import {React, useRef, useState, createRef} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import {saveInfo} from '../Userinfo'
@@ -7,11 +7,12 @@ import {saveInfo} from '../Userinfo'
 import {Wrapper, Container, Img, Form, Border} from './Login.styles'
 import  LoginNavbar from "../LoginNavbar"
 import MedButton from '../Buttons'
+import Password, {TextInput} from '../Inputs'
 
 const Login = () => {
 
-    const emailRef = useRef();
-    const passwordRef = useRef();
+    const emailRef = createRef();
+    const passwordRef = createRef();
     const navigate = useNavigate();
 
     const[message,setMessage] = useState("");
@@ -30,7 +31,7 @@ const Login = () => {
             navigate('/user/collections');
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
-            else setMessage(err)
+            else alert(err)
             setIsFetching(false)
         }) 
 
@@ -48,20 +49,19 @@ const Login = () => {
             <p style={{color: 'red'}}>{message}</p>
             <table>
                 <tbody>
-                <tr><th>Email:</th></tr>
                 <tr>
-                   <th> <input ref={emailRef} required type="email" maxLength={128}></input></th>
+                   <th><TextInput label="Email" required={true} ref={emailRef}/></th>
                 </tr>
-                <tr><th>Password:</th></tr>
                 <tr>
-                    <th><input ref={passwordRef} required type="password" maxLength={128} minLength={8}></input></th>
+                    <th><Password label="Password" required={true} ref={passwordRef}/></th>
                 </tr>
                 <tr>
                     <th>
-                        <br></br>
+                        <br/>
                         <MedButton  variant="contained" sx={{width:"100%"}} type="submit" disabled={isfetching}>Sign in</MedButton></th>
                 </tr>
-                <tr><th>Don't have an account? <Link to="/user/signup"><span>Sign up</span></Link></th></tr>
+                <tr><th>
+                    Don't have an account? <Link to="/user/signup"><span>Sign up</span></Link></th></tr>
                 </tbody>
             </table>
         </form>

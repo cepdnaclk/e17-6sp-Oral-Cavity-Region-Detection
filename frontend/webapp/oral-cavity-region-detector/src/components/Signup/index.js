@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect} from 'react'
+import React, { useState, createRef, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 
@@ -6,15 +6,16 @@ import axios from 'axios'
 import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
 import  LoginNavbar from "../LoginNavbar"
 import MedButton from "../Buttons"
+import Password, {TextInput} from '../Inputs'
 
 
 const Signup = () => {
 
-    const usernameRef = useRef();
-    const emailRef = useRef();
-    const passwordRef = useRef();
-    const regnoRef = useRef();
-    const confirmpasswordRef = useRef();
+    const usernameRef = createRef();
+    const emailRef = createRef();
+    const passwordRef = createRef();
+    const regnoRef = createRef();
+    const confirmpasswordRef = createRef();
 
     const[message,setMessage] = useState("");
     const[isfetching, setIsFetching] = useState(false);
@@ -39,7 +40,7 @@ const Signup = () => {
             setSuccess(true)
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
-            else setMessage(err)
+            else alert(err)
             setIsFetching(false)
         }) 
 
@@ -66,25 +67,20 @@ const Signup = () => {
                 <tbody>
                 <tr>
                 </tr>
-                <tr><th>Full Name:</th></tr>
                 <tr>
-                <th><input ref={usernameRef} required type="text" maxLength={128} autoComplete="off"></input></th>
+                <th><TextInput ref={usernameRef} required={true} label="Full Name"></TextInput></th>
                 </tr>
-                <tr><th>Reg No:</th></tr>
                 <tr>
-                <th><input ref={regnoRef} required type="text" maxLength={128} autoComplete="off"></input></th>
+                <th><TextInput ref={regnoRef} required={true} label="Reg No"></TextInput></th>
                 </tr>
-                <tr><th>Email:</th></tr>
                 <tr>
-                <th><input ref={emailRef} required type="email" maxLength={128} autoComplete="off"></input></th>
+                <th><TextInput ref={emailRef} required={true} label="Email"></TextInput></th>
                 </tr>
-                <tr><th>Password:</th></tr>
                 <tr>
-                <th><input ref={passwordRef} required type="password" minLength={8} maxLength={128} autoComplete="off"></input></th>
+                <th><Password ref={passwordRef} required={true} label="Password"></Password></th>
                 </tr>
-                <tr><th>Confirm Password:</th></tr>
                 <tr>
-                <th><input ref={confirmpasswordRef} required type="password"  minLength={8} maxLength={128} autoComplete="off"></input></th>
+                <th><Password ref={confirmpasswordRef} required={true} label="Confirm Password"></Password></th>
                 </tr>
                 <tr>
                 <th>

@@ -18,13 +18,8 @@ export const Wrapper = styled.div`
 `;
 
 export const Table = styled.table`
-    tbody tr td input,
-    tbody tr td textarea,
-    tbody tr td select {
-        border: 2px solid #D3D3D3;
-        border-radius: 5px;
-        height: 30px;
-        min-width: 150px;
+    tbody tr td{
+        width: 50%;
     }
 
 `

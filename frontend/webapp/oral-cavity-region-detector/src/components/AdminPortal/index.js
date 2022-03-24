@@ -51,7 +51,7 @@ const AdminPortal = () => {
             if (res.data.length===0) setMessage("No new requests")
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
-            else setMessage(err)
+            else alert(err)
         }) 
   },[])
 

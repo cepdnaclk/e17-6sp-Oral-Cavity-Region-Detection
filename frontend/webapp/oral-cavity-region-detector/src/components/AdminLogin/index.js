@@ -1,4 +1,4 @@
-import {React, useRef, useState} from 'react'
+import {React, createRef, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import {saveInfo} from '../Userinfo'
@@ -6,11 +6,12 @@ import LoginNavbar from '../LoginNavbar'
 // Styles
 import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
 import MedButton from '../Buttons'
+import Password, {TextInput} from '../Inputs'
 
 const AdminLogin = () => {
 
-    const emailRef = useRef();
-    const passwordRef = useRef();
+    const emailRef = createRef();
+    const passwordRef = createRef();
     const navigate = useNavigate();
 
     const[message,setMessage] = useState("");
@@ -29,7 +30,7 @@ const AdminLogin = () => {
             navigate('/admin/portal');
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
-            else setMessage(err)
+            else alert(err)
             setIsFetching(false)
         }) 
 
@@ -47,18 +48,16 @@ const AdminLogin = () => {
             <p style={{color: 'red'}}>{message}</p>
             <table>
                 <tbody>
-                <tr><th>Email:</th></tr>
                 <tr>
-                   <th> <input ref={emailRef} required type="email" maxLength={128}></input></th>
+                   <th> <TextInput ref={emailRef} required={true} label="Email"></TextInput></th>
                 </tr>
-                <tr><th>Password:</th></tr>
                 <tr>
-                    <th><input ref={passwordRef} required type="password" maxLength={128}></input></th>
+                    <th><Password ref={passwordRef} required={true} label="Password"></Password></th>
                 </tr>
                 <tr>
                     <th>
                         <br/>
-                        <MedButton  variant="contained" type="submit" sx={{width:"100%"}} disabled={isfetching}>Sign in</MedButton></th>
+                        <MedButton  variant="contained" required={true} type="submit" sx={{width:"100%"}} disabled={isfetching}>Sign in</MedButton></th>
                 </tr>
                 </tbody>
             </table>

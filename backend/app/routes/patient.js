@@ -22,6 +22,7 @@ router.post("/add", async(req,res)=>{
                 patient_gender: req.body.patient_gender,
                 patient_age: req.body.patient_age,
                 patient_photo: req.body.patient_photo,
+                description: req.body.description,
             })
             const patient = await newPatient.save();
             const others = patient._doc;
