@@ -1,20 +1,22 @@
-import {React, useState, useRef} from 'react'
+import {React, useState, createRef} from 'react'
 import axios from 'axios'
 
 import {Table} from './Upload.styles'
 import MedButton from '../Buttons'
+import Password, {TextInput, SelectInput, NumberInput, TextArea} from '../Inputs'
 
 const districts = ["Colombo","Gampaha","Kalutara","Kandy","Matale","Nuwara Eliya","Galle","Matara","Hambantota","Jaffna","Kilinochchi","Mannar","Vavuniya","Mullaitivu","Batticaloa","Ampara","Trincomalee","Kurunegala","Puttalam","Anuradhapura","Polonnaruwa","Badulla","Moneragala","Ratnapura","Kegalle"]
+const gender = ["Male","Female"]
 
 const AddPatient = () => {
 
-    const nameRef = useRef("");
-    const ageRef = useRef("");
-    const genderRef = useRef("");
-    const districtRef = useRef("");
-    const contactRef = useRef("");
-    const descriptionRef = useRef("");
-    const addressRef = useRef("");
+    const nameRef = createRef("");
+    const ageRef = createRef("");
+    const genderRef = createRef("");
+    const districtRef = createRef("");
+    const contactRef = createRef("");
+    const descriptionRef = createRef("");
+    const addressRef = createRef("");
 
     const[message,setMessage] = useState("");
     const[isfetching, setIsFetching] = useState(false);
@@ -24,7 +26,6 @@ const AddPatient = () => {
         e.preventDefault();
         setIsFetching(true)
         setMessage("");
-        console.log(e.target[1])
       
         axios.post("http://localhost:5000/api/user/patient/add",{
               email: JSON.parse(sessionStorage.getItem("info")).email,
@@ -51,7 +52,7 @@ const AddPatient = () => {
 
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
-            else setMessage(err)
+            else alert(err)
 
             setIsFetching(false)
             
@@ -67,43 +68,28 @@ const AddPatient = () => {
       <p style={{color: "red"}}>{message}</p>
             <Table>
               <tbody>
-              <tr><td>Patient Name:</td></tr>
               <tr>
-              <td colSpan="2"><input ref={nameRef} required type="text" maxLength={128} style={{width: "100%"}} autoComplete="off"></input></td>
+              <td colSpan="2"><TextInput ref={nameRef} required={true} label="Patient Name"></TextInput></td>
               </tr>
-              <tr><td>District:</td></tr>
               <tr>
               <td colSpan="2">
-              <select ref={districtRef} required style={{width: "100%"}}>
-              <option></option>
-                  {districts.map((dis, index )=>{
-                      return (<option key={index} value={dis}>{dis}</option>)
-                  })}
-              </select>
+              <SelectInput ref={districtRef} required={true} label="District" options={districts}>
+              </SelectInput>
               </td>
               </tr>
-              <tr><td>Age:</td><td>Gender:</td></tr>
               <tr>
-              <td><input ref={ageRef} type="number" min="0" max="100"></input></td>
+              <td><NumberInput ref={ageRef} required={false} label="Age"></NumberInput></td>
               <td>
-                <select ref={genderRef}>
-                <option value=" "></option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
+               <SelectInput ref={genderRef} required={false} label="Gender" options={gender}>
+               </SelectInput>
               </td>
-              </tr>          
-              <tr><td>Contact number:</td></tr>
-              <tr>
-              <td colSpan="2"><input ref={contactRef} type="text" style={{width: "100%"}} maxLength={128} autoComplete="off"></input></td>
+              </tr><tr>
+              <td colSpan="2"><TextInput ref={contactRef} required={false} label="Contact Number"></TextInput></td>
+              </tr><tr>
+              <td colSpan="2"><TextArea ref={addressRef} label="Address"></TextArea></td>
               </tr>
-              <tr><td>Address:</td></tr>
               <tr>
-              <td colSpan="2"><input ref={addressRef} type="text" style={{width: "100%"}} maxLength={128} autoComplete="off"></input></td>
-              </tr>
-              <tr><td>Description:</td></tr>
-              <tr>
-              <td colSpan="2"><textarea ref={descriptionRef} type="text" style={{width: "100%"}} autoComplete="off"></textarea></td>
+              <td colSpan="2"><TextArea ref={descriptionRef} label="Description"></TextArea></td>
               </tr>
               </tbody>
           </Table>

@@ -28,7 +28,7 @@ const Card = ({name,email,reg_no, id}) => {
             setSuccess(true)
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
-            else setMessage(err)
+            else alert(err)
             setSuccess(false)
             setIsFetching(false)
         }) 
@@ -49,7 +49,7 @@ const Card = ({name,email,reg_no, id}) => {
             setSuccess(true)
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
-            else setMessage(err)
+            else alert(err)
             setSuccess(false)
             setIsFetching(false)
         }) 

@@ -50,12 +50,12 @@ export const Form = styled.div`
         font-weight: 500;
     }
 
-    input{
+    /* input{
         border: 1px solid var(--medColor);
         border-radius: 5px;
         height: 30px;
         width: 100%;
-    }
+    } */
 
 `;
 

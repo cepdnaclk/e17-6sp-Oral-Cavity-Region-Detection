@@ -1,27 +1,37 @@
-import React,{useState, useEffect, useRef} from 'react'
+import React,{useState, useEffect, useRef, createRef} from 'react'
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import axios from 'axios'
 
 import {Wrapper, Section, Grid, Table} from '../Upload/Upload.styles'
 import UserNavbar from '../UserNavbar'
+import {TextArea} from '../Inputs'
 
 const Collection = () => {
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/user/images/all",
+
+  const districtRef = createRef();
+  const patientRef = useRef();
+  const ageRef = useRef();
+  const genderRef = useRef();
+
+  const handleFetch = async(e)=>{
+    e.preventDefault()
+
+    axios.get("http://localhost:5000/api/user/image/all",
       { headers: {
-          'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
-      }},
-      {
-          email: JSON.parse(sessionStorage.getItem("info")).email,
-          reg_no: JSON.parse(sessionStorage.getItem("info")).reg_no
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
+      },
+      params:{
+        patient_age: 40,
+        patient_district: "Kandy",
       }
+    }
       ).then(res=>{
-          console.log(res)
-      }).catch(err=>{
-          console.log(err)
-      }) 
-  })
+           console.log(res.data)
+        }).catch(err=>{
+            console.log(err)
+        }) 
+  }
 
   return (
     <>
@@ -38,7 +48,8 @@ const Collection = () => {
       <br/>
       <div className="tab-content" id="myTabContent" style={{display: 'flex', justifyContent: 'center'}}>
       <div className="tab-pane fade show active" id="selectpatient" role="tabpanel" aria-labelledby="selectpatient-tab">
-          
+      
+       <button onClick={handleFetch}>Get</button>   
       </div>
       </div>
       </Section>

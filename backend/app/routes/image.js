@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Image = require('../models/Image');
+const Patient = require('../models/Patient');
 const User = require('../models/User');
 const authenticateToken = require('../middlewares/auth')
 const path = require("path");
@@ -25,17 +26,42 @@ router.post("/add", async(req,res)=>{
 // get all images
 router.get('/all', authenticateToken, async(req, res)=>{
     try{
-        const images = await Image.find({examiner_reg_no:req.body.reg_no})
-        let filepath = [];
-        for(img in images){
-            filepath.push(path.join(__dirname + `/../images/${req.body.reg_no}/${img.original}`))
-        }
-        res.sendFile(filepath);
-        
-        //return res.status(200).json({patients: patients})
+        const user = await User.findOne({email:req.email})
 
+        const query = req.query
+
+        const a = await Patient.aggregate( [
+            {
+                $match: query,
+            },
+            {
+              $lookup:
+                {
+                  from: "images",
+                  localField: "_id",
+                  foreignField: "patient_id",
+                //   let: { 
+                //       district: "$patient_district",
+                //     },
+                //   pipeline: [ {
+                //     $match: {
+                //        $expr: {
+                //         $and: [
+                //             { $eq: [ true, "$segmented" ] },
+                //         ]
+                //        }
+                //     }
+                //  } ],
+                  as: "images",
+                },
+           }
+         ] )
+
+        console.log(a)
+        return res.status(200).json("a")
 
     }catch(err){
+        console.log(err)
         return res.status(500).json({message: err})
     }
 })
