@@ -64,7 +64,7 @@ const AddPatient = () => {
       }
 
   return (
-    <form id="login" onSubmit={handleSubmit} style={{textAlign: "left"}}>
+    <>
       <p style={{color: "red"}}>{message}</p>
             <Table>
               <tbody>
@@ -94,8 +94,8 @@ const AddPatient = () => {
               </tbody>
           </Table>
           <br/>
-          <MedButton  variant="contained" type="submit" disabled={isfetching} sx={{width:"100%"}}>Save</MedButton>
-        </form> 
+          <MedButton  variant="contained" type="submit" onClick={handleSubmit} disabled={isfetching} sx={{width:"100%"}}>Save</MedButton>
+        </> 
   )
 }
 

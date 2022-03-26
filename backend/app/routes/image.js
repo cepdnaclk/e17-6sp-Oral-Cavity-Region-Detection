@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose');
 const router = express.Router()
 const Image = require('../models/Image');
 const Patient = require('../models/Patient');
@@ -59,6 +60,44 @@ router.get('/all', authenticateToken, async(req, res)=>{
 
         console.log(a)
         return res.status(200).json("a")
+
+    }catch(err){
+        console.log(err)
+        return res.status(500).json({message: err})
+    }
+})
+
+
+// get all images
+router.get('/get', authenticateToken, async(req, res)=>{
+    try{
+        const user = await User.findOne({email:req.email})
+
+        const query = req.query
+
+        const data = await Image.aggregate( [
+          
+            {
+               $lookup: {
+                  from: "patients",
+                  localField: "patient_id",    // field in the orders collection
+                  foreignField: "_id",  // field in the items collection
+                  as: "patient"
+               }
+            },
+            {
+               $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$patient", 0 ] }, "$$ROOT" ] } }
+            },
+            { $project: { patient: 0 } },
+         
+          {
+            $match: {
+              patient_id: mongoose.Types.ObjectId(query.patient_id),
+              segmented: query.segmented == 'true'
+        }}
+         ] )
+
+        return res.status(200).json({data: data})
 
     }catch(err){
         console.log(err)
