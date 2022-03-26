@@ -3,15 +3,17 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-import {Border} from './Upload.styles'
+import {Border} from '../Upload/Upload.styles'
 import MedButton from '../Buttons'
-import _ from 'lodash';
+import {CheckboxInput} from '../Inputs'
 
-export default function UploadImg({files, setFiles, setIsFetching}) {
+export default function GetImg({setFiles, setIsFetching}) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const [userDetails, setUserDetails] = React.useState()
   const [error, setError] = React.useState("")
+
+  const [isSegmented, setIsSegmented] = React.useState(false)
 
   const loading = open && options.length === 0;
 
@@ -52,57 +54,30 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
     }
   }, [open]);
 
-
-  const handleUpload = async(e) => {
-      if(!files){
-        setError("Please choose images to upload")
-        setTimeout(() => {
-          setError("")  
-        }, 3000)
-
-        return
-      }
+  
+  const handleGet = async(e) => {
+   
       setIsFetching(true)
       const reg_no = JSON.parse(sessionStorage.getItem('info')).reg_no
-      const info = []
-      const data = new FormData();
-      for (let i = 0; i < files.length; i++) {
-        var filename = Date.now()+i+files[i].name
-        data.append('files', files[i], filename);
-        info.push({patient_id:userDetails._id, original:filename, examiner_reg_no:reg_no})
-      }
   
-      // for (var pair of data.entries()) {
-      //   console.log(pair[0]+ ', ' + pair[1]); 
-      // }
-      axios.post("http://localhost:5000/api/user/image/add",
-      {
-          email: JSON.parse(sessionStorage.getItem("info")).email,
-          reg_no: JSON.parse(sessionStorage.getItem("info")).reg_no,
-          info : info
+      axios.get("http://localhost:5000/api/user/image/get",
+      { headers: {
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
+      },
+      params:{
+        patient_id: userDetails._id,
+        segmented: isSegmented
+        
       }
+    }
       ).then(res=>{
-            
-            axios.post(`http://localhost:5000/api/user/uploads/${reg_no}`,
-            data
-            ).then(res=>{
-              setError("Images uploaded successfully");
-              setFiles(null)
-              setIsFetching(false)
-
-              setTimeout(() => {
-                setError("")  
-              }, 10000); 
-
-
-            }).catch(err=>{
-              console.log(err)
-              setIsFetching(false)
-            });
-      }).catch(err=>{
-          console.log(err)
-          setIsFetching(false)
-      }) 
+           console.log(res.data)
+           setFiles(JSON.parse(JSON.stringify(res.data.data)))
+           setIsFetching(false)
+        }).catch(err=>{
+            console.log(err)
+            setIsFetching(false)
+        }) 
   }
 
   return (
@@ -149,6 +124,8 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
         />
       )}}
     />
+    <CheckboxInput label="Segmented" setIsSegmented={setIsSegmented}/>
+
     {userDetails? 
     <>
      <br/>
@@ -166,7 +143,7 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
       </table>
     </Border>
     <br/>
-    <MedButton  variant="contained" type="button" onClick={handleUpload} sx={{width:"100%"}}>Upload</MedButton>
+    <MedButton  variant="contained" type="button" onClick={handleGet} sx={{width:"100%"}}>Get Images</MedButton>
     </>
     : <p></p>}
     </>

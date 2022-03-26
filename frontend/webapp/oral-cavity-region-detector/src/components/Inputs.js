@@ -1,17 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { useTheme } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
@@ -232,5 +229,27 @@ const TextArea = React.forwardRef(({label, required}, ref) =>{
 })
 
 
+import Checkbox from '@mui/material/Checkbox';
+
+// const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+const CheckboxInput = ({label,setIsSegmented}) =>{
+  return (
+    <div>
+      <FormControlLabel control={
+      <Checkbox
+        onClick={(e)=>{setIsSegmented(e.target.checked)}}
+        sx={{
+          color: '#0A9396',
+          '&.Mui-checked': {
+            color: '#0A9396',
+          },
+        }}
+      />
+      } label={label} />
+    </div>
+  );
+}
+
 export default Password;
-export {TextInput, SelectInput, NumberInput, TextArea};
+export {TextInput, SelectInput, NumberInput, TextArea, CheckboxInput};
