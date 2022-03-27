@@ -7,11 +7,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      -  ./frontend/webapp/oral-cavity-region-detector/
   workflow_dispatch:
 
-defaults:
-  run:
-    working-directory: ./frontend/webapp/oral-cavity-region-detector/
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,12 +28,13 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+        working-directory: ./frontend/webapp/oral-cavity-region-detector/
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: ./build/
+          path: ./frontend/webapp/oral-cavity-region-detector/build/
 
   deploy:
     runs-on: ubuntu-latest
