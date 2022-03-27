@@ -9,6 +9,9 @@ on:
       - main
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: ./frontend/webapp/oral-cavity-region-detector/
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +26,6 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          working-directory: ./frontend/webapp/oral-cavity-region-detector/
           npm install
           npm run build --if-present
           npm run test --if-present
