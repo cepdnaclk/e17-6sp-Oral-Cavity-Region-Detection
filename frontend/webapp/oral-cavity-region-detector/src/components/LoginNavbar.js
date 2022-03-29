@@ -45,7 +45,6 @@ export default function LoginNavbar({role}) {
       <AppBar position="fixed" style={{ backgroundColor: "#74BDDC" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 , display: { md: 'flex', justifyContent: 'flex-end' } }}>
-            {role===1?<Link to="/user/login">Login as User</Link>:<Link to="/admin/login">Login as Admin</Link>}
           </Typography>
           {auth && (
             <div>

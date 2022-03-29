@@ -8,7 +8,7 @@ import Filters from './Filters'
 
 import {Wrapper, Section, Grid, Table} from './Collections.styles'
 
-import UserNavbar from '../UserNavbar'
+import ResearcherNavbar from '../ResearcherNavbar'
 import {LinearColor} from '../Buttons'
 
 const Collection = () => {
@@ -17,7 +17,7 @@ const Collection = () => {
 
   return (
     <>
-    <UserNavbar/>
+    <ResearcherNavbar/>
     <Wrapper>
       <Section style={{borderRight: "2px solid #D3D3D3"}}>
         {isFetching?<LinearColor/>: null}        

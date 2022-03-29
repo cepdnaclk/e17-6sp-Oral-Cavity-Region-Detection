@@ -53,7 +53,6 @@ const Password = React.forwardRef(({label, required}, ref)=> {
           
           </InputLabel>
           <OutlinedInput
-            id="outlined-adornment-password"
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             onChange={handleChange('password')}
@@ -96,7 +95,6 @@ const TextInput = React.forwardRef(({label, required}, ref) =>{
       InputLabelProps={{ required: false, style:{color:"#616161"} }} 
       label = {label} 
       inputRef={ref} 
-
       sx={{ 
         "& .MuiOutlinedInput-root": {
           "& > fieldset": {
@@ -165,8 +163,6 @@ const SelectInput = React.forwardRef(({label, required, options}, ref) =>{
   <FormControl fullWidth sx={{ marginY: 1}}>
   <InputLabel size="small" id="demo-simple-select-label" sx={{color: "#616161 !important"}}>{label}</InputLabel>
   <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
     label={label}
     inputRef={ref}
     required={required}
@@ -206,14 +202,15 @@ const TextArea = React.forwardRef(({label, required}, ref) =>{
       autoComplete="off"
     >
         <TextField
-          id="outlined-textarea"
           label={label}
           maxRows={3}
           multiline
           inputRef={ref}
           size="small"
           InputLabelProps={{ required: false, style:{color:"#616161"} }} 
-
+          
+          
+          
           sx={{ 
             "& .MuiOutlinedInput-root": {
               "& > fieldset": {

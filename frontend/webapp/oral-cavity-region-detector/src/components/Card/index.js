@@ -17,7 +17,8 @@ const Card = ({name,email,reg_no, id}) => {
     setIsFetching(true)
     axios.delete(`http://localhost:5000/api/admin/requests/${id}`,
       { headers: {
-        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
+        'email': JSON.parse(sessionStorage.getItem("info")).email
       }},
       {
         email: JSON.parse(sessionStorage.getItem("info")).email,
@@ -42,7 +43,8 @@ const Card = ({name,email,reg_no, id}) => {
         username: JSON.parse(sessionStorage.getItem("info")).username
       },
       { headers: {
-        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
+        'email': JSON.parse(sessionStorage.getItem("info")).email
       }}
       ).then(res=>{
             setMessage(res.data.message)

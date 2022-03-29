@@ -13,8 +13,7 @@ const UserSchema = new mongoose.Schema({
     },
     reg_no:{
         type: String,
-        required: true,
-        unique: true
+        default: ""
 
     },
     password:{
@@ -25,6 +24,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false,
         default:"",
+    },
+    role:{
+        type: Array,
+        required: true,
+        default:[3],
     }
 },
 {

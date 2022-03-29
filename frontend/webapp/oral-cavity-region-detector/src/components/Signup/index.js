@@ -85,7 +85,7 @@ const Signup = () => {
                 <tr>
                 <th>
                   <br/>
-                  <MedButton  variant="contained" type="submit" sx={{width:"100%"}} disabled={isfetching}>Request to sign up</MedButton></th>
+                  <MedButton  variant="contained" type="submit" sx={{width:"100%"}} disabled={isfetching} autoComplete="off">Request to sign up</MedButton></th>
                 </tr>
                 <tr><th>Already have an account? <Link to="/user/login"><span>Sign in</span></Link></th></tr>
                 </tbody>

@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken')
 const User = require('../models/User');
-const Admin = require('../models/Admin');
 const Request = require('../models/Request');
 const bcrypt = require('bcrypt');
 
@@ -57,14 +56,12 @@ router.post("/login",async(req,res)=>{
         const validate = await bcrypt.compare(req.body.password,user.password)
         if(!validate) return res.status(400).json({message:"Wrong credentials!"})
 
-        const access_token = jwt.sign({ sub: user.email }, process.env.ACCESS_SECRET, { expiresIn: process.env.REFRESH_TIME })
-        const refresh_token = jwt.sign({ sub: user.email }, process.env.REFRESH_SECRET) 
+        const access_token = jwt.sign({ sub: user.email, role: user.role }, process.env.ACCESS_SECRET, { expiresIn: process.env.REFRESH_TIME })
+        //const refresh_token = jwt.sign({ sub: user.email, role: user.role  }, process.env.REFRESH_SECRET) 
         // refreshTokens.push(refresh_token);
-
         // send the user data and refresh, access tokens
         const {password,...others} = user._doc;
         others["access_token"] = access_token;
-        others["refresh_token"] = refresh_token;
         others["message"] = "Successfuly logged in";
         res.status(200).json(others)
         

@@ -58,7 +58,7 @@ export default function ShowCase({details}) {
       <CardMedia
         component="img"
         height="194"
-        image={`http://localhost:5000/images/${details.examiner_reg_no}/${details.original}`}
+        image={`http://localhost:5000/images/${details.original}`}
         alt="Paella dish"
       />
        </label>

@@ -18,6 +18,16 @@ const Login = () => {
     const[message,setMessage] = useState("");
     const[isfetching, setIsFetching] = useState(false);
 
+    const handleNavigate = (role) =>{
+        if(role.includes(1)){
+            navigate('/admin/portal');
+        }else if(role.includes(2)){
+            navigate('/researcher/collections');
+        }else if(role.includes(3)){
+            navigate('/user/uploads')
+        }  
+    }
+
     const handleSubmit = async(e)=>{
         e.preventDefault();
         setIsFetching(true)
@@ -27,8 +37,9 @@ const Login = () => {
                 password: passwordRef.current.value 
         }).then(res=>{
             setMessage(res.data.message)
-            saveInfo(res.data.username,res.data.email,[2],res.data.reg_no,res.data.access_token)
-            navigate('/user/collections');
+            saveInfo(res.data.username,res.data.email,res.data.role,res.data.reg_no,res.data.access_token)
+            handleNavigate(res.data.role)
+
         }).catch(err=>{
             if(err.response) setMessage(err.response.data.message)
             else alert(err)
@@ -58,7 +69,7 @@ const Login = () => {
                 <tr>
                     <th>
                         <br/>
-                        <MedButton  variant="contained" sx={{width:"100%"}} type="submit" disabled={isfetching}>Sign in</MedButton></th>
+                        <MedButton  variant="contained" sx={{width:"100%"}} type="submit" disabled={isfetching} autoComplete="off">Sign in</MedButton></th>
                 </tr>
                 <tr><th>
                     Don't have an account? <Link to="/user/signup"><span>Sign up</span></Link></th></tr>
