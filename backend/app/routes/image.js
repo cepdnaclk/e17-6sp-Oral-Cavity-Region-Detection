@@ -7,9 +7,8 @@ const User = require('../models/User');
 const authenticateToken = require('../middlewares/auth')
 const path = require("path");
 const fs = require('fs');
-const multer = require('multer')
 
-router.post("/add", async(req,res)=>{
+router.post("/add", authenticateToken, async(req,res)=>{
     try{
         const useremail = await User.findOne({email: req.body.email});
 
@@ -71,8 +70,6 @@ router.get('/all', authenticateToken, async(req, res)=>{
 // get all images
 router.get('/get', authenticateToken, async(req, res)=>{
     try{
-        const user = await User.findOne({email:req.email})
-
         const query = req.query
 
         const data = await Image.aggregate( [

@@ -38,7 +38,7 @@ const UserNavbar = () => {
 
   const handleLogout = ()=>{
     deleteInfo();
-    navigate('/admin/login')
+    navigate('/user/login')
   }
 
   return (

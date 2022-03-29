@@ -16,7 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import {deleteInfo} from './Userinfo'
 
-const UserNavbar = () => {
+const ResearcherNavbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
@@ -84,46 +84,36 @@ const UserNavbar = () => {
               }}
             >
               
-                {/* <MenuItem onClick={()=>{navigate('/user/collections')}}>
+                <MenuItem onClick={()=>{navigate('/researcher/collections')}}>
                   <Typography textAlign="center">COLLECTION</Typography>
                 </MenuItem>
 
-                <MenuItem onClick={()=>{navigate('/user/tool')}}>
+                <MenuItem onClick={()=>{navigate('/researcher/tool')}}>
                   <Typography textAlign="center">TOOL</Typography>
                 </MenuItem>
-
-                <MenuItem onClick={()=>{navigate('/user/uploads')}}>
-                  <Typography textAlign="center">UPLOAD</Typography>
-                </MenuItem> */}
               
             </Menu>
           </Box>
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
             LOGO
-          </Typography>
-           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'flex-end' } }}>
-              {/* <Button
-                onClick={()=>{navigate('/user/collections')}}
+          </Typography> */}
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'flex-end' } }}>
+              <Button
+                onClick={()=>{navigate('/researcher/collections')}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >COLLECTION
               </Button>
 
               <Button
-                onClick={()=>{navigate('/user/tool')}}
+                onClick={()=>{navigate('/researcher/tool')}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >TOOL
               </Button>
-
-              <Button
-                onClick={()=>{navigate('/user/uploads')}}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >UPLOAD
-              </Button> */}
             
           </Box>
     
@@ -164,4 +154,4 @@ const UserNavbar = () => {
     </AppBar>
   );
 };
-export default UserNavbar;
+export default ResearcherNavbar;

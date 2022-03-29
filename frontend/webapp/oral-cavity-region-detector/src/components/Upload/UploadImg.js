@@ -27,7 +27,8 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
     
     axios.get("http://localhost:5000/api/user/patient/all",
     { headers: {
-        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
+        'email': JSON.parse(sessionStorage.getItem("info")).email
     }},
     {
         email: JSON.parse(sessionStorage.getItem("info")).email,
@@ -78,12 +79,15 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
       axios.post("http://localhost:5000/api/user/image/add",
       {
           email: JSON.parse(sessionStorage.getItem("info")).email,
-          reg_no: JSON.parse(sessionStorage.getItem("info")).reg_no,
           info : info
-      }
+      },
+      { headers: {
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
+        'email': JSON.parse(sessionStorage.getItem("info")).email
+      }}
       ).then(res=>{
             
-            axios.post(`http://localhost:5000/api/user/uploads/${reg_no}`,
+            axios.post(`http://localhost:5000/api/user/uploads`,
             data
             ).then(res=>{
               setError("Images uploaded successfully");

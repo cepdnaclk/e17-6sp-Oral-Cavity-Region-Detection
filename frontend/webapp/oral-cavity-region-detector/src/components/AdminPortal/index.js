@@ -31,19 +31,16 @@ const AdminPortal = () => {
   //     }) 
   // }
 
-  function handleLogout(){
-      deleteInfo();
-      navigate('/admin/login')
-  }
 
   useEffect(()=>{
       axios.get("http://localhost:5000/api/admin/requests",
       { headers: {
-        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
+        'email': JSON.parse(sessionStorage.getItem("info")).email,
       }},
       {
         email: JSON.parse(sessionStorage.getItem("info")).email,
-        username: JSON.parse(sessionStorage.getItem("info")).username
+        username: JSON.parse(sessionStorage.getItem("info")).username,
       }
       ).then(res=>{
             setRequests(res.data)

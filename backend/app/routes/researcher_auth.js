@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
-// let admin_refreshTokens = [];
 
 // user sign up
 router.post("/signup",async(req,res)=>{
@@ -22,7 +21,7 @@ router.post("/signup",async(req,res)=>{
                 username: req.body.username,
                 email: req.body.email,
                 password: hashedPassword,
-                role: [1],
+                role: [2],
             })
             const user = await newUser.save();
             const {password,...others} = user._doc;
@@ -34,5 +33,6 @@ router.post("/signup",async(req,res)=>{
         res.status(500).json(error);
     }
 })
+
 
 module.exports = router;

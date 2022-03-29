@@ -1,11 +1,10 @@
 import React,{useState, useEffect, useRef} from 'react'
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import axios from 'axios'
 
 import {Wrapper, Section, Grid, Table} from './Upload.styles'
 import UploadImg from './UploadImg'
-import UserNavbar from '../UserNavbar'
+import ResearcherNavbar from '../ResearcherNavbar'
 import AddPatient from './AddPatient'
 import {LinearColor} from '../Buttons'
 
@@ -46,7 +45,7 @@ const Upload = () => {
 
   return (
     <>
-    <UserNavbar/>
+    <ResearcherNavbar/>
     <Wrapper>
       <Section style={{borderRight: "2px solid #D3D3D3"}}>
       <label htmlFor="icon-button-file">

@@ -40,7 +40,8 @@ const AddPatient = () => {
               patient_photo: ""
         },
         { headers: {
-          'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
+          'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
+          'email': JSON.parse(sessionStorage.getItem("info")).email
         }},
         ).then(res=>{
             setMessage(res.data.message)

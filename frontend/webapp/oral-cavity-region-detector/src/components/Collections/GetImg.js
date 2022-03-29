@@ -29,7 +29,8 @@ export default function GetImg({setFiles, setIsFetching}) {
     
     axios.get("http://localhost:5000/api/user/patient/all",
     { headers: {
-        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
+        'email': JSON.parse(sessionStorage.getItem("info")).email
     }},
     {
         email: JSON.parse(sessionStorage.getItem("info")).email,
@@ -62,7 +63,8 @@ export default function GetImg({setFiles, setIsFetching}) {
   
       axios.get("http://localhost:5000/api/user/image/get",
       { headers: {
-        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken
+        'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
+        'email': JSON.parse(sessionStorage.getItem("info")).email
       },
       params:{
         patient_id: userDetails._id,

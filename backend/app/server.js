@@ -34,9 +34,8 @@ app.use("/api/auth",userAuthRoute);
 const adminAuthRoute = require('./routes/admin_auth');
 app.use("/api/admin/auth",adminAuthRoute);
 
-
-const userRoute = require('./routes/user');
-app.use("/api/user",userRoute);
+const researcherAuthRoute = require('./routes/researcher_auth');
+app.use("/api/researcher/auth",researcherAuthRoute);
 
 const adminRoute = require('./routes/admin');
 app.use("/api/admin", adminRoute);
@@ -66,7 +65,7 @@ app.use("/images",express.static(path.join(__dirname, '/images')))
 
 let storage = multer.diskStorage({
     destination: function(req, file, cb) {
-      let dest = path.join(__dirname, '/images', req.params.reg_no);
+      let dest = path.join(__dirname, '/images');
       let stat = null;
       try {
         stat = fs.statSync(dest);
@@ -81,13 +80,12 @@ let storage = multer.diskStorage({
     },
     filename:(req,file,cb)=>{
         cb(null, file.originalname);   
-        console.log(req.params)     
     }
   });
 
 
 const upload = multer({storage:storage})
 
-app.post("/api/user/uploads/:reg_no",upload.any("file"),(req,res)=>{
+app.post("/api/user/uploads",upload.any("file"),(req,res)=>{
     res.status(200).json("File has been uploaded");
 })
