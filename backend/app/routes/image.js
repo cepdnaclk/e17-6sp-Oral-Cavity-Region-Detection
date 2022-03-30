@@ -72,6 +72,15 @@ router.get('/get', authenticateToken, async(req, res)=>{
     try{
         const query = req.query
 
+        const minAge = parseInt(query.minAge)
+        const maxAge = parseInt(query.maxAge)
+        const segmented = query.segmented==="true"? true: false
+
+        delete query.minAge
+        delete query.maxAge
+        delete query.segmented
+
+        console.log(query)
         const data = await Image.aggregate( [
           
             {
@@ -88,10 +97,8 @@ router.get('/get', authenticateToken, async(req, res)=>{
             { $project: { patient: 0 } },
          
           {
-            $match: {
-              patient_id: mongoose.Types.ObjectId(query.patient_id),
-              segmented: query.segmented == 'true'
-        }}
+            $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } }, {segmented: segmented} ] },
+        }
          ] )
 
         return res.status(200).json({data: data})

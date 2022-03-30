@@ -27,8 +27,8 @@ const PatientSchema = new mongoose.Schema({
         default:"",  
     },
     patient_age:{
-        type: String,
-        default:"",
+        type: Number,
+        default: 0,
     },
     patient_photo:{
         type: String,
