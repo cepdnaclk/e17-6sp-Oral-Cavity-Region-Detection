@@ -29,7 +29,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function ShowCase({details}) {
+export default function ShowCase({details, handleCheckbox}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -53,7 +53,11 @@ export default function ShowCase({details}) {
         subheader="September 14, 2016"
       /> */}
       <Container>
-      <input type="checkbox" id={`myCheckbox${details._id}`}/>
+      <input type="checkbox" 
+      id={`myCheckbox${details._id}`}
+      value = {details._id}
+      onChange={handleCheckbox}
+      />
         <label htmlFor={`myCheckbox${details._id}`}>       
       <CardMedia
         component="img"

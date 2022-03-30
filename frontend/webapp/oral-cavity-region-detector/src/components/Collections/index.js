@@ -14,6 +14,30 @@ import {LinearColor} from '../Buttons'
 const Collection = () => {
   const [files, setFiles] = useState([])
   const [isFetching, setIsFetching] = useState(false)
+  const [userinfo, setUserInfo] = useState({
+    images: [],
+  });
+
+  const handleCheckbox = (e) => {
+    // Destructuring
+    const { value, checked } = e.target;
+    const { images } = userinfo;
+    console.log(`${value} is ${checked}`);
+     
+    // Case 1 : The user checks the box
+    if (checked) {
+      setUserInfo({
+        images: [...images, value]
+      });
+    }
+  
+    // Case 2  : The user unchecks the box
+    else {
+      setUserInfo({
+        images: images.filter((e) => e !== value)
+      });
+    }
+  };
 
   return (
     <>
@@ -22,7 +46,7 @@ const Collection = () => {
       <Section style={{borderRight: "2px solid #D3D3D3"}}>
         {isFetching?<LinearColor/>: null}        
         {files.length !== 0? <Grid>{files.map((image, index) =>{
-            return (<ShowCase key={index} details={image}/>)
+            return (<ShowCase key={index} details={image} handleCheckbox={handleCheckbox}/>)
         })}
         </Grid>:
         <div style={{height:'80%' , display: "flex", justifyContent: "center", alignItems: "center", color: "#D3D3D3"}}>No images available</div>}
@@ -48,6 +72,7 @@ const Collection = () => {
       </div>
       </Section>
     </Wrapper>
+    <button type="button" onClick={()=>{console.log(userinfo)}}>Print the stuff</button>
     </>    
   )
 }

@@ -13,6 +13,7 @@ import AdminPortal from './components/AdminPortal'
 import Unauthorized from './components/Unauthorized'
 import Layout from './components/Layout'
 import Upload from './components/Upload'
+import Tool from './components/Tool'
 
 const ROLES ={
   "Admin": 1,
@@ -41,6 +42,7 @@ function App() {
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Researcher]}/>}>
               <Route exact path="researcher/collections" element={<Collections/>}/>
+              <Route exact path="researcher/tool" element={<Tool/>}/>
           </Route>
           
 

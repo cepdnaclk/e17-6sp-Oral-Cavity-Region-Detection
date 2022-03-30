@@ -2,6 +2,7 @@ import {React, useRef, useState, createRef} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import {saveInfo} from '../Userinfo'
+import path from '../json/path.json'
 
 // Styles
 import {Wrapper, Container, Img, Form, Border} from './Login.styles'
@@ -32,7 +33,7 @@ const Login = () => {
         e.preventDefault();
         setIsFetching(true)
         setMessage("");
-        axios.post("http://localhost:5000/api/auth/login",{
+        axios.post(`${path[0]['path']}/auth/login`,{
                 email: emailRef.current.value,
                 password: passwordRef.current.value 
         }).then(res=>{
