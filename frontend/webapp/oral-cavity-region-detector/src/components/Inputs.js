@@ -47,7 +47,7 @@ const Password = React.forwardRef(({label, required}, ref)=> {
         }} 
         variant="outlined" >
           <InputLabel htmlFor="outlined-adornment-password"
-            sx={{color: "#616161 !important"}}
+            sx={{color: "#C0C0C0 !important"}}
             size="small"
           >{label}
           
@@ -92,7 +92,7 @@ const TextInput = React.forwardRef(({label, required}, ref) =>{
       size="small"
       fullWidth 
       required = {required}
-      InputLabelProps={{ required: false, style:{color:"#616161"} }} 
+      InputLabelProps={{ required: false, style:{color:"#C0C0C0"} }} 
       label = {label} 
       inputRef={ref} 
       sx={{ 
@@ -123,7 +123,7 @@ const NumberInput = React.forwardRef(({label, required}, ref) =>{
       size="small"
       fullWidth 
       required = {required}
-      InputLabelProps={{ required: false, style:{color:"#616161"} }} 
+      InputLabelProps={{ required: false, style:{color:"#C0C0C0"} }} 
       label = {label} 
       inputRef={ref} 
       type="number"
@@ -161,12 +161,14 @@ const MenuProps = {
 const SelectInput = React.forwardRef(({label, required, options}, ref) =>{
   return (
   <FormControl fullWidth sx={{ marginY: 1}}>
-  <InputLabel size="small" id="demo-simple-select-label" sx={{color: "#616161 !important"}}>{label}</InputLabel>
+  <InputLabel size="small" id="demo-simple-select-label" sx={{color: "#C0C0C0 !important"}}>{label}</InputLabel>
   <Select
     label={label}
     inputRef={ref}
     required={required}
     MenuProps={MenuProps}
+    defaultValue=""
+    
     size="small"
     sx={{ 
       "& .MuiOutlinedInput-notchedOutline": {
@@ -175,6 +177,9 @@ const SelectInput = React.forwardRef(({label, required, options}, ref) =>{
       }
     }}
   >
+    <MenuItem value="">
+            <span style={{color: "#D3D3D3"}}>None</span>
+    </MenuItem>
     {options.map((name) => (
             <MenuItem
               key={name}
@@ -207,10 +212,7 @@ const TextArea = React.forwardRef(({label, required}, ref) =>{
           multiline
           inputRef={ref}
           size="small"
-          InputLabelProps={{ required: false, style:{color:"#616161"} }} 
-          
-          
-          
+          InputLabelProps={{ required: false, style:{color:"#C0C0C0"} }} 
           sx={{ 
             "& .MuiOutlinedInput-root": {
               "& > fieldset": {
@@ -236,6 +238,7 @@ const CheckboxInput = ({label,setIsSegmented}) =>{
       <FormControlLabel control={
       <Checkbox
         onClick={(e)=>{setIsSegmented(e.target.checked)}}
+        size = "large"
         sx={{
           color: '#0A9396',
           '&.Mui-checked': {

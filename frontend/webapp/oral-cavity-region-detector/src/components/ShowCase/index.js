@@ -63,7 +63,7 @@ export default function ShowCase({details, handleCheckbox}) {
         component="img"
         height="194"
         image={`http://localhost:5000/images/${details.original}`}
-        alt="Paella dish"
+        alt="no-image"
       />
        </label>
        </Container>
