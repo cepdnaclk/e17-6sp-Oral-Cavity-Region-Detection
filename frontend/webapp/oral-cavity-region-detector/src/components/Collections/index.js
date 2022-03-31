@@ -1,7 +1,5 @@
-import React,{useState, useEffect, useRef, createRef} from 'react'
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import axios from 'axios'
+import React,{useState} from 'react'
+import { useNavigate} from 'react-router-dom'
 import GetImg from './GetImg'
 import ShowCase from '../ShowCase'
 
@@ -17,11 +15,20 @@ const Collection = () => {
     images: [],
   });
 
+  const navigate = useNavigate();
+
+  const handleClear = () =>{
+    setUserInfo({images: []})
+  }
+
+  const handleNavigate = ()=>{
+    navigate('/researcher/tool',{state:userinfo.images});
+  }
+
   const handleCheckbox = (e) => {
     // Destructuring
     const { value, checked } = e.target;
     const { images } = userinfo;
-    console.log(`${value} is ${checked}`);
      
     // Case 1 : The user checks the box
     if (checked) {
@@ -43,9 +50,17 @@ const Collection = () => {
     <ResearcherNavbar/>
     <Wrapper>
       <Section style={{borderRight: "2px solid #D3D3D3"}}>
-        {isFetching?<LinearColor/>: null}        
+        {isFetching?<LinearColor/>: null} 
+        <button disabled={userinfo.images.length==0} onClick={handleNavigate}>send to tool</button><p>{userinfo.images.length} images selected</p> 
+        <button onClick={handleClear}>Clear</button>     
         {files.length !== 0? <Grid>{files.map((image, index) =>{
-            return (<ShowCase key={index} details={image} handleCheckbox={handleCheckbox}/>)
+            return (
+            <ShowCase 
+            key={index} 
+            details={image} 
+            handleCheckbox={handleCheckbox} 
+            userInfo={userinfo}
+            />)
         })}
         </Grid>:
         <div style={{height:'80%' , display: "flex", justifyContent: "center", alignItems: "center", color: "#D3D3D3"}}>No images available</div>}
@@ -65,7 +80,6 @@ const Collection = () => {
       </div>
       </Section>
     </Wrapper>
-    <button type="button" onClick={()=>{console.log(userinfo)}}>Print the stuff</button>
     </>    
   )
 }

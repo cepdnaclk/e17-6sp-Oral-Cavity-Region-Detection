@@ -30,7 +30,7 @@ export const Section = styled.div`
         border: 0 !important;
     }
   overflow: auto;
-  padding: 80px 1rem 0 1rem;
+  padding: 90px 1rem 0 1rem;
     ul li button{
         font-weight: 600 ;
         color: var(--medColor);
@@ -43,7 +43,7 @@ export const Section = styled.div`
 export const Grid = styled.div`
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: minmax(min-content, max-content);
 	grid-auto-flow: dense; /* Fill all spaces with fitted images */
 `

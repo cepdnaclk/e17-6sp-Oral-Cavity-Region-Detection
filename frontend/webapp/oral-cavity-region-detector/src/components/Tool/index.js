@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import {useLocation} from 'react-router-dom'
 import ResearcherNavbar from '../ResearcherNavbar'
 
 import {Wrapper, Grid} from './Tool.styles'
@@ -7,6 +8,9 @@ import Filters from "./Filters"
 const Tool = () => {
 
     const categories= ["Enemal","Hard Plate","Mole","Soft Plate","Tongue","Stain","Uvula","Gingivitis","Pigmentation","Lips","Select All"]
+    
+    const location = useLocation();
+    
     const [userinfo, setUserInfo] = useState({
     filters: [],
     });
@@ -15,7 +19,6 @@ const Tool = () => {
     // Destructuring
     const { value, checked } = e.target;
     const { filters } = userinfo;
-    console.log(`${value} is ${checked}`);
         
     // Case 1 : The user checks the box
     if (checked) {

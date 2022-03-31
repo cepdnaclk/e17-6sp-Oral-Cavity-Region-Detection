@@ -78,7 +78,7 @@ export default function ShowCase({details, handleCheckbox}) {
         {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton> */}
-        <IconButton aria-label="share" onClick={()=>{console.log("hey")}}>
+        <IconButton aria-label="share">
           <AutoFixHighIcon />
         </IconButton>
         <ExpandMore
