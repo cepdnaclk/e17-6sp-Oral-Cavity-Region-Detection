@@ -25,6 +25,7 @@ export default function GetImg({setFiles, setIsFetching}) {
   const handleGet = async(e) => {
    
       setIsFetching(true)
+      setFiles([])
       const reg_no = JSON.parse(sessionStorage.getItem('info')).reg_no
 
       var params = {segmented: isSegmented, minAge: '0', maxAge:'100'}

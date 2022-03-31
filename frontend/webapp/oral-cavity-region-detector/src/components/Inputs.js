@@ -11,6 +11,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
 
 const Password = React.forwardRef(({label, required}, ref)=> {
@@ -168,7 +169,7 @@ const SelectInput = React.forwardRef(({label, required, options}, ref) =>{
     required={required}
     MenuProps={MenuProps}
     defaultValue=""
-    
+
     size="small"
     sx={{ 
       "& .MuiOutlinedInput-notchedOutline": {
@@ -251,5 +252,13 @@ const CheckboxInput = ({label,setIsSegmented}) =>{
   );
 }
 
+const IconLabelButtons= ({label}) =>{
+  return (
+      <Button variant="contained" endIcon={<AutoFixHighIcon />}>
+        {label}
+      </Button>
+  );
+}
+
 export default Password;
-export {TextInput, SelectInput, NumberInput, TextArea, CheckboxInput};
+export {TextInput, SelectInput, NumberInput, TextArea, CheckboxInput, IconLabelButtons};
