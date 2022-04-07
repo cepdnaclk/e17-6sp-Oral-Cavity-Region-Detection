@@ -1,7 +1,6 @@
 import React,{useState, useEffect, useRef} from 'react'
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-const {spawn} = require('chlid_process')
 
 import {Wrapper, Section, Grid, Table} from './Upload.styles'
 import UploadImg from './UploadImg'
@@ -21,7 +20,7 @@ const Upload = () => {
   const fileSelectedHandler = async(e) => {
       e.preventDefault();
       files = e.target.files;
-
+      console.log(files)
       setImgFiles(files)  
   }   
   

@@ -13,6 +13,7 @@ import AdminPortal from './components/AdminPortal'
 import Unauthorized from './components/Unauthorized'
 import Layout from './components/Layout'
 import Upload from './components/Upload'
+import Segment from './components/Segment'
 import Tool from './components/Tool'
 
 const ROLES ={
@@ -29,7 +30,7 @@ function App() {
           <Route exact path="/" element={<Login/>}/>
           <Route exact path="user/login" element={<Login/>}/>
           <Route exact path="user/signup" element={<Signup/>}/>
-          <Route exact path="unauthorized" element={<Unauthorized/>}/>
+          <Route exact path="unauthorized" element={<Unauthorized/>}/>        
 
           {/* protected routes */}
           <Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}>

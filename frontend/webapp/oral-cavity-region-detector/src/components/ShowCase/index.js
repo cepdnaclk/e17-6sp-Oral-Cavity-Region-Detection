@@ -15,7 +15,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import NoImage from '../../images/noimage.jpg';
 import {Container} from './ShowCase.styles'
 
 const ExpandMore = styled((props) => {
@@ -62,8 +62,11 @@ export default function ShowCase({details, handleCheckbox}) {
       <CardMedia
         component="img"
         height="194"
-        image={`http://localhost:5000/images/${details.original}`}
+        image={`http://localhost:5000/Storage/images/${details.original}`}
         alt="no-image"
+        onError={e => {
+          e.target.src = NoImage;
+        }}
       />
        </label>
        </Container>
@@ -74,13 +77,13 @@ export default function ShowCase({details, handleCheckbox}) {
           if you like.
         </Typography>
       </CardContent> */}
-      <CardActions disableSpacing style={{padding:0}}>
+      <CardActions disableSpacing style={{padding:0, margin:0}}>
         {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton> */}
-        <IconButton aria-label="share">
+        {/* <IconButton aria-label="share">
           <AutoFixHighIcon />
-        </IconButton>
+        </IconButton> */}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
