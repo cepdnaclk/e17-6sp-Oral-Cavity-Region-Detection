@@ -51,7 +51,9 @@ app.use("/api/user/image",imageRoute);
 
 
 // image uploads
-app.use("/images",express.static(path.join(__dirname, '/images')))
+app.use("/Storage",express.static(path.join(__dirname, '/Storage')))
+app.use("/Storage/images",express.static(path.join(__dirname, '/Storage/images')))
+app.use("/Storage/masks",express.static(path.join(__dirname, '/Storage/masks')))
 
 // const storage = multer.diskStorage({
 //     destination:(req,file,cb)=>{
@@ -65,7 +67,7 @@ app.use("/images",express.static(path.join(__dirname, '/images')))
 
 let storage = multer.diskStorage({
     destination: function(req, file, cb) {
-      let dest = path.join(__dirname, '/images');
+      let dest = path.join(__dirname, '/Storage/images');
       let stat = null;
       try {
         stat = fs.statSync(dest);

@@ -2,13 +2,14 @@ import React,{useState} from 'react'
 import { useNavigate} from 'react-router-dom'
 import GetImg from './GetImg'
 import ShowCase from '../ShowCase'
+import Stack from '@mui/material/Stack';
 
-import {Wrapper, Section, Grid, Table} from './Collections.styles'
+import {Wrapper, Section, Grid} from './Collections.styles'
 
 import ResearcherNavbar from '../ResearcherNavbar'
-import {LinearColor} from '../Buttons'
+import {LinearColor, IconLabelButtons,OutlinedLightButton} from '../Buttons'
 
-const Collection = () => {
+const Collection = ({setData, setState}) => {
   const [files, setFiles] = useState([])
   const [isFetching, setIsFetching] = useState(false)
   const [userinfo, setUserInfo] = useState({
@@ -19,10 +20,16 @@ const Collection = () => {
 
   const handleClear = () =>{
     setUserInfo({images: []})
+    setFiles([])
   }
 
   const handleNavigate = ()=>{
-    navigate('/researcher/tool',{state:userinfo.images});
+    var dataArray = []
+    for(let i=0; i<userinfo.images.length;i++){
+      dataArray.push(files.filter(function(item) { return item._id === userinfo.images[i]; }))
+    }
+    setData(dataArray);
+    setState(true);
   }
 
   const handleCheckbox = (e) => {
@@ -50,9 +57,13 @@ const Collection = () => {
     <ResearcherNavbar/>
     <Wrapper>
       <Section style={{borderRight: "2px solid #D3D3D3"}}>
-        {isFetching?<LinearColor/>: null} 
-        <button disabled={userinfo.images.length==0} onClick={handleNavigate}>send to tool</button><p>{userinfo.images.length} images selected</p> 
-        <button onClick={handleClear}>Clear</button>     
+        {isFetching?<LinearColor/>: 
+        <Stack spacing={2} direction="row">
+        <IconLabelButtons label={`Load ( ${userinfo.images.length} ) Images`} disabled={userinfo.images.length==0} onClick={handleNavigate}/>
+        <OutlinedLightButton variant="outlined" onClick={handleClear}>Clear</OutlinedLightButton> 
+        </Stack>  
+        }  
+        <br/> 
         {files.length !== 0? <Grid>{files.map((image, index) =>{
             return (
             <ShowCase 
