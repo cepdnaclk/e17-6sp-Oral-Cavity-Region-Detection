@@ -68,7 +68,7 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
       const info = []
       const data = new FormData();
       for (let i = 0; i < files.length; i++) {
-        var filename = Date.now()+i+files[i].name
+        var filename = reg_no+Date.now()+i+files[i].name
         data.append('files', files[i], filename);
         info.push({patient_id:userDetails._id, original:filename, examiner_reg_no:reg_no})
       }

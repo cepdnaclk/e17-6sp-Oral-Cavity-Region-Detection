@@ -23,6 +23,21 @@ router.post("/add", authenticateToken, async(req,res)=>{
     }
 })
 
+router.post("/update", authenticateToken, async(req,res)=>{
+    try{
+        const useremail = await User.findOne({email: req.body.email});
+
+        if(!useremail){return res.status(401).json({message:"Authentication failed!"});}
+        
+        const image = await Image.insertMany(req.body.info)
+        res.status(200).json({message:"Image successfully added!"});
+        
+
+    }catch(error){
+        res.status(500).json(error);
+    }
+})
+
 // get all images
 router.get('/all', authenticateToken, async(req, res)=>{
     try{

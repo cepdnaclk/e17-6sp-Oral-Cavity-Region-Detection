@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
 
 export const MedButton = styled(Button)(() => ({
@@ -23,6 +24,14 @@ export const OutlinedButton = styled(Button)(() => ({
   borderColor: "#0A9396",
   '&:hover': {
     borderColor: "#0A9396",
+  },
+}));
+
+export const OutlinedLightButton = styled(Button)(() => ({
+  color: "#74BDDC",
+  borderColor: "#74BDDC",
+  '&:hover': {
+    borderColor: "#74BDDC",
   },
 }));
 
@@ -51,5 +60,30 @@ function LinearColor(){
   );
 }
 
+export const LightButton = styled(Button)(() => ({
+  color: "#fff",
+  backgroundColor: "#74BDDC",
+  '&:hover': {
+    backgroundColor: "#74BDDC",
+    borderColor: "#74BDDC"
+  },
+  '&:disabled': {
+    backgroundColor: '#D3D3D3',
+  },
+  borderColor: "#74BDDC",
+}));
+
+const IconLabelButtons= ({label,onClick,disabled}) =>{
+  return (
+      <LightButton variant="outlined" 
+      onClick={onClick}
+      disabled={disabled}
+      endIcon={<AutoFixHighIcon />}>
+        {label}
+      </LightButton>
+  );
+}
+
+
 export default MedButton
-export {LinearColor}
+export {LinearColor, IconLabelButtons}
