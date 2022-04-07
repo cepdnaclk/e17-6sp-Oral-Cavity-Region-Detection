@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/75e83ddd-1611-4bf5-b81e-a861d94fe5a8/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/ocrd-api",
+    "appService.deploySubpath": "."
+}
