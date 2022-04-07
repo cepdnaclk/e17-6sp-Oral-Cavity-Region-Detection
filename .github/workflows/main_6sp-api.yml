@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+    paths: /backend/app/
   workflow_dispatch:
 
 jobs:
@@ -26,12 +27,13 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+        working-directory: /backend/app/
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path:  /backend/app/
 
   deploy:
     runs-on: ubuntu-latest
