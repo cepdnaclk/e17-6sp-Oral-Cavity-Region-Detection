@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - 6sp-api
+name: Build and deploy Node.js app to Azure  - 6sp-api
 
 on:
   push:
@@ -21,6 +21,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
+      
+      - name: create env file
+        run: |
+          touch .env
+          echo MONGODB_URI=${{ secrets.MONGODB_URI }} >> .env
+          echo ACCESS_SECRET=${{ secrets.ACCESS_SECRET }} >> .env
+          echo REFRESH_SECRET=${{ secrets.REFRESH_SECRET }} >> .env
+          echo ACCESS_TIME=${{ secrets.ACCESS_TIME }} >> .env
+          echo REFRESH_TIME=${{ secrets.REFRESH_TIME }} >> .env
+          echo PORT=${{ secrets.PORT }} >> .env
 
       - name: npm install, build, and test
         run: |
@@ -53,5 +63,5 @@ jobs:
         with:
           app-name: '6sp-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_936E2BD2AE2849018D21D4558CDC84FE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_023043CE085E4F4F9966DE00D8865990 }}
           package: .
