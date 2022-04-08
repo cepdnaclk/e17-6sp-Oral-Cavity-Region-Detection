@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - ci-cd
-      paths: ./backend/app/
+    paths: ./backend/app/
   workflow_dispatch:
 
 jobs:
