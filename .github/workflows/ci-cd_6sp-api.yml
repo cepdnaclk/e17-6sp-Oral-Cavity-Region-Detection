@@ -8,6 +8,7 @@ on:
     branches:
       - ci-cd
     paths: ./backend/app/
+  workflow_dispatch:
 
 jobs:
   build:
