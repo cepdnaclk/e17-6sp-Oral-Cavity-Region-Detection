@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure  - 6sp-api
 on:
   push:
     branches:
-      - ci-cd
+      - main
     paths: ./backend/app/
   workflow_dispatch:
 
