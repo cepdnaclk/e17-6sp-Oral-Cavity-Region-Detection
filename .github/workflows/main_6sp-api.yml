@@ -21,6 +21,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
+      
+      - name: create env file
+        run: |
+          touch .env
+          echo MONGODB_URI=${{ secrets.MONGODB_URI }} >> .env
+          echo ACCESS_SECRET=${{ secrets.ACCESS_SECRET }} >> .env
+          echo REFRESH_SECRET=${{ secrets.REFRESH_SECRET }} >> .env
+          echo ACCESS_TIME=${{ secrets.ACCESS_TIME }} >> .env
+          echo REFRESH_TIME=${{ secrets.REFRESH_TIME }} >> .env
+          echo PORT=${{ secrets.PORT }} >> .env
 
       - name: npm install, build, and test
         run: |
