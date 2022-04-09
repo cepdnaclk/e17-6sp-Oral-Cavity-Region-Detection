@@ -72,7 +72,6 @@ router.get('/all', authenticateToken, async(req, res)=>{
            }
          ] )
 
-        console.log(a)
         return res.status(200).json("a")
 
     }catch(err){
@@ -89,34 +88,60 @@ router.get('/get', authenticateToken, async(req, res)=>{
 
         const minAge = parseInt(query.minAge)
         const maxAge = parseInt(query.maxAge)
+        const habits = query.habits
         const segmented = query.segmented==="true"? true: false
-
+        
         delete query.minAge
         delete query.maxAge
         delete query.segmented
+        delete query.habits
 
-        console.log(query)
-        const data = await Image.aggregate( [
+        if(habits){
+            const data = await Image.aggregate( [
           
-            {
-               $lookup: {
-                  from: "patients",
-                  localField: "patient_id",    // field in the orders collection
-                  foreignField: "_id",  // field in the items collection
-                  as: "patient"
-               }
-            },
-            {
-               $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$patient", 0 ] }, "$$ROOT" ] } }
-            },
-            { $project: { patient: 0 } },
-         
-          {
-            $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } }, {segmented: segmented} ] },
+                {
+                   $lookup: {
+                      from: "patients",
+                      localField: "patient_id",    // field in the orders collection
+                      foreignField: "_id",  // field in the items collection
+                      as: "patient"
+                   }
+                },
+                {
+                   $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$patient", 0 ] }, "$$ROOT" ] } }
+                },
+                { $project: { patient: 0 } },
+             
+              {
+                $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } }, {segmented: segmented}, {patient_habits: { $in: habits }} ] },
+            }
+             ] )
+    
+            return res.status(200).json({data: data})
+        }else{
+            const data = await Image.aggregate( [
+          
+                {
+                   $lookup: {
+                      from: "patients",
+                      localField: "patient_id",    // field in the orders collection
+                      foreignField: "_id",  // field in the items collection
+                      as: "patient"
+                   }
+                },
+                {
+                   $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$patient", 0 ] }, "$$ROOT" ] } }
+                },
+                { $project: { patient: 0 } },
+             
+              {
+                $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } }, {segmented: segmented} ] },
+            }
+             ] )
+    
+            return res.status(200).json({data: data})
         }
-         ] )
-
-        return res.status(200).json({data: data})
+        
 
     }catch(err){
         console.log(err)

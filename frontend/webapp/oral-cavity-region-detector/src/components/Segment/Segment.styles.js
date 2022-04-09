@@ -28,7 +28,7 @@ export const Grid = styled.div`
         }
 
         :checked + label{
-            background-color: lightgreen;
+            background-color: green;
         }
     }
 

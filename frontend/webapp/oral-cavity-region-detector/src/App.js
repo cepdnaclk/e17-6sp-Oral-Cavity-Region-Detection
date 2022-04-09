@@ -42,7 +42,7 @@ function App() {
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Researcher]}/>}>
-              <Route exact path="researcher/collections" element={<Collections/>}/>
+              <Route exact path="researcher/collections" element={<Tool/>}/>
               <Route exact path="researcher/tool" element={<Tool/>}/>
           </Route>
           
