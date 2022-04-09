@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
-import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
 
 export const MedButton = styled(Button)(() => ({
@@ -73,12 +72,13 @@ export const LightButton = styled(Button)(() => ({
   borderColor: "#74BDDC",
 }));
 
-const IconLabelButtons= ({label,onClick,disabled}) =>{
+const IconLabelButtons= ({label,onClick,disabled, icon}) =>{
   return (
       <LightButton variant="outlined" 
       onClick={onClick}
       disabled={disabled}
-      endIcon={<AutoFixHighIcon />}>
+      endIcon={icon}
+      >
         {label}
       </LightButton>
   );

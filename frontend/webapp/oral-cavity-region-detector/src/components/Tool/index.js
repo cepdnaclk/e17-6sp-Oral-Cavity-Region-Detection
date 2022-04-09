@@ -1,19 +1,29 @@
-import React, {useState} from 'react'
-import Collection from '../Collections'
+import React, {useState} from 'react';
 import Segment from '../Segment'
+import Collections from '../Collections'
 
-const Tool = () => {
+const steps = ['Image Selection', 'Image Tool'];
+
+export default function Tool() {
+    const [step, setStep] = useState(0);
     const [data, setData] = useState([]);
-    const [state, setState] = useState(false);
-    return (
-        <>
-        {state?
-        <Segment data={data} setState={setState}/>
-        :
-        <Collection setData={setData} setState={setState}/>
-        }
-        </>
-    )
-}
 
-export default Tool
+    function getStepContent(step){
+        switch (step) {
+            case 0:
+            return (
+                <Collections setStep={setStep} setData={setData}/>
+            );
+            case 1:
+            return (
+                <Segment data={data} setStep={setStep} />
+            );
+            default:
+            return 'Unknown step';
+        }
+    }
+    
+  return (
+    <>{getStepContent(step)}</>
+  );
+}

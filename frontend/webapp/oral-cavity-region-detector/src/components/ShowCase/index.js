@@ -9,14 +9,17 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import NoImage from '../../images/noimage.jpg';
 import {Container} from './ShowCase.styles'
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import InfoIcon from '@mui/icons-material/Info';
+import Info from './Info'
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -68,6 +71,19 @@ export default function ShowCase({details, handleCheckbox}) {
           e.target.src = NoImage;
         }}
       />
+      <div style={{position: 'absolute', bottom:0, right:0}}>
+      <Info details={details}/>
+      </div>
+      {/* <ImageListItemBar
+        sx={{background: 'transparent'}}
+        actionIcon={
+          <IconButton
+            sx={{ color: '#fff'}}
+          >
+            <InfoIcon />
+          </IconButton>
+        }
+        /> */}
        </label>
        </Container>
       {/* <CardContent>
@@ -79,29 +95,29 @@ export default function ShowCase({details, handleCheckbox}) {
       </CardContent> */}
       <CardActions disableSpacing style={{padding:0, margin:0}}>
         {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <InfoOutlinedIcon/>
         </IconButton> */}
         {/* <IconButton aria-label="share">
           <AutoFixHighIcon />
         </IconButton> */}
-        <ExpandMore
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent sx={{py:0}}>
-            <p style={{margin:0}}>Name: {details.patient_name}</p>
             <p style={{margin:0}}>Age: {details.patient_age}</p>
             <p style={{margin:0}}>Gender: {details.patient_gender}</p>
             <p style={{margin:0}}>District: {details.patient_district}</p>
+            <p style={{margin:0}}>Habits: {details.patient_habits} </p>
             <p style={{margin:0}}>Description: {details.description}</p>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }

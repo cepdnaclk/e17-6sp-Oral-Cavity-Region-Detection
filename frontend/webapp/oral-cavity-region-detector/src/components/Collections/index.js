@@ -3,20 +3,20 @@ import { useNavigate} from 'react-router-dom'
 import GetImg from './GetImg'
 import ShowCase from '../ShowCase'
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
 import {Wrapper, Section, Grid} from './Collections.styles'
 
 import ResearcherNavbar from '../ResearcherNavbar'
-import {LinearColor, IconLabelButtons,OutlinedLightButton} from '../Buttons'
+import {LinearColor, MedButton, IconLabelButtons,OutlinedLightButton} from '../Buttons'
 
-const Collection = ({setData, setState}) => {
+const Collection = ({setStep, setData}) => {
   const [files, setFiles] = useState([])
   const [isFetching, setIsFetching] = useState(false)
   const [userinfo, setUserInfo] = useState({
     images: [],
   });
-
-  const navigate = useNavigate();
 
   const handleClear = () =>{
     setUserInfo({images: []})
@@ -28,8 +28,9 @@ const Collection = ({setData, setState}) => {
     for(let i=0; i<userinfo.images.length;i++){
       dataArray.push(files.filter(function(item) { return item._id === userinfo.images[i]; }))
     }
-    setData(dataArray);
-    setState(true);
+    setData(dataArray)
+    setStep(1)
+    
   }
 
   const handleCheckbox = (e) => {
@@ -57,12 +58,7 @@ const Collection = ({setData, setState}) => {
     <ResearcherNavbar/>
     <Wrapper>
       <Section style={{borderRight: "2px solid #D3D3D3"}}>
-        {isFetching?<LinearColor/>: 
-        <Stack spacing={2} direction="row">
-        <IconLabelButtons label={`Load ( ${userinfo.images.length} ) Images`} disabled={userinfo.images.length==0} onClick={handleNavigate}/>
-        <OutlinedLightButton variant="outlined" onClick={handleClear}>Clear</OutlinedLightButton> 
-        </Stack>  
-        }  
+        {isFetching?<LinearColor/>: null}  
         <br/> 
         {files.length !== 0? <Grid>{files.map((image, index) =>{
             return (
@@ -74,8 +70,7 @@ const Collection = ({setData, setState}) => {
             />)
         })}
         </Grid>:
-        <div style={{height:'80%' , display: "flex", justifyContent: "center", alignItems: "center", color: "#D3D3D3"}}>No images available</div>}
-        
+        <div style={{display: "flex", justifyContent: "center", alignItems: "center", color: "#D3D3D3"}}>No images available</div>}
       </Section>
       <Section style={{minHeight:"100vh"}}>
       <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -87,6 +82,11 @@ const Collection = ({setData, setState}) => {
       <div className="tab-content" id="myTabContent" style={{display: 'flex', justifyContent: 'center'}}>
       <div className="tab-pane fade show active" id="selectpatient" role="tabpanel" aria-labelledby="selectpatient-tab">
         <GetImg setFiles={setFiles} setIsFetching={setIsFetching}/>
+  
+        <Stack spacing={2} sx={{paddingTop: 5}} direction="row">
+        <Button variant="contained" color="success" sx={{width:"100%"}} endIcon={<AutoFixHighIcon />} disabled={userinfo.images.length==0} onClick={handleNavigate}>Load ({userinfo.images.length}) images</Button>
+        <OutlinedLightButton variant="outlined" onClick={handleClear}>Clear</OutlinedLightButton> 
+        </Stack>
       </div>
       </div>
       </Section>

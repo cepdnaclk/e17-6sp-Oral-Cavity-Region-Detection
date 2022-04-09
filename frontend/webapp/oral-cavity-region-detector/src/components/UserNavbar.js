@@ -10,7 +10,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -49,13 +48,13 @@ const UserNavbar = () => {
             variant="h5"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            sx={{ mr: 2, display: {md: 'flex' } }}
           >
             <img src="../logo.svg" style={{width: '100%', height : "30px"}} />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -64,7 +63,7 @@ const UserNavbar = () => {
               color="inherit"
             >
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -98,14 +97,14 @@ const UserNavbar = () => {
               
             </Menu>
           </Box>
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'flex-end' } }}>
               {/* <Button
                 onClick={()=>{navigate('/user/collections')}}

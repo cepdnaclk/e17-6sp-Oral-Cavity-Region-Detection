@@ -4,7 +4,7 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import {Wrapper, Section, Grid, Table} from './Upload.styles'
 import UploadImg from './UploadImg'
-import ResearcherNavbar from '../ResearcherNavbar'
+import UserNavbar from '../UserNavbar'
 import AddPatient from './AddPatient'
 import {LinearColor} from '../Buttons'
 
@@ -45,19 +45,20 @@ const Upload = () => {
 
   return (
     <>
-    <ResearcherNavbar/>
+    <UserNavbar/>
     <Wrapper>
       <Section style={{borderRight: "2px solid #D3D3D3"}}>
+      {isFetching?<LinearColor/>:
       <label htmlFor="icon-button-file">
-        <input accept="image/*" id="icon-button-file" type="file"  style={{display: 'none'}}
-        onChange={fileSelectedHandler}
-        multiple
-        />
-        <IconButton color="primary" aria-label="upload picture" component="span">
-          <PhotoCamera />
-        </IconButton>
+      <input accept="image/*" id="icon-button-file" type="file"  style={{display: 'none'}}
+      onChange={fileSelectedHandler}
+      multiple
+      />
+      <IconButton color="primary" aria-label="upload picture" component="span">
+        <PhotoCamera />
+      </IconButton>
       </label>
-      {isFetching?<LinearColor/>:null}
+      }
       <Grid>
         {img.map((image, index )=>{
           return (<img key={index} src={image}/>)
