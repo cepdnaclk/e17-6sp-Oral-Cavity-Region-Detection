@@ -3,10 +3,11 @@ import axios from 'axios'
 
 import {Table} from './Upload.styles'
 import MedButton from '../Buttons'
-import Password, {TextInput, SelectInput, NumberInput, TextArea} from '../Inputs'
+import Password, {TextInput, SelectInput, NumberInput, TextArea,MultipleSelectChip} from '../Inputs'
 
 const districts = ["Colombo","Gampaha","Kalutara","Kandy","Matale","Nuwara Eliya","Galle","Matara","Hambantota","Jaffna","Kilinochchi","Mannar","Vavuniya","Mullaitivu","Batticaloa","Ampara","Trincomalee","Kurunegala","Puttalam","Anuradhapura","Polonnaruwa","Badulla","Moneragala","Ratnapura","Kegalle"]
 const gender = ["Male","Female"]
+const habits = ["Smoking","Chewing Betel Quid", "Alchohol"]
 
 const AddPatient = () => {
 
@@ -16,7 +17,7 @@ const AddPatient = () => {
     const districtRef = createRef("");
     const contactRef = createRef("");
     const descriptionRef = createRef("");
-    const addressRef = createRef("");
+    const habitRef = createRef("");
 
     const[message,setMessage] = useState("");
     const[isfetching, setIsFetching] = useState(false);
@@ -31,7 +32,7 @@ const AddPatient = () => {
               email: JSON.parse(sessionStorage.getItem("info")).email,
               reg_no: JSON.parse(sessionStorage.getItem("info")).reg_no,
               patient_name: nameRef.current.value,
-              patient_address : addressRef.current.value,
+              patient_habits : habitRef.current.value,
               patient_district: districtRef.current.value,
               patient_contact_no: contactRef.current.value,
               patient_gender: genderRef.current.value,
@@ -66,7 +67,7 @@ const AddPatient = () => {
 
   return (
     <>
-      <p style={{color: "red"}}>{message}</p>
+      <p style={{color: "red", maxWidth: 300}}>{message}</p>
             <Table>
               <tbody>
               <tr>
@@ -87,7 +88,7 @@ const AddPatient = () => {
               </tr><tr>
               <td colSpan="2"><TextInput ref={contactRef} required={false} label="Contact Number"></TextInput></td>
               </tr><tr>
-              <td colSpan="2"><TextArea ref={addressRef} label="Address"></TextArea></td>
+              <td colSpan="2"><MultipleSelectChip ref={habitRef} label="Habits" options={habits}></MultipleSelectChip></td>
               </tr>
               <tr>
               <td colSpan="2"><TextArea ref={descriptionRef} label="Description"></TextArea></td>

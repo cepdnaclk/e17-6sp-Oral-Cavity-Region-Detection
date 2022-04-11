@@ -4,17 +4,19 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import MedButton from '../Buttons'
-import {CheckboxInput, SelectInput, NumberInput} from '../Inputs'
+import {CheckboxInput, SelectInput, NumberInput,MultipleSelectChip} from '../Inputs'
 import {Table} from './Collections.styles'
 
 const districts = ["Colombo","Gampaha","Kalutara","Kandy","Matale","Nuwara Eliya","Galle","Matara","Hambantota","Jaffna","Kilinochchi","Mannar","Vavuniya","Mullaitivu","Batticaloa","Ampara","Trincomalee","Kurunegala","Puttalam","Anuradhapura","Polonnaruwa","Badulla","Moneragala","Ratnapura","Kegalle"]
 const gender = ["Male","Female"] 
+const habits = ["Smoking","Chewing Betel Quid", "Alchohol"]
 
 export default function GetImg({setFiles, setIsFetching}) {
 
   const [options, setOptions] = React.useState([]);
   const [userDetails, setUserDetails] = React.useState()
   const [error, setError] = React.useState("")
+  const habitRef = React.createRef("");
   const districtRef = React.createRef("");
   const minAgeRef = React.createRef("");
   const maxAgeRef = React.createRef("");
@@ -23,7 +25,6 @@ export default function GetImg({setFiles, setIsFetching}) {
   const [isSegmented, setIsSegmented] = React.useState(false)
 
   const handleGet = async(e) => {
-   
       setIsFetching(true)
       setFiles([])
       const reg_no = JSON.parse(sessionStorage.getItem('info')).reg_no
@@ -33,6 +34,7 @@ export default function GetImg({setFiles, setIsFetching}) {
       if(minAgeRef.current.value !== "") params['minAge'] = minAgeRef.current.value 
       if(maxAgeRef.current.value !== "") params['maxAge'] = maxAgeRef.current.value
       if(genderRef.current.value !== "") params['patient_gender'] = genderRef.current.value
+      params['habits'] = habitRef.current.value
       
       console.log(params)
       axios.get("http://localhost:5000/api/user/image/get",
@@ -57,6 +59,11 @@ export default function GetImg({setFiles, setIsFetching}) {
     <p style={{color: "red"}}>{error}</p>
     <Table>
       <tbody>
+      <tr>
+      <td colSpan="2">
+        <MultipleSelectChip label="Habits" options={habits} ref={habitRef}/>
+      </td>
+      </tr>
       <tr>
       <td colSpan="2">
         <SelectInput label="District" required={false} options={districts} ref={districtRef}/>
