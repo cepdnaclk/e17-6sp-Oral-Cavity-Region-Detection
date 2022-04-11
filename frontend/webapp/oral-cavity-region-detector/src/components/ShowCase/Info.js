@@ -1,11 +1,10 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import InfoIcon from '@mui/icons-material/Info';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import IconButton from '@mui/material/IconButton';
 
 const Info = ({details})=> {
@@ -16,6 +15,7 @@ const Info = ({details})=> {
   };
 
   const handleClose = () => {
+    console.log(details)
     setOpen(false);
   };
 
@@ -28,7 +28,7 @@ const Info = ({details})=> {
         sx={{ color: '#fff'}}
         onClick={handleClickOpen}
         >
-        <InfoIcon />
+        <InfoOutlinedIcon />
       </IconButton>
       <Dialog
         fullWidth={true}
@@ -40,7 +40,9 @@ const Info = ({details})=> {
         <DialogContent>
         <table style={{width:"100%"}}>
         <tbody>
-        <tr><th>Masks :</th><th>{details.mask.length}</th></tr>
+        <tr><th>Masks :</th>
+        {details.mask? <th>{Object.keys(details.mask).length}</th>:<th>0</th>} 
+        </tr>
         <tr><th>Updated at :</th><th>{details.updatedAt}</th></tr>
         <tr><th>Created at :</th><th> {details.createdAt}</th></tr>
         <tr><th>Patients' Name :</th><th> {details.patient_name}</th></tr>
