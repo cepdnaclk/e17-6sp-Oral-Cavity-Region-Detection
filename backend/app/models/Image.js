@@ -19,8 +19,8 @@ const ImageSchema = new mongoose.Schema({
         default: ""                                    
     },
     mask:{
-        type: Array,
-        default:[],
+        type: Object,
+        default:{},
     }
 },
 {

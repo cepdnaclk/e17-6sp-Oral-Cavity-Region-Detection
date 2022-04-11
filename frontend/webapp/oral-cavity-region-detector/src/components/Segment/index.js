@@ -20,10 +20,40 @@ import Filters from "./Filters"
 
 const Segment = ({data, setStep}) => {
 
-    const categories= ["Enemal","Hard Plate","Mole","Soft Plate","Tongue","Stain","Uvula","Gingivitis","Pigmentation","Lips"]
+    //const categories= ["Enemal","Hard Plate","Mole","Soft Plate","Tongue","Stain","Uvula","Gingiva","Pigmentation","Lips"]
     
     const theme = useTheme();
     const [activeStep, setActiveStep] = useState(0);
+    const [categories, setCategories] = useState([]);
+    const [mask, setMask] = useState("")
+
+    const [userinfo, setUserInfo] = useState({
+      filters: [],
+      });
+  
+      useEffect(() => {
+        var cat = []
+        var masks = data[activeStep][0].mask
+        if(masks){
+          for (var key of Object.keys(masks)) {
+            cat.push(key)
+          }
+        }
+        setCategories(cat)
+      },[activeStep])
+
+      useEffect(() => {
+        var masks = []
+        if( data[activeStep][0].mask){
+          masks = data[activeStep][0].mask
+        }
+        
+        for(var i=0;i<userinfo.filters.length;i++){
+          console.log(masks[userinfo.filters[i]])
+        }
+
+        setMask(masks[userinfo.filters[0]])
+      },[userinfo])
 
     const handleNext = () => {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -37,13 +67,23 @@ const Segment = ({data, setStep}) => {
       var zip = new JSZip();
 
       // Fetch the image and parse the response stream as a blob
-      const imageBlob = await fetch(`http://localhost:5000/Storage/images/${data[activeStep][0].original}`).then(response => response.blob());
+      var imageBlob = await fetch(`http://localhost:5000/Storage/images/${data[activeStep][0].original}`).then(response => response.blob());
 
       // create a new file from the blob object
-      const imgData = new File([imageBlob], data[activeStep][0].original);
+      var imgData = new File([imageBlob], data[activeStep][0].original);
 
       var img = zip.folder("images");
       img.file(data[activeStep][0].original, imgData, { base64: true });
+
+      var masks = data[activeStep][0].mask
+      if(masks){
+        for (var key of Object.keys(masks)) {
+          imageBlob = await fetch(`http://localhost:5000/Storage/masks/${masks[key]}`).then(response => response.blob());
+          imgData = new File([imageBlob], masks[key]);
+          img.file(masks[key], imgData, { base64: true });
+        }
+        
+      }
 
       zip.generateAsync({type:"blob"}).then(function(content) {
           // see FileSaver.js
@@ -52,12 +92,6 @@ const Segment = ({data, setStep}) => {
     
     };
 
-    const [userinfo, setUserInfo] = useState({
-    filters: [],
-    });
-
-    useEffect(() => {
-    })
     const handleCheckbox = (e) => {
     // Destructuring
     const { value, checked } = e.target;
@@ -77,6 +111,7 @@ const Segment = ({data, setStep}) => {
         });
     }
     };
+
   return (
     <>
     <ResearcherNavbar/>
@@ -88,10 +123,19 @@ const Segment = ({data, setStep}) => {
     <Box sx={{ flexGrow: 1, border: "2px solid #D3D3D3" }}>
       <Stack spacing={2} direction="row">
       <Box sx={{ width: '100%', aspectRatio: "3/2" , pt: 2 , pl:2}}>
-        <img src={`http://localhost:5000/Storage/images/${data[activeStep][0].original}`} style={{width: '100%', height: '100%'}}/>
+        <img 
+        src={`http://localhost:5000/Storage/images/${data[activeStep][0].original}`} 
+        onError={e => {
+          e.target.src = NoImage;
+        }}
+        style={{width: '100%', height: '100%'}}/>
       </Box>
       <Box sx={{ width: '100%', aspectRatio: "3/2" , pt: 2 , pr:2}}>
-        <img src={NoImage} style={{width: '100%', height: '100%'}}/>
+        <img src={`http://localhost:5000/Storage/masks/${mask}`} 
+         onError={e => {
+          e.target.src = `http://localhost:5000/Storage/images/${data[activeStep][0].original}`;
+        }}
+        style={{width: '100%', height: '100%'}}/>
         {/* {steps[activeStep].description} */}
       </Box>
       </Stack>
@@ -132,26 +176,27 @@ const Segment = ({data, setStep}) => {
         elevation={0}
         sx={{
           display: 'flex',
-          p: 2,
+          py: 2 ,
+          pl:2,
           width: '100%',
         }}
       >
-        <div style={{backgroundColor: "lightgray", padding: "5px", width: "100%"}}>
+        <div style={{backgroundColor: "#F3F3F3", padding: "10px", width: "100%"}}>
         <table>
         <tbody>
-        <tr><td>Name:</td><td>{data[activeStep][0].patient_name}</td></tr>
-        <tr><td>District:</td><td> {data[activeStep][0].patient_district}</td></tr>
-        <tr><td>Age:</td><td> {data[activeStep][0].patient_age}</td></tr>
-        <tr><td>Gender:</td><td> {data[activeStep][0].patient_gender}</td></tr>
-        <tr><td style={{verticalAlign: "top"}}>Habits:</td><td> {
+        <tr><th>Name:</th><th>{data[activeStep][0].patient_name}</th></tr>
+        <tr><th>District:</th><th> {data[activeStep][0].patient_district}</th></tr>
+        <tr><th>Age:</th><th> {data[activeStep][0].patient_age}</th></tr>
+        <tr><th>Gender:</th><th> {data[activeStep][0].patient_gender}</th></tr>
+        <tr><th style={{verticalAlign: "top"}}>Habits:</th><th> {
         data[activeStep][0].patient_habits.map((a,index)=>{
-          return <p style={{padding:0, margin:0}}>{a}</p>
-        })}</td></tr>
+          return <p key={index} style={{padding:0, margin:0}}>{a}</p>
+        })}</th></tr>
         </tbody>
         </table>
         </div>
       </Paper>
-      <Box sx={{ width: '100%', p: 2 }}>
+      <Box sx={{ width: '100%', py: 2 , pr:2 }}>
         <Button variant="contained" color="success" endIcon={<AutoFixHighIcon/>} sx={{width: "100%", height: 50}}>Segment</Button>        
         <br/><br/>
         <MedButton variant="contained" sx={{width: "100%", height: 50}} endIcon={<DownloadIcon/>} onClick={handleDownload}>Download</MedButton>

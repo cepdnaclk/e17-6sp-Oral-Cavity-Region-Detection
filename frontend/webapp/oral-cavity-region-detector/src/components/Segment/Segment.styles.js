@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
 export const Grid = styled.div`
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     grid-auto-rows: minmax(min-content, max-content);
 	grid-auto-flow: dense; /* Fill all spaces with fitted images */
     margin: 20px 0 40px 0;

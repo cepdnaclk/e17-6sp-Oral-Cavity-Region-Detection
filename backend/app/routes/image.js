@@ -15,8 +15,7 @@ router.post("/add", authenticateToken, async(req,res)=>{
         if(!useremail){return res.status(401).json({message:"Authentication failed!"});}
         
         const image = await Image.insertMany(req.body.info)
-        res.status(200).json({message:"Image successfully added!"});
-        
+        res.status(200).json({message:"Image successfully added!"});      
 
     }catch(error){
         res.status(500).json(error);
@@ -55,18 +54,6 @@ router.get('/all', authenticateToken, async(req, res)=>{
                   from: "images",
                   localField: "_id",
                   foreignField: "patient_id",
-                //   let: { 
-                //       district: "$patient_district",
-                //     },
-                //   pipeline: [ {
-                //     $match: {
-                //        $expr: {
-                //         $and: [
-                //             { $eq: [ true, "$segmented" ] },
-                //         ]
-                //        }
-                //     }
-                //  } ],
                   as: "images",
                 },
            }
