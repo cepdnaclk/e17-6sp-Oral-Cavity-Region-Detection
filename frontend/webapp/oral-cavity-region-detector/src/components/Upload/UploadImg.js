@@ -6,6 +6,7 @@ import axios from 'axios';
 import {Border} from './Upload.styles'
 import MedButton from '../Buttons'
 import _ from 'lodash';
+import path from '../json/path.json'
 
 export default function UploadImg({files, setFiles, setIsFetching}) {
   const [open, setOpen] = React.useState(false);
@@ -25,7 +26,7 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
 
     (async () => {
     
-    axios.get("http://localhost:5000/api/user/patient/all",
+    axios.get(`${path[0]['path']}/api/user/patient/all`,
     { headers: {
         'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
         'email': JSON.parse(sessionStorage.getItem("info")).email
@@ -76,7 +77,7 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
       // for (var pair of data.entries()) {
       //   console.log(pair[0]+ ', ' + pair[1]); 
       // }
-      axios.post("http://localhost:5000/api/user/image/add",
+      axios.post(`${path[0]['path']}/api/user/image/add`,
       {
           email: JSON.parse(sessionStorage.getItem("info")).email,
           info : info
@@ -87,7 +88,7 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
       }}
       ).then(res=>{
             
-            axios.post(`http://localhost:5000/api/user/uploads`,
+            axios.post(`${path[0]['path']}/api/user/uploads`,
             data
             ).then(res=>{
               setError("Images uploaded successfully");

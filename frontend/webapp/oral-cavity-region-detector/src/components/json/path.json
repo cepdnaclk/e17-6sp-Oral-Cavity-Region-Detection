@@ -1,5 +1,5 @@
 [{
-    "path": "http://localhost:8000",
-    "path1": "http://ocrd-api.azurewebsites.net/api"
+    "path1": "http://localhost:8000",
+    "path": "https://6sp-api.azurewebsites.net"
 }]
 

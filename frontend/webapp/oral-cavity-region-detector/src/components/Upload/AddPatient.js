@@ -4,6 +4,7 @@ import axios from 'axios'
 import {Table} from './Upload.styles'
 import MedButton from '../Buttons'
 import Password, {TextInput, SelectInput, NumberInput, TextArea,MultipleSelectChip} from '../Inputs'
+import path from '../json/path.json'
 
 const districts = ["Colombo","Gampaha","Kalutara","Kandy","Matale","Nuwara Eliya","Galle","Matara","Hambantota","Jaffna","Kilinochchi","Mannar","Vavuniya","Mullaitivu","Batticaloa","Ampara","Trincomalee","Kurunegala","Puttalam","Anuradhapura","Polonnaruwa","Badulla","Moneragala","Ratnapura","Kegalle"]
 const gender = ["Male","Female"]
@@ -28,7 +29,7 @@ const AddPatient = () => {
         setIsFetching(true)
         setMessage("");
       
-        axios.post("http://localhost:5000/api/user/patient/add",{
+        axios.post(`${path[0]['path']}/api/user/patient/add`,{
               email: JSON.parse(sessionStorage.getItem("info")).email,
               reg_no: JSON.parse(sessionStorage.getItem("info")).reg_no,
               patient_name: nameRef.current.value,

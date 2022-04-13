@@ -2,6 +2,7 @@ import {React , useState} from 'react'
 import axios from 'axios'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import path from '../json/path.json'
 
 //styles
 import {Wrapper} from './Card.styles'
@@ -15,7 +16,7 @@ const Card = ({name,email,reg_no, id}) => {
 
   function handleReject(id){
     setIsFetching(true)
-    axios.delete(`http://localhost:5000/api/admin/requests/${id}`,
+    axios.delete(`${path[0]['path']}/api/admin/requests/${id}`,
       { headers: {
         'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
         'email': JSON.parse(sessionStorage.getItem("info")).email
@@ -37,7 +38,7 @@ const Card = ({name,email,reg_no, id}) => {
 
   function handleAccept(id){
     setIsFetching(true)
-    axios.post(`http://localhost:5000/api/admin/accept/${id}`,
+    axios.post(`${path[0]['path']}/api/admin/accept/${id}`,
       {
         email: JSON.parse(sessionStorage.getItem("info")).email,
         username: JSON.parse(sessionStorage.getItem("info")).username
