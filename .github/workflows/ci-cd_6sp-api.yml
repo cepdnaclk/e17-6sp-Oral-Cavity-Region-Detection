@@ -31,6 +31,7 @@ jobs:
           echo ACCESS_TIME=${{ secrets.ACCESS_TIME }} >> .env
           echo REFRESH_TIME=${{ secrets.REFRESH_TIME }} >> .env
           echo PORT=${{ secrets.PORT }} >> .env
+          echo AZURE_STORAGE_CONNECTION_STRING=${{ secrets.AZURE_STORAGE_CONNECTION_STRING }} >> .env
 
       - name: npm install, build, and test
         run: |
