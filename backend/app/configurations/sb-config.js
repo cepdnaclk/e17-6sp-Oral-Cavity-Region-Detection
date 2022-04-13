@@ -1,1 +1,0 @@
-// all storage bucket configuration comes here
