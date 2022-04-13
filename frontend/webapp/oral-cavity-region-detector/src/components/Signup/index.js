@@ -1,6 +1,7 @@
 import React, { useState, createRef, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import path from '../json/path.json'
 
 // Styles
 import {Wrapper,Container, Img, Form, Border} from '../Login/Login.styles'
@@ -30,7 +31,7 @@ const Signup = () => {
           setIsFetching(false)
           return
         }
-        axios.post("http://localhost:5000/api/auth/signup",{
+        axios.post(`${path[0]['path']}/api/auth/signup`,{
               username: usernameRef.current.value,
               email: emailRef.current.value,
               reg_no: regnoRef.current.value,

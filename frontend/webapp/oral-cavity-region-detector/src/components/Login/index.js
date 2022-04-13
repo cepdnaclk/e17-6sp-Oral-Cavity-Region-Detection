@@ -33,7 +33,7 @@ const Login = () => {
         e.preventDefault();
         setIsFetching(true)
         setMessage("");
-        axios.post(`${path[0]['path']}/auth/login`,{
+        axios.post(`${path[0]['path']}/api/auth/login`,{
                 email: emailRef.current.value,
                 password: passwordRef.current.value 
         }).then(res=>{

@@ -76,11 +76,15 @@ router.get('/get', authenticateToken, async(req, res)=>{
         const minAge = parseInt(query.minAge)
         const maxAge = parseInt(query.maxAge)
         const habits = query.habits
-        const segmented = query.segmented==="true"? true: false
+
+        if(query.segmented==="True") query["segmented"] = true
+        else if(query.segmented==="False") query["segmented"] = false
+        else delete query.segmented
+
+        console.log(query)
         
         delete query.minAge
         delete query.maxAge
-        delete query.segmented
         delete query.habits
 
         if(habits){
@@ -100,7 +104,7 @@ router.get('/get', authenticateToken, async(req, res)=>{
                 { $project: { patient: 0 } },
              
               {
-                $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } }, {segmented: segmented}, {patient_habits: { $in: habits }} ] },
+                $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } }, {patient_habits: { $in: habits }} ] },
             }
              ] )
     
@@ -122,7 +126,7 @@ router.get('/get', authenticateToken, async(req, res)=>{
                 { $project: { patient: 0 } },
              
               {
-                $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } }, {segmented: segmented} ] },
+                $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } } ] },
             }
              ] )
     
