@@ -20,6 +20,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import InfoIcon from '@mui/icons-material/Info';
 import Info from './Info'
+import path from '../json/path.json'
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -65,7 +66,7 @@ export default function ShowCase({details, handleCheckbox}) {
       <CardMedia
         component="img"
         height="194"
-        image={`http://localhost:5000/Storage/images/${details.original}`}
+        image={`${path[0]['path']}/Storage/images/${details.original}`}
         alt="no-image"
         onError={e => {
           e.target.src = NoImage;
