@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import Card from '../Card'
 import {deleteInfo} from '../Userinfo'
+import path from '../json/path.json'
 
 //styles
 import { Wrapper, Border } from './AdminPortal.styles'
@@ -15,7 +16,7 @@ const AdminPortal = () => {
   const navigate = useNavigate();
 
   // function handleLogout(){
-  //   axios.post("http://localhost:5000/api/admin/auth/logout",
+  //   axios.post(`${path[0]['path']}/api/admin/auth/logout`,
   //     {
   //       email: "admin1@gmail.com",
   //       username: "admin1"
@@ -33,7 +34,7 @@ const AdminPortal = () => {
 
 
   useEffect(()=>{
-      axios.get("http://localhost:5000/api/admin/requests",
+      axios.get(`${path[0]['path']}/api/admin/requests`,
       { headers: {
         'Authorization': 'BEARER '+ JSON.parse(sessionStorage.getItem("info")).atoken,
         'email': JSON.parse(sessionStorage.getItem("info")).email,
