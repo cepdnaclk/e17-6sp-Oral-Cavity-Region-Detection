@@ -49,13 +49,13 @@ const UserNavbar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            sx={{ mr: 2, display: { md: 'flex' } }}
           >
             <img src="../logo.svg" style={{width: '100%', height : "30px"}} />
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
+           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            {/* <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -64,8 +64,8 @@ const UserNavbar = () => {
               color="inherit"
             >
               <MenuIcon />
-            </IconButton>
-            <Menu
+            </IconButton> */}
+           {/* <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -84,14 +84,14 @@ const UserNavbar = () => {
               }}
             >
               
-                {/* <MenuItem onClick={()=>{navigate('/user/collections')}}>
+                <MenuItem onClick={()=>{navigate('/user/collections')}}>
                   <Typography textAlign="center">COLLECTION</Typography>
                 </MenuItem>
                 <MenuItem onClick={()=>{navigate('/user/tool')}}>
                   <Typography textAlign="center">TOOL</Typography>
-                </MenuItem> */}
+                </MenuItem>
               
-            </Menu>
+            </Menu> */}
           </Box>
           {/* <Typography
             variant="h6"

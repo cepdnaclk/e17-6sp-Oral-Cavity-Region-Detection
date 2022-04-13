@@ -15,8 +15,7 @@ router.post("/add", authenticateToken, async(req,res)=>{
         if(!useremail){return res.status(401).json({message:"Authentication failed!"});}
         
         const image = await Image.insertMany(req.body.info)
-        res.status(200).json({message:"Image successfully added!"});
-        
+        res.status(200).json({message:"Image successfully added!"});      
 
     }catch(error){
         res.status(500).json(error);
@@ -55,24 +54,11 @@ router.get('/all', authenticateToken, async(req, res)=>{
                   from: "images",
                   localField: "_id",
                   foreignField: "patient_id",
-                //   let: { 
-                //       district: "$patient_district",
-                //     },
-                //   pipeline: [ {
-                //     $match: {
-                //        $expr: {
-                //         $and: [
-                //             { $eq: [ true, "$segmented" ] },
-                //         ]
-                //        }
-                //     }
-                //  } ],
                   as: "images",
                 },
            }
          ] )
 
-        console.log(a)
         return res.status(200).json("a")
 
     }catch(err){
@@ -89,34 +75,60 @@ router.get('/get', authenticateToken, async(req, res)=>{
 
         const minAge = parseInt(query.minAge)
         const maxAge = parseInt(query.maxAge)
+        const habits = query.habits
         const segmented = query.segmented==="true"? true: false
-
+        
         delete query.minAge
         delete query.maxAge
         delete query.segmented
+        delete query.habits
 
-        console.log(query)
-        const data = await Image.aggregate( [
+        if(habits){
+            const data = await Image.aggregate( [
           
-            {
-               $lookup: {
-                  from: "patients",
-                  localField: "patient_id",    // field in the orders collection
-                  foreignField: "_id",  // field in the items collection
-                  as: "patient"
-               }
-            },
-            {
-               $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$patient", 0 ] }, "$$ROOT" ] } }
-            },
-            { $project: { patient: 0 } },
-         
-          {
-            $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } }, {segmented: segmented} ] },
+                {
+                   $lookup: {
+                      from: "patients",
+                      localField: "patient_id",    // field in the orders collection
+                      foreignField: "_id",  // field in the items collection
+                      as: "patient"
+                   }
+                },
+                {
+                   $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$patient", 0 ] }, "$$ROOT" ] } }
+                },
+                { $project: { patient: 0 } },
+             
+              {
+                $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } }, {segmented: segmented}, {patient_habits: { $in: habits }} ] },
+            }
+             ] )
+    
+            return res.status(200).json({data: data})
+        }else{
+            const data = await Image.aggregate( [
+          
+                {
+                   $lookup: {
+                      from: "patients",
+                      localField: "patient_id",    // field in the orders collection
+                      foreignField: "_id",  // field in the items collection
+                      as: "patient"
+                   }
+                },
+                {
+                   $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$patient", 0 ] }, "$$ROOT" ] } }
+                },
+                { $project: { patient: 0 } },
+             
+              {
+                $match: { $and: [ query, { patient_age: { $gte: minAge } },{ patient_age: { $lte: maxAge } }, {segmented: segmented} ] },
+            }
+             ] )
+    
+            return res.status(200).json({data: data})
         }
-         ] )
-
-        return res.status(200).json({data: data})
+        
 
     }catch(err){
         console.log(err)

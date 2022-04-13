@@ -87,10 +87,6 @@ const ResearcherNavbar = () => {
                 <MenuItem onClick={()=>{navigate('/researcher/collections')}}>
                   <Typography textAlign="center">COLLECTION</Typography>
                 </MenuItem>
-
-                <MenuItem onClick={()=>{navigate('/researcher/tool')}}>
-                  <Typography textAlign="center">TOOL</Typography>
-                </MenuItem>
               
             </Menu>
           </Box>
@@ -109,12 +105,6 @@ const ResearcherNavbar = () => {
               >COLLECTION
               </Button>
 
-              <Button
-                onClick={()=>{navigate('/researcher/tool')}}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >TOOL
-              </Button>
-            
           </Box>
     
           <Box sx={{ flexGrow: 0 }}>

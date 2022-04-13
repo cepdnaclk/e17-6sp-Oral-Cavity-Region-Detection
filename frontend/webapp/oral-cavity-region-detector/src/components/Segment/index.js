@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import {useLocation} from 'react-router-dom'
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -12,37 +10,50 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import ResearcherNavbar from '../ResearcherNavbar';
 import NoImage from '../../images/noimage.jpg';
 import MedButton from '../Buttons';
+import DownloadIcon from '@mui/icons-material/Download';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+const JSZip = require("jszip");
+import { saveAs } from 'file-saver';
 
 import {Wrapper, Grid} from './Segment.styles'
 import Filters from "./Filters"
 
-const Segment = ({data, setState}) => {
+const Segment = ({data, setStep}) => {
 
-  const steps = [
-    {
-      label: 'Select campaign settings',
-      description: `For each ad campaign that you create, you can control how much
-                you're willing to spend on clicks and conversions, which networks
-                and geographical locations you want your ads to show on, and more.`,
-    },
-    {
-      label: 'Create an ad group',
-      description:
-        'An ad group contains one or more ads which target a shared set of keywords.',
-    },
-    {
-      label: 'Create an ad',
-      description: `Try out different ad text to see what brings in the most customers,
-                and learn how to enhance your ads using features like ad extensions.
-                If you run into any problems with your ads, find out how to tell if
-                they're running and how to resolve approval issues.`,
-    },
-  ];
-    const categories= ["Enemal","Hard Plate","Mole","Soft Plate","Tongue","Stain","Uvula","Gingivitis","Pigmentation","Lips"]
+    //const categories= ["Enemal","Hard Plate","Mole","Soft Plate","Tongue","Stain","Uvula","Gingiva","Pigmentation","Lips"]
     
     const theme = useTheme();
     const [activeStep, setActiveStep] = useState(0);
-    const maxSteps = data? data.length: 0;
+    const [categories, setCategories] = useState([]);
+    const [mask, setMask] = useState("")
+
+    const [userinfo, setUserInfo] = useState({
+      filters: [],
+      });
+  
+      useEffect(() => {
+        var cat = []
+        var masks = data[activeStep][0].mask
+        if(masks){
+          for (var key of Object.keys(masks)) {
+            cat.push(key)
+          }
+        }
+        setCategories(cat)
+      },[activeStep])
+
+      useEffect(() => {
+        var masks = []
+        if( data[activeStep][0].mask){
+          masks = data[activeStep][0].mask
+        }
+        
+        for(var i=0;i<userinfo.filters.length;i++){
+          console.log(masks[userinfo.filters[i]])
+        }
+
+        setMask(masks[userinfo.filters[0]])
+      },[userinfo])
 
     const handleNext = () => {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -51,13 +62,35 @@ const Segment = ({data, setState}) => {
     const handleBack = () => {
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-    const [userinfo, setUserInfo] = useState({
-    filters: [],
-    });
 
-    useEffect(() => {
-      // console.log(location.state);
-    },[])
+    const handleDownload = async() => {
+      var zip = new JSZip();
+
+      // Fetch the image and parse the response stream as a blob
+      var imageBlob = await fetch(`http://localhost:5000/Storage/images/${data[activeStep][0].original}`).then(response => response.blob());
+
+      // create a new file from the blob object
+      var imgData = new File([imageBlob], data[activeStep][0].original);
+
+      var img = zip.folder("images");
+      img.file(data[activeStep][0].original, imgData, { base64: true });
+
+      var masks = data[activeStep][0].mask
+      if(masks){
+        for (var key of Object.keys(masks)) {
+          imageBlob = await fetch(`http://localhost:5000/Storage/masks/${masks[key]}`).then(response => response.blob());
+          imgData = new File([imageBlob], masks[key]);
+          img.file(masks[key], imgData, { base64: true });
+        }
+        
+      }
+
+      zip.generateAsync({type:"blob"}).then(function(content) {
+          // see FileSaver.js
+          saveAs(content, data[activeStep][0]._id+".zip");
+      });   
+    
+    };
 
     const handleCheckbox = (e) => {
     // Destructuring
@@ -78,29 +111,37 @@ const Segment = ({data, setState}) => {
         });
     }
     };
+
   return (
     <>
     <ResearcherNavbar/>
     <Wrapper>
-    <MedButton onClick={setState(false)}>Collection</MedButton>
     <Grid>{categories.map((name, index) =>{
             return (<Filters key={index} name={name} handleCheckbox={handleCheckbox}/>)
     })}
     </Grid>
-    {maxSteps !==0?
     <Box sx={{ flexGrow: 1, border: "2px solid #D3D3D3" }}>
       <Stack spacing={2} direction="row">
       <Box sx={{ width: '100%', aspectRatio: "3/2" , pt: 2 , pl:2}}>
-        <img src={NoImage} style={{width: '100%', height: '100%'}}/>
+        <img 
+        src={`http://localhost:5000/Storage/images/${data[activeStep][0].original}`} 
+        onError={e => {
+          e.target.src = NoImage;
+        }}
+        style={{width: '100%', height: '100%'}}/>
       </Box>
       <Box sx={{ width: '100%', aspectRatio: "3/2" , pt: 2 , pr:2}}>
-        <img src={NoImage} style={{width: '100%', height: '100%'}}/>
+        <img src={`http://localhost:5000/Storage/masks/${mask}`} 
+         onError={e => {
+          e.target.src = `http://localhost:5000/Storage/images/${data[activeStep][0].original}`;
+        }}
+        style={{width: '100%', height: '100%'}}/>
         {/* {steps[activeStep].description} */}
       </Box>
       </Stack>
       <MobileStepper
         variant="text"
-        steps={maxSteps}
+        steps={data.length}
         position="static"
         activeStep={activeStep}
         sx={{py:2}}
@@ -108,7 +149,7 @@ const Segment = ({data, setState}) => {
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === maxSteps - 1 || maxSteps ===0}
+            disabled={activeStep === data.length - 1 || data.length ===0}
           >
             Next
             {theme.direction === 'rtl' ? (
@@ -119,7 +160,7 @@ const Segment = ({data, setState}) => {
           </Button>
         }
         backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0 || maxSteps ===0}>
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0 || data.length ===0}>
             {theme.direction === 'rtl' ? (
               <KeyboardArrowRight />
             ) : (
@@ -135,32 +176,35 @@ const Segment = ({data, setState}) => {
         elevation={0}
         sx={{
           display: 'flex',
-          alignItems: 'center',
-          p: 2,
+          py: 2 ,
+          pl:2,
           width: '100%',
         }}
       >
-        <div style={{backgroundColor: "lightgray", padding: "5px", width: "100%"}}>
+        <div style={{backgroundColor: "#F3F3F3", padding: "10px", width: "100%"}}>
         <table>
         <tbody>
-        <tr><td>Name:</td><td>{steps[activeStep].label}</td></tr>
-        <tr><td>District:</td><td> {steps[activeStep].label}</td></tr>
-        <tr><td>Age:</td><td> {steps[activeStep].label}</td></tr>
-        <tr><td>Gender:</td><td> {steps[activeStep].label}</td></tr>
-        <tr><td>Habbits:</td><td> {steps[activeStep].label}</td></tr>
-        <tr><td>District:</td><td> {steps[activeStep].label}</td></tr>
+        <tr><th>Name:</th><th>{data[activeStep][0].patient_name}</th></tr>
+        <tr><th>District:</th><th> {data[activeStep][0].patient_district}</th></tr>
+        <tr><th>Age:</th><th> {data[activeStep][0].patient_age}</th></tr>
+        <tr><th>Gender:</th><th> {data[activeStep][0].patient_gender}</th></tr>
+        <tr><th style={{verticalAlign: "top"}}>Habits:</th><th> {
+        data[activeStep][0].patient_habits.map((a,index)=>{
+          return <p key={index} style={{padding:0, margin:0}}>{a}</p>
+        })}</th></tr>
         </tbody>
         </table>
         </div>
       </Paper>
-      <Box sx={{ width: '100%', p: 2 }}>
-        <MedButton variant="contained" sx={{width: "100%", height: 80}}>Segment</MedButton>
+      <Box sx={{ width: '100%', py: 2 , pr:2 }}>
+        <Button variant="contained" color="success" endIcon={<AutoFixHighIcon/>} sx={{width: "100%", height: 50}}>Segment</Button>        
         <br/><br/>
-        <MedButton variant="contained" sx={{width: "100%", height: 50}}>Download</MedButton>
+        <MedButton variant="contained" sx={{width: "100%", height: 50}} endIcon={<DownloadIcon/>} onClick={handleDownload}>Download</MedButton>
+        <br/><br/>
+        <MedButton variant="contained" sx={{width: "100%", height: 50}} onClick={()=>setStep(0)}>Go Back To Collection</MedButton>
       </Box>
       </Stack>
     </Box>
-    :<p>hi</p>}
 
 
     </Wrapper>

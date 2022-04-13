@@ -9,9 +9,9 @@ const PatientSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    patient_address:{
-        type: String,
-        default:"",
+    patient_habits:{
+        type: Array,
+        default:[],
     },
     patient_district:{
         type: String,
