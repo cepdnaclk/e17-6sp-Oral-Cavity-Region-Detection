@@ -3,29 +3,29 @@ const {uploadFile , downloadFile , deleteFile , listFiles} = require('./storage-
 
 
 // list all content in the container
-listFiles()
+//listFiles()
 
 
 // load a file from the local storage
-
+let name = "reg116495582954900902f6d74_bottom_5.png"
 let image;
 try{
-    image = fs.readFileSync('./configurations/test.jpeg')
+    image = fs.readFileSync('./configurations/'+name)
 }catch(err){
     console.log(err);
 }
 
-const uploadfileName = 'mytest2.jpeg'
+const uploadfileName = name
 uploadFile(uploadfileName, image)
 .then(res => console.log('Uploaded the file ' ,uploadfileName ))
 .catch(err => console.log(err))
 
 
 /* Get Download URL */
-const filename = 'my.jpeg';
-downloadFile(filename)
-    .then(res => console.log("URL : " ,res))
-    .catch(err => console.log(err))
+// const filename = 'my.jpeg';
+// downloadFile(filename)
+//     .then(res => console.log("URL : " ,res))
+//     .catch(err => console.log(err))
 
 /* Delete File */
 /*
