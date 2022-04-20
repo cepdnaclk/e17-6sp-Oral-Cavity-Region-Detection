@@ -20,7 +20,6 @@ const Upload = () => {
   const fileSelectedHandler = async(e) => {
       e.preventDefault();
       files = e.target.files;
-      console.log(files)
       setImgFiles(files)  
   }   
   

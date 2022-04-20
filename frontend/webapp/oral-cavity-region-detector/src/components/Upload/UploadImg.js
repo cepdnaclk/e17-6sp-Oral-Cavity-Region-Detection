@@ -87,9 +87,9 @@ export default function UploadImg({files, setFiles, setIsFetching}) {
         'email': JSON.parse(sessionStorage.getItem("info")).email
       }}
       ).then(res=>{
-            
-            axios.post(`${path[0]['path']}/api/user/uploads`,
-            data
+            axios.post(`${path[0]['path']}/api/user/upload`,{
+              data:data
+            }
             ).then(res=>{
               setError("Images uploaded successfully");
               setFiles(null)

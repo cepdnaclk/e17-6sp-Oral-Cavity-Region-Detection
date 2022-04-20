@@ -1,6 +1,5 @@
 # ignore node_modules directory
 node_modules/
-images/
 
 package-lock.json
 # ignore environment configuration file

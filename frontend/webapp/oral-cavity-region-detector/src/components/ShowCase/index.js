@@ -66,7 +66,7 @@ export default function ShowCase({details, handleCheckbox}) {
       <CardMedia
         component="img"
         height="194"
-        image={`${path[0]['path']}/Storage/images/${details.original}`}
+        image={`${path[0]['imgpath']}/${details.original}`}
         alt="no-image"
         onError={e => {
           e.target.src = NoImage;
