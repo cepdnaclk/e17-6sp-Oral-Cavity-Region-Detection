@@ -9,7 +9,7 @@ const fs = require('fs');
 const connectDB = require('./configurations/db-config')
 const {uploadFile , downloadFile , deleteFile , listFiles} = require('./configurations/storage-config');
 //const PORT = process.env.PORT || 8000;
-const PORT = 5000;
+const PORT = 8080;
 
 dotenv.config();
 app.use(express.json());
