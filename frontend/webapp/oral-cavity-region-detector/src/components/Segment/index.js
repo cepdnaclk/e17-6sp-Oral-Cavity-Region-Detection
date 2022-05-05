@@ -42,6 +42,9 @@ const Segment = ({data, setStep}) => {
       for (var index = 0; index < userinfo.filters.length; index++) {
         masks.push(data[activeStep][0].mask[userinfo.filters[index]])
       }
+
+      setMask(`${path[0]['imgpath']}/${masks[masks.length - 1]}`)
+      return 
       axios.post('http://localhost:5000/mask',{
         masks: masks,
         original: data[activeStep][0].original
