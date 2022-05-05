@@ -1,6 +1,6 @@
 [{
-    "path": "http://localhost:8000",
-    "path1": "https://6sp-api.azurewebsites.net",
+    "path1": "http://localhost:8000",
+    "path": "https://6sp-api.azurewebsites.net",
     "imgpath": "https://6spstorage.blob.core.windows.net/images"
 }]
 
