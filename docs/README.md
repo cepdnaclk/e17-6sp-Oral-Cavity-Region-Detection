@@ -3,7 +3,7 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and project title
-repository-name: e17-co328-Oral-Cavity-Region-Detection
+repository-name: e17-6sp-Oral-Cavity-Region-Detection
 title: Oral Cavity Region Detection Tool
 ---
 
